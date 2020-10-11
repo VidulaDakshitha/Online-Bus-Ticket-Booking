@@ -1,0 +1,368 @@
+@charset "utf-8";
+/* CSS Document */
+
+/******************************
+
+[Table of Contents]
+
+1. 1600px
+2. 1440px
+3. 1280px
+4. 1199px
+5. 1024px
+6. 991px
+7. 959px
+8. 880px
+9. 768px
+10. 767px
+11. 539px
+12. 479px
+13. 400px
+
+******************************/
+
+/************
+1. 1600px
+************/
+
+@media only screen and (max-width: 1600px)
+{
+	
+}
+
+/************
+2. 1440px
+************/
+
+@media only screen and (max-width: 1440px)
+{
+	.section_expander
+	{
+		width: 100%;
+		left: auto;
+	}
+}
+
+/************
+3. 1380px
+************/
+
+@media only screen and (max-width: 1380px)
+{
+	
+}
+
+/************
+3. 1280px
+************/
+
+@media only screen and (max-width: 1280px)
+{
+	
+}
+
+/************
+4. 1199px
+************/
+
+@media only screen and (max-width: 1199px)
+{
+	.main_nav
+	{
+		display: none;
+	}
+	.hamburger
+	{
+		display: inline-block;
+	}
+	.home_title h1
+	{
+		font-size: 96px;
+	}
+	.contact_info_list
+	{
+		padding-right: 0;
+	}
+}
+
+/************
+4. 1100px
+************/
+
+@media only screen and (max-width: 1100px)
+{
+	
+}
+
+/************
+5. 1024px
+************/
+
+@media only screen and (max-width: 1024px)
+{
+	
+}
+
+/************
+6. 991px
+************/
+
+@media only screen and (max-width: 991px)
+{
+	.home_title h1
+	{
+		font-size: 72px;
+	}
+	.slide_bar
+	{
+		width: 249px;
+	}
+	.section_title h1
+	{
+		font-size: 84px;
+	}
+	.service
+	{
+		width: 100%;
+		padding-right: 90px;
+	}
+	.footer_col
+	{
+		margin-bottom: 63px;
+	}
+}
+
+/************
+7. 959px
+************/
+
+@media only screen and (max-width: 959px)
+{
+	
+}
+
+/************
+8. 880px
+************/
+
+@media only screen and (max-width: 880px)
+{
+	
+}
+
+/************
+9. 768px
+************/
+
+@media only screen and (max-width: 768px)
+{
+	
+}
+
+/************
+10. 767px
+************/
+
+@media only screen and (max-width: 767px)
+{
+	.scroll_down > div:last-child
+	{
+		display: none;
+	}
+	.app
+	{
+		width: 221px;
+	}
+	.app.active
+	{
+		width: 331px;
+	}
+	.app_content.active
+	{
+		width: 331px;
+	}
+	.app_button
+	{
+		height: 40px;
+		padding-left: 32px;
+	}
+	.app_button_icon
+	{
+		left: -21px;
+		width: 44px;
+		height: 44px;
+	}
+	.app_button > div:last-child
+	{
+		font-size: 14px;
+	}
+	.section_title h1
+	{
+		font-size: 64px;
+	}
+	.section_title_container p
+	{
+		font-size: 18px;
+	}
+	.service
+	{
+		padding-right: 50px;
+	}
+}
+
+/************
+11. 575px
+************/
+
+@media only screen and (max-width: 575px)
+{
+	p
+	{
+		font-size: 13px;
+	}
+	.header_content
+	{
+		height: 70px;
+	}
+	.header.scrolled .header_content
+	{
+		height: 70px;
+	}
+	.logo a > div:first-child
+	{
+		font-size: 24px !important;
+	}
+	.logo a > div:last-child
+	{
+		font-size: 8px;
+		padding-right: 6px;
+		margin-top: 2px;
+	}
+	.hamburger
+	{
+		margin-top: 0;
+	}
+	.hamburger
+	{
+		width: 26px;
+		height: 20px;
+	}
+	.hamburger > div:nth-child(2)
+	{
+		top: 9px;
+	}
+	.hamburger.active > div:first-child
+	{
+		-webkit-transform: rotate(-45deg) translate(-5px, 4px);
+		-moz-transform: rotate(-45deg) translate(-5px, 4px);
+		-ms-transform: rotate(-45deg) translate(-5px, 4px);
+		-o-transform: rotate(-45deg) translate(-5px, 4px);
+		transform: rotate(-45deg) translate(-5px, 4px);
+	}
+	.hamburger.active > div:nth-child(3)
+	{
+		-webkit-transform: rotate(45deg) translate(-5px, -5px);
+		-moz-transform: rotate(45deg) translate(-5px, -5px);
+		-ms-transform: rotate(45deg) translate(-5px, -5px);
+		-o-transform: rotate(45deg) translate(-5px, -5px);
+		transform: rotate(45deg) translate(-5px, -5px);
+	}
+	.home_title h1
+	{
+		font-size: 48px;
+	}
+	.home_text p
+	{
+		font-size: 16px;
+	}
+	.slide_text
+	{
+		display: none;
+	}
+	.slide_progress
+	{
+		left: 0;
+		bottom: 0;
+		width: 100vw;
+	}
+	.slide_bar
+	{
+		width: 100%;
+	}
+	.slide_num
+	{
+		display: none;
+	}
+	.section_title h1
+	{
+		font-size: 36px;
+	}
+	.section_title_container p
+	{
+		font-size: 16px;
+	}
+	.service
+	{
+		padding-right: 25px;
+		height: 203px;
+	}
+	.service_icon
+	{
+		left: -63px;
+	}
+	.service_icon > div
+	{
+	    width: 120px;
+	    height: 131px;
+	}
+	.service_title
+	{
+		font-size: 24px;
+	}
+	.contact_form_button
+	{
+		width: 163px;
+    	height: 46px;
+		font-size: 12px;
+	}
+	.footer_bar
+	{
+		padding-left: 15px;
+	}
+}
+
+/************
+11. 539px
+************/
+
+@media only screen and (max-width: 539px)
+{
+	
+}
+
+/************
+12. 480px
+************/
+
+@media only screen and (max-width: 480px)
+{
+	
+}
+
+/************
+13. 479px
+************/
+
+@media only screen and (max-width: 479px)
+{
+	
+}
+
+/************
+14. 400px
+************/
+
+@media only screen and (max-width: 400px)
+{
+	
+}

@@ -1,0 +1,98 @@
+{
+  "name": "@code4/ticketsystem",
+  "version": "2.6.0",
+  "description": "Ticketing system",
+  "author": "code4",
+  "homepage": "https://sliit.lk/",
+  "copyright": "Copyright 2017-2019 creativeLabs Łukasz Holeczek",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:VidulaDakshitha/Saloon-Project.git"
+  },
+  "dependencies": {
+    "@coreui/coreui": "^2.1.12",
+    "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.3.1",
+    "@coreui/icons": "0.3.0",
+    "@coreui/react": "^2.5.1",
+    "@emotion/core": "^10.0.28",
+    "@material-ui/core": "^4.11.0",
+    "@react-pdf/renderer": "^2.0.0-beta.6",
+    "alertifyjs": "^1.13.1",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.8.0",
+    "classnames": "^2.2.6",
+    "core-js": "^3.1.4",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "flag-icon-css": "^3.3.0",
+    "font-awesome": "^4.7.0",
+    "google-map-react": "^2.1.5",
+    "install": "^0.13.0",
+    "intl-tel-input": "^17.0.0",
+    "jquery": "^3.5.1",
+    "jspdf": "^2.1.1",
+    "jspdf-autotable": "^3.5.13",
+    "moment": "^2.25.3",
+    "node-sass": "^4.13.1",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.12.1",
+    "react": "^16.8.6",
+    "react-app-polyfill": "^1.0.1",
+    "react-bootstrap-typeahead": "^4.2.2",
+    "react-calendar": "^3.0.1",
+    "react-chartjs-2": "^2.7.6",
+    "react-dom": "^16.8.6",
+    "react-filter-search": "^1.0.11",
+    "react-google-location": "^1.2.2",
+    "react-images-upload": "^1.2.8",
+    "react-pdf": "^4.1.0",
+    "react-redux": "^7.2.1",
+    "react-router-config": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "react-spinners": "^0.8.3",
+    "react-tackle-box": "^2.1.0",
+    "react-test-renderer": "^16.8.6",
+    "reactstrap": "^8.0.0",
+    "simple-line-icons": "^2.4.1",
+    "styled-components": "^5.2.0",
+    "sweetalert2": "^9.11.0"
+  },
+  "devDependencies": {
+    "react-scripts": "^3.4.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:cov": "npm test -- --coverage --watchAll=false",
+    "test:debug": "react-scripts --inspect-brk test --runInBand",
+    "eject": "react-scripts eject"
+  },
+  "bugs": {
+    "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 9",
+    "not op_mini all"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/*index.js",
+      "!src/serviceWorker.js",
+      "!src/polyfill.js"
+    ]
+  },
+  "engines": {
+    "node": ">=8.10",
+    "npm": ">=6"
+  }
+}
