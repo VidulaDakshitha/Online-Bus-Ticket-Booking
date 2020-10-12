@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import "./Style.scss";
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/logo2.png'
+import imgavatar from "../../assets/8.jpg";
 
 
 const propTypes = {
@@ -33,13 +34,18 @@ class DefaultHeader extends Component {
         {/* <AppSidebarToggler className="d-md-down-none" display="lg" /> */}
 
         <Nav className="d-md-down-none" >
-          <NavItem className="px-3">
-            <NavLink to="/dashboard" className="nav-link" >Dashboard</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <Link to="/dashboard" className="nav-link">Users</Link>
-          </NavItem>
-        
+   
+          <UncontrolledDropdown nav direction="down">
+            <DropdownToggle nav>
+              <img src={imgavatar}  className="img-avatar" alt="admin@bootstrapmaster.com" />
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
+           
+    <DropdownItem ><i className="fa fa-shield"></i>{localStorage.getItem("usertype")}</DropdownItem>
+              <DropdownItem onClick={e => {localStorage.clear();window.location.href="/"}}><i className="fa fa-lock"></i> Logout</DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
         </Nav>
       
       </React.Fragment>

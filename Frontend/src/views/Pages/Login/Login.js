@@ -61,6 +61,12 @@ class Login extends Component {
 
     if(this.state.username==="user" && this.state.password==="user")
     {
+      localStorage.setItem("usertype","user")
+      window.location.href="/#/dashboard";
+ 
+    }else if(this.state.username==="admin" && this.state.password==="admin")
+    {
+      localStorage.setItem("usertype","admin")
       window.location.href="/#/dashboard";
     }
    

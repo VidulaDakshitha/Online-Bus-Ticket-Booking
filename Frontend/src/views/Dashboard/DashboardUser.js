@@ -234,9 +234,29 @@ class DashboardUser extends Component {
             <TabPane tabId="4">
 
             {
-
+                <div>This is help</div>
             }
             </TabPane>
+
+            <TabPane tabId="5">
+
+            {
+              <div>This is QR</div>
+            }
+            </TabPane>
+            <TabPane tabId="6">
+
+            {
+              <div>This is reports</div>
+            }
+            </TabPane>
+            <TabPane tabId="7">
+
+            {
+              <div>This is timetable</div>
+            }
+            </TabPane>
+         
       </>
     );
   }
@@ -381,6 +401,10 @@ class DashboardUser extends Component {
                   <b>Travel</b>
                 </NavLink>
               </NavItem>
+
+{localStorage.getItem("usertype")==="user"?
+<>
+
               <NavItem>
                 <NavLink
                   active={this.state.activeTab[0] === "3"}
@@ -401,6 +425,51 @@ class DashboardUser extends Component {
                 <b> Help</b>
                 </NavLink>
               </NavItem>
+
+
+              <NavItem>
+                <NavLink
+                  active={this.state.activeTab[0] === "5"}
+                  onClick={() => {
+                    this.toggle(0, "5");
+                  }}
+                >
+                <b> QR</b>
+                </NavLink>
+              </NavItem>
+        </>
+:<></>}
+
+
+
+
+
+{localStorage.getItem("usertype")==="admin"?
+<>
+              <NavItem>
+                <NavLink
+                  active={this.state.activeTab[0] === "6"}
+                  onClick={() => {
+                    this.toggle(0, "6");
+                  }}
+                >
+                <b> Reports</b>
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink
+                  active={this.state.activeTab[0] === "7"}
+                  onClick={() => {
+                    this.toggle(0, "7");
+                  }}
+                >
+                <b> TimeTable</b>
+                </NavLink>
+              </NavItem>
+              </>
+:<></>}
+
             </Nav>
             <TabContent activeTab={this.state.activeTab[0]}>
               {this.tabPane()}

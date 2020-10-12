@@ -25,6 +25,8 @@ const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
 
+//for users dashboard
+
 const DashboardUser = React.lazy(()=>import("../../views/Dashboard/DashboardUser.js"));
 
 const override = css`
@@ -74,17 +76,7 @@ class DefaultLayout extends Component {
 
         
 
-                  {/* {routes.map((route, idx) => {
-                    return route.component ? (
-                      <Route
-                        key={idx}
-                        path={route.path}
-                        exact={route.exact}
-                        name={route.name}
-                        render={props => <route.component {...props} />}
-                      />
-                    ) : null;
-                  })} */}
+             
                   <Redirect from="/" to="/" />
                 </Switch>
               </Suspense>
