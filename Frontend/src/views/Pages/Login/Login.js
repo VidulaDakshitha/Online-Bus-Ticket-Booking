@@ -58,48 +58,12 @@ class Login extends Component {
       password:this.state.password
     }
    
-    const url = "/user/varify/";
-BaseService.PostServiceWithoutHeader(url, login)
-  .then((res) => {
-    
-    this.setState({
-      loading:false
-    })
 
-    if (res.data.type === null) {
-     
-      localStorage.setItem('AccessToken',res.data.Access_Token);
-      localStorage.setItem('RefreshToken',res.data.Refresh_Token);
-      localStorage.setItem('type',res.data.type);
-      
-      
-    
-      alertify.success("Successfully logged in");
-
-window.location.href="/#/onepos/addWorkspace";
-
-    } else {
-      
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Invalid User Login!',
-        
-      })
+    if(this.state.username==="user" && this.state.password==="user")
+    {
+      window.location.href="/#/dashboard";
     }
-
- 
-
-  })
-  .catch((err) => {
    
-  Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: 'Invalid Credentials!',
-    
-  })
-  });
   }
 
 
@@ -154,7 +118,7 @@ window.location.href="/#/onepos/addWorkspace";
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="email" placeholder="Email" autoComplete="Email" name="username" value={this.state.username} onChange={this.onChangeHandler} required/>
+                        <Input type="text" placeholder="username" autoComplete="Email" name="username" value={this.state.username} onChange={this.onChangeHandler} required/>
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">

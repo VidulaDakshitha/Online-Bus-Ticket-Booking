@@ -6,7 +6,8 @@ import { HashRouter, Route, Switch} from "react-router-dom";
 
 import "./App.scss";
 
-
+// Containers
+const DefaultLayout = React.lazy(() => import("./containers/DefaultLayout"));
 
 
 const Login = React.lazy(() => import("./views/Pages/Login"));
@@ -69,6 +70,11 @@ class App extends Component {
             />
          
 
+             <Route
+              path="/"
+              name="Home"
+              render={(props) => <DefaultLayout {...props} />}
+            />
             
          
           </Switch>

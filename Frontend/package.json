@@ -9,7 +9,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:VidulaDakshitha/Saloon-Project.git"
+    "url": "git@github.com:sathiralamal/Public-Transport-Ticketing-System.git"
   },
   "dependencies": {
     "@coreui/coreui": "^2.1.12",
@@ -18,6 +18,7 @@
     "@coreui/react": "^2.5.1",
     "@emotion/core": "^10.0.28",
     "@material-ui/core": "^4.11.0",
+  
     "@react-pdf/renderer": "^2.0.0-beta.6",
     "alertifyjs": "^1.13.1",
     "axios": "^0.19.2",
