@@ -19,6 +19,8 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
+import qr from "../../assets/qr.PNG";
+
 import Train from "../../assets/train.jpg";
 import Bus from "../../assets/bus.jpg";
 
@@ -241,7 +243,7 @@ class DashboardUser extends Component {
             <TabPane tabId="5">
 
             {
-              <div>This is QR</div>
+              <div className="text-center"><img className="img-fluid" src={qr}/></div>
             }
             </TabPane>
             <TabPane tabId="6">
