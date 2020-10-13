@@ -36,9 +36,9 @@ class Travel extends Component {
     render() {
         return (
             <div>
-                <div className="row">
-                    <div className="col-6">
-                    {/* <Card >
+                <Row>
+                    <Col xs="12" sm="6">
+                    <Card >
                     <CardTitle><h3>Travel History</h3></CardTitle>
                     <CardText>From this view, you can view all your travel history</CardText>
                     <CardBody>
@@ -73,13 +73,13 @@ class Travel extends Component {
                             </tbody>
                         </Table>
                     </CardBody>
-                    </Card> */}
+                    </Card>
 
-                    <button>hellloooooooooooooooooooooo</button>
-                    </div>
+                   
+                    </Col>
 
-                    <div className="col-6" >
-                        {/* <Card >
+                    <Col xs="12" sm="6">
+                        <Card >
                         <CardTitle><h3>Current travel destination</h3></CardTitle>
                         <CardText>You need to provide travel details here in order to proceed further</CardText>
 
@@ -92,10 +92,10 @@ class Travel extends Component {
                         <option>5</option>
                         </Input>
                         </Card>
-                    </div> */}
-                     <button>hellloooooooooooooooooooooo</button>
-                    </div>
-            </div>
+                    
+                   
+                    </Col>
+            </Row>
             </div>
         );
     }
