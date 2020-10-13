@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import * as BaseService from "../../../BaseService.js";
 
-
-import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
-import Swal from 'sweetalert2'
 import { css } from "@emotion/core";
 import HashLoader from "react-spinners/HashLoader";
 import Wallpaper from "../../../assets/wallpaper.jpg";
+import {auth, database} from "../../../firebasejs";
 
 const override = css`
   display: block;
@@ -33,11 +30,12 @@ class Login extends Component {
       loading:false,
       paneltype:"",
       date: new Date(),
+      error:''
     }
   }
 
 
-  
+
 
 
   onChangeHandler=(e)=>{
@@ -48,49 +46,74 @@ class Login extends Component {
 
   }
 
-  onSubmitHandler=(e)=>{
-    this.setState({
-      loading:true
-    })
-    e.preventDefault();
-    const login={
-      email:this.state.username,
-      password:this.state.password
-    }
-   
+  componentDidMount() {
+    auth.onAuthStateChanged((user)=>{
+      if (user){
+        this.props.history.push("/dashboard");
+      }
+    });
+  }
 
-    if(this.state.username==="user" && this.state.password==="user")
-    {
-      localStorage.setItem("usertype","user")
-      window.location.href="/#/dashboard";
- 
-    }else if(this.state.username==="admin" && this.state.password==="admin")
-    {
-      localStorage.setItem("usertype","admin")
-      window.location.href="/#/dashboard";
+
+  onSubmitHandler=(e)=>{
+
+    e.preventDefault();
+
+
+    var username=this.state.username.split("@")[0];
+    try {
+      auth.signInWithEmailAndPassword(this.state.username,this.state.password).then(()=>{
+
+              localStorage.setItem("email",this.state.username);
+              this.props.history.push("/dashboard");
+
+              if(this.state.username==="admin" && this.state.password==="admin") {
+                localStorage.setItem("usertype","admin")
+
+              }else{
+                localStorage.setItem("usertype","user")
+              }
+            }).catch((error)=> {
+              this.setState({
+                error:error.message
+              });
+            });
+
+
+
+
+
+
+
+    }catch (e) {
+
     }
-   
+
+
+
+
+
   }
 
 
 
-  
+
   render() {
     return (
       <div  style={{backgroundImage: `url(${Wallpaper})`,backgroundRepeat:"no-repeat",backgroundSize:"100% 100%"}}>
             <div style={{position:"absolute",paddingLeft:"20px",paddingTop:"20px"}}>
-       
-        </div>        
+
+        </div>
       <div className="app flex-row align-items-center">
 
 
-     
-        
-
-    
 
 
-        
+
+
+
+
+
                <div className="sweet-loading text-center" style={{zIndex:"5"}}>
         <HashLoader
           css={override}
@@ -99,13 +122,13 @@ class Login extends Component {
           loading={this.state.loading}
         />
       </div>
-         
- 
-        <Container>
-      
 
-    
-      
+
+        <Container>
+
+
+
+
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>
@@ -115,9 +138,9 @@ class Login extends Component {
                       <h1>Ticketing System</h1>
                       <p className="text-muted">Sign In to your account</p>
 
+                      {this.state.error&&<div className="alert alert-danger">{this.state.error}</div>}
 
-              
-      
+
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -141,18 +164,21 @@ class Login extends Component {
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0" onClick={()=>{window.location.href="#/forgotpassword"}}>Forgot password?</Button>
                         </Col>
+                        <Col xs="6" className="text-right">
+                          <Button color="link" className="px-0" onClick={()=>{ this.props.history.push("/register");}}>Register</Button>
+                        </Col>
                       </Row>
                     </Form>
                   </CardBody>
                 </Card>
-              
+
               </CardGroup>
             </Col>
           </Row>
         </Container>
       </div>
       </div>
-      
+
     );
   }
 }
