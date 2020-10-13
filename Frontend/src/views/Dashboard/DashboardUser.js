@@ -97,7 +97,7 @@ class DashboardUser extends Component {
         <TabPane tabId="2">
 
           {
-          <div>This is Travel</div>
+          <div>This is Travel for check 1234</div>
           }
         </TabPane>
         <TabPane tabId="3">
