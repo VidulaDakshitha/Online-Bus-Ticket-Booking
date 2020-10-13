@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { HashRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, HashRouter, Route, Switch} from "react-router-dom";
 
 
 
 
 import "./App.scss";
+import SamplePage from "./views/SamplePage";
 
 // Containers
 const DefaultLayout = React.lazy(() => import("./containers/DefaultLayout"));
@@ -18,7 +19,7 @@ const ForgotPassword=React.lazy(() => import("./views/Pages/ForgotPassword/Forgo
 const ResetPassword=React.lazy(() => import("./views/Pages/ResetPassword/ResetPassword"));
 
 const loading = () => (
-  <div> 
+  <div>
   </div>
 );
 
@@ -26,10 +27,14 @@ const loading = () => (
 class App extends Component {
   render() {
     return (
-    
-    <HashRouter>
-        <React.Suspense fallback={loading()}>
+
+      <Router>
           <Switch>
+            <Route
+              exact
+              path="/test"
+              component={SamplePage}
+            />
             <Route
               exact
               path="/"
@@ -55,7 +60,7 @@ class App extends Component {
               name="reset password"
               render={(props) => <ResetPassword {...props} />}
             />
-      
+
             <Route
               exact
               path="/404"
@@ -68,19 +73,18 @@ class App extends Component {
               name="Page 500"
               render={(props) => <Page500 {...props} />}
             />
-         
+
 
              <Route
               path="/"
               name="Home"
               render={(props) => <DefaultLayout {...props} />}
             />
-            
-         
+
+
           </Switch>
-       </React.Suspense>
-          </HashRouter>
-      
+      </Router>
+
     );
   }
 }
