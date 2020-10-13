@@ -35,6 +35,7 @@ import Home from '../Home/Home';
 import Travel from "../Travel/Travel";
 import AdminTopUp from "../AdminTopUp/AdminTopUp";
 import AdminUserHistory from "../AdminUserHistory/AdminUserHistory";
+import Sample from "../SamplePage";
 
 const useStyles =theme => ({
     root: {
@@ -106,7 +107,7 @@ class DashboardUser extends Component {
 
           {
           <div>
-            <AdminUserHistory />
+            <Sample />
           </div>
           }
         </TabPane>
