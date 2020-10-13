@@ -5,9 +5,8 @@ export default class AdminHome extends Component {
     render() {
         return (
             <Col sm={StyledHome.ColumnSize}>
-            <h5>Credit</h5>
+            <h5>Summery</h5>
             <Container style={StyledHome.card}>
-                 <p>Summery</p>
                  <h3>Total Register User  </h3>
                  <h3>Local User  </h3>
                  <h3>Forign User </h3>
