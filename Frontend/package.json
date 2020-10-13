@@ -41,6 +41,8 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.12.1",
     "react": "^16.8.6",
+    "react-alert": "^7.0.2",
+    "react-alert-template-basic": "^1.0.0",
     "react-app-polyfill": "^1.0.1",
     "react-bootstrap-typeahead": "^4.2.2",
     "react-calendar": "^3.0.1",
@@ -59,7 +61,8 @@
     "reactstrap": "^8.0.0",
     "simple-line-icons": "^2.4.1",
     "styled-components": "^5.2.0",
-    "sweetalert2": "^9.11.0"
+    "sweetalert2": "^9.11.0",
+    "firebase": "^7.16.1"
   },
   "devDependencies": {
     "react-scripts": "^3.4.0"
