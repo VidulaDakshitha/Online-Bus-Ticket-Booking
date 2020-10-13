@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import {BrowserRouter as Router, HashRouter, Route, Switch} from "react-router-dom";
+import { HashRouter, Route, Switch} from "react-router-dom";
 
 
 
 
 import "./App.scss";
-import SamplePage from "./views/SamplePage";
 
 // Containers
 const DefaultLayout = React.lazy(() => import("./containers/DefaultLayout"));
@@ -28,13 +27,9 @@ class App extends Component {
   render() {
     return (
 
-      <Router>
+    <HashRouter>
+        <React.Suspense fallback={loading()}>
           <Switch>
-            <Route
-              exact
-              path="/test"
-              component={SamplePage}
-            />
             <Route
               exact
               path="/"
@@ -83,7 +78,8 @@ class App extends Component {
 
 
           </Switch>
-      </Router>
+       </React.Suspense>
+          </HashRouter>
 
     );
   }
