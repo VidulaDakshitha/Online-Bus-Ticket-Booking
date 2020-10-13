@@ -34,7 +34,7 @@ import Tuk from "../../assets/tuk.jpg";
 import Travel from "../Travel/Travel";
 import AdminTopUp from "../AdminTopUp/AdminTopUp";
 import AdminUserHistory from "../AdminUserHistory/AdminUserHistory";
-import sample from "../SamplePage";
+import Sample from "../SamplePage";
 
 const useStyles =theme => ({
     root: {
@@ -106,7 +106,7 @@ class DashboardUser extends Component {
 
           {
           <div>
-            <sample />
+            <Sample />
           </div>
           }
         </TabPane>
