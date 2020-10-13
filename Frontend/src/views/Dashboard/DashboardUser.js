@@ -32,7 +32,7 @@ import Taxi from "../../assets/taxi.jpg";
 import Tuk from "../../assets/tuk.jpg";
 
 import Travel from "../Travel/Travel";
-
+import AdminTopUp from "../AdminTopUp/AdminTopUp";
 
 const useStyles =theme => ({
     root: {
@@ -104,7 +104,7 @@ class DashboardUser extends Component {
 
           {
           <div>
-            <Travel />
+            <AdminTopUp />
           </div>
           }
         </TabPane>
