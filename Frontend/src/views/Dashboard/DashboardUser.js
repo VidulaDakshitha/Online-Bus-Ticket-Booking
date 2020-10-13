@@ -8,7 +8,11 @@ import {
     TabContent,
     TabPane,
     FormGroup,
-    Label
+    Label,
+    Table,
+    CardTitle,
+    CardText
+    
   } from "reactstrap";
 
 
@@ -26,6 +30,8 @@ import Bus from "../../assets/bus.jpg";
 
 import Taxi from "../../assets/taxi.jpg";
 import Tuk from "../../assets/tuk.jpg";
+
+import Travel from "../Travel/Travel";
 
 
 const useStyles =theme => ({
@@ -97,7 +103,9 @@ class DashboardUser extends Component {
         <TabPane tabId="2">
 
           {
-          <div>This is Travel for check 1234 for checking</div>
+          <div>
+            <Travel />
+          </div>
           }
         </TabPane>
         <TabPane tabId="3">
