@@ -30,6 +30,7 @@ import Bus from "../../assets/bus.jpg";
 
 import Taxi from "../../assets/taxi.jpg";
 import Tuk from "../../assets/tuk.jpg";
+import Home from '../Home/Home';
 
 import Travel from "../Travel/Travel";
 import AdminTopUp from "../AdminTopUp/AdminTopUp";
@@ -99,7 +100,7 @@ class DashboardUser extends Component {
       <>
         <TabPane tabId="1">
           {
-              <div>This is home</div>
+               <Home/>
           }
         </TabPane>
         <TabPane tabId="2">
@@ -309,7 +310,6 @@ class DashboardUser extends Component {
     />
   </GridListTile>
   
-
   <GridListTile key="2"
   onClick={()=>{}}
   style={{borderColor:"red",borderWidth:"medium"}}
@@ -333,8 +333,6 @@ class DashboardUser extends Component {
     
     />
   </GridListTile>
-
-
 
   <GridListTile key="3"
   onClick={()=>{}}
@@ -437,8 +435,6 @@ class DashboardUser extends Component {
                 <b> Help</b>
                 </NavLink>
               </NavItem>
-
-
               <NavItem>
                 <NavLink
                   active={this.state.activeTab[0] === "5"}
