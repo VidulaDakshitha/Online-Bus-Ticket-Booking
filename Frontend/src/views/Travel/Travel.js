@@ -39,9 +39,10 @@ class Travel extends Component {
                 <Row>
                     <Col xs="12" sm="6">
                     <Card >
-                    <CardTitle><h3>Travel History</h3></CardTitle>
-                    <CardText>From this view, you can view all your travel history</CardText>
+                    <CardHeader><h3>Travel History</h3></CardHeader>
                     <CardBody>
+                    <CardText>From this view, you can view all your travel history</CardText>
+                   
                         <Table responsive bordered className="table">
                             <thead>
                                 <tr>
@@ -80,7 +81,8 @@ class Travel extends Component {
 
                     <Col xs="12" sm="6">
                         <Card >
-                        <CardTitle><h3>Current travel destination</h3></CardTitle>
+                        <CardHeader><h3>Current travel destination</h3></CardHeader>
+                        <CardBody>
                         <CardText>You need to provide travel details here in order to proceed further</CardText>
 
                         <Label>Select from destination:</Label>
@@ -91,6 +93,7 @@ class Travel extends Component {
                         <option>4</option>
                         <option>5</option>
                         </Input>
+                        </CardBody>
                         </Card>
                     
                    
