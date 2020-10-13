@@ -1,6 +1,5 @@
 import React, { Component, useState } from 'react';
 import { Button, Card, CardBody,CardHeader, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
-
 import {
     Nav,
     NavItem,
@@ -15,7 +14,9 @@ import {
     Dropdown,
     DropdownToggle,
     DropdownItem,
-    DropdownMenu
+    DropdownMenu,
+    Select,
+    Alert
     
   } from "reactstrap";
 
@@ -30,8 +31,36 @@ import {
 
     ];
 
-class Travel extends Component {
 
+class Travel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            toDestination:"Colombo",
+            fromDestination:"Colombo",
+            totalAmount: 0
+        };
+    }
+
+    onChangeFrom = (event) => {
+        this.setState({
+            fromDestination:event.target.value
+        })
+    }
+    
+    onChangeTo = (event) => {
+        this.setState({
+            toDestination:event.target.value
+        })
+    }
+
+    checkInputAndSubmit = (e) => {
+        e.preventDefault();
+        console.log("Data: ", this.state.fromDestination, this.state.toDestination);
+        if(this.state.fromDestination === this.state.toDestination){
+            alert('Error: Both destinations are same!');
+        }
+    }
     
     render() {
         return (
@@ -85,18 +114,30 @@ class Travel extends Component {
                         <CardBody>
                         <CardText>You need to provide travel details here in order to proceed further</CardText>
 
+                        <Form method ="POST" onSubmit={this.checkInputAndSubmit}>
                         <Label>Select from destination:</Label>
-                        <Input type="select" name="select" id="exampleSelect">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        </Input>
+                            <Input type="select" name="from" id="fromDestination" onChange={this.onChangeFrom}>
+                            { data.map((value) => (    
+                            <option>{value.value}</option>
+                            ))}
+                            </Input>
+                            <Label>Select to destination:</Label>
+                            <Input type="select" name="to" id="toDestination" onChange={this.onChangeTo}>
+                            { data.map((value) => (    
+                            <option>{value.value}</option>
+                            ))}
+                            </Input>
+                            <br />
+                            <Button type="submit" >Confirm</Button>
+                        </Form>
+                        <br />
+                        <Alert color="dark">
+                            <h4>TOTAL AMOUNT: {this.state.totalAmount}</h4> 
+                        </Alert>
                         </CardBody>
                         </Card>
                     
-                   
+                
                     </Col>
             </Row>
             </div>

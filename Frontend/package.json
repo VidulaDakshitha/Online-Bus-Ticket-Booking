@@ -41,6 +41,8 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.12.1",
     "react": "^16.8.6",
+    "react-alert": "^7.0.2",
+    "react-alert-template-basic": "^1.0.0",
     "react-app-polyfill": "^1.0.1",
     "react-bootstrap-typeahead": "^4.2.2",
     "react-calendar": "^3.0.1",
