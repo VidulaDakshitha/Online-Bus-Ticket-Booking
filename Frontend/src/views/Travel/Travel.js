@@ -58,7 +58,9 @@ class Travel extends Component {
             distance: 0,
             realTimeDB: [],
             valueStartDist: 0,
-            valueEndDist: 0
+            valueEndDist: 0,
+            date: new Date(),
+            activeTrue: false
         };
     }
 
@@ -74,6 +76,16 @@ class Travel extends Component {
             })
         })
 
+    }
+
+    getActiveStatus = () => {
+        this.state.realTimeDB.find(val => {
+            if(val.status === "Active"){
+                this.setState({
+                    activeTrue: true
+                })
+            }
+        })
     }
 
     onChangeHandler = (event) => {
@@ -110,10 +122,37 @@ class Travel extends Component {
     }
     
 
-    checkInputAndSubmit = (e) => {
+    checkInputAndSubmit = async(e) => {
         e.preventDefault();
 
-        if(this.state.fromDestination === this.state.toDestination){
+
+        console.log(this.state.realTimeDB)
+        
+        // this.state.realTimeDB.find(val => {
+        //     console.log(val.status)
+        //     if(val.status === "Active"){
+        //         console.log("Inside if")
+        //         this.setState({
+        //             activeTrue: true,
+        //         },()=>console.log("Active: ", this.state.activeTrue))
+        //     }
+        // })
+// console.log(this.state.realTimeDB)
+      await  this.state.realTimeDB.map( val=>{
+            console.log("this is status"+val.status)
+            if(val.status==="Active")
+            {
+                                this.setState({
+                    activeTrue: true,
+                },()=>console.log("Active: ", this.state.activeTrue))
+            }
+        })
+        
+
+        if(this.state.activeTrue===true){
+            alert('Error: you already have a current journey');
+        }
+        else if(this.state.fromDestination === this.state.toDestination){
             alert('Error: Both destinations are same! Can not confirm the Journey');
         }
         else if(this.state.totalAmount === 0){
@@ -124,7 +163,7 @@ class Travel extends Component {
                 userID:this.state.userID,
                 fromDestination: this.state.fromDestination,
                 toDestination:this.state.toDestination,
-                date: new Date(),
+                date: this.state.date.toString(),
                 status: "Active",
                 fullAmount: this.state.totalAmount,
                 distance: this.state.distance
@@ -137,9 +176,11 @@ class Travel extends Component {
             toDestination:"Colombo 1",
             fromDestination:"Colombo 1",
             totalAmount: 0, 
+            activeTrue: false
         })
         
     }
+    
     
     render() {
         return (

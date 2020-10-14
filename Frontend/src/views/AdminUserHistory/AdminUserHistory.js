@@ -20,53 +20,69 @@ import {
     
   } from "reactstrap";
 
+  import {database, firestore} from "../../firebasejs";
+  let tempRealTimeDb = [];
 
 class AdminUserHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            realTimeDB: []
         };
+    }
+
+    componentDidMount(){
+        database.ref('journey').on('value',(snapshot)=>{
+            tempRealTimeDb=[];
+            snapshot.forEach(arr=>{
+                tempRealTimeDb=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
+            })
+
+            this.setState({
+                realTimeDB: tempRealTimeDb,
+            })
+        })
+
     }
     
     render() {
         return (
             <div>
                 <Row>
-                    <Col xs="12" sm="6">
+                    <Col xs="12" sm="10">
                     <Card >
                     <CardHeader><h3>User History</h3></CardHeader>
                     <CardBody>
                     <CardText>You can view all the user history</CardText>
                    
-                        <Table responsive bordered className="table">
+                    <Table responsive bordered className="table">
                             <thead>
                                 <tr>
-                                <th>UserID No.</th>
+                                <th>REF No.</th>
+                                <th>UserID</th>
                                 <th>From</th>
                                 <th>To</th>
-                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Amount(LKR)</th>
+                                <th>Distance(KM)</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Colombo</td>
-                                <td>Dehiwala</td>
-                                <td>13/10/2020</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Colombo</td>
-                                <td>Dehiwala</td>
-                                <td>13/10/2020</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Colombo</td>
-                                <td>Dehiwala</td>
-                                <td>13/10/2020</td>
-                                </tr>
-                            </tbody>
+                            {this.state.realTimeDB.map(
+                                data=>(
+                                    
+                                    <tbody>
+                                        <tr>
+                                    <th scope="row">{data.id}</th>
+                                    <td>{data.userID}</td>
+                                    <td>{data.fromDestination}</td>
+                                    <td>{data.toDestination}</td>
+                                    <td>{data.status}</td>
+                                    <td>{data.fullAmount}</td>
+                                    <td>{data.distance}</td>
+                                        </tr>
+                                    </tbody>)
+                            )
+                        }
                         </Table>
                     </CardBody>
                     </Card>

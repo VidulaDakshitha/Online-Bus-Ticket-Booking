@@ -21,8 +21,12 @@ class Register extends Component {
       invalid1:false,
       email:'',
       username:'',
-      error:''
-
+      error:'',
+      usercatergory:"",
+      idtype:"",
+      identity:"",
+      tokentype:"",
+      identitytype:"Enter Nic"
     }
   }
 
@@ -86,21 +90,70 @@ class Register extends Component {
 
   }
 
+
+
+  oncatergoryselect=(e)=>{
+
+this.setState({
+  [e.target.name]:e.target.value
+})
+
+if(e.target.value==="foreign")
+{
+
+  this.setState({
+    idtype:"passport",
+    identitytype:"Enter passport Number"
+  })
+document.getElementById("idtype").value="nic"
+}else{
+  this.setState({
+    idtype:"nic",
+    identitytype:"Enter NIC"
+  })
+  document.getElementById("idtype").value="passport"
+}
+
+  }
+
   onSubmitHandler=(e)=>{
 e.preventDefault();
 
-const regUsers={
-  email:this.state.email,
-  password:this.state.password,
-  username:this.state.username
+let regUsers=""
+if(this.state.usercatergory==="foreign")
+{
+  regUsers={
+    email:this.state.email,
+    password:this.state.password,
+    username:this.state.username,
+    usercatergory:this.state.usercatergory,
+    idtype:this.state.idtype,
+    identity:this.state.identity,
+    tokentype:"temporary"
+  
+  }
+}else if(this.state.usercatergory==="local")
+{
+  regUsers={
+    email:this.state.email,
+    password:this.state.password,
+    username:this.state.username,
+    usercatergory:this.state.usercatergory,
+    idtype:this.state.idtype,
+    identity:this.state.identity,
+    tokentype:this.state.tokentype
+  
+  }
 
+  console.log(regUsers)
 }
+
 
 
 auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
   .then(()=>{
     var username=this.state.email.split("@")[0];
-    database.ref('userDetails').push().set(regUsers).catch(err=>console.log(err.message));
+    database.ref('passenger').push().set(regUsers).catch(err=>console.log(err.message));
     localStorage.setItem("usertype","user");
     localStorage.setItem("email",this.state.email);
   }).catch(err=>{
@@ -150,6 +203,8 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
                       <FormFeedback>Password length should be more than 7</FormFeedback>
                     </InputGroup>
 
+         
+
 
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -160,6 +215,57 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
                       <Input type="password" placeholder="Repeat password" name="confirmPass" autoComplete="new-password" valid={this.state.valid} invalid={this.state.invalid} onChange={this.HandlepasswordConfirm}/>
                       <FormFeedback>Passwords doesn't match</FormFeedback>
                     </InputGroup>
+
+                    <InputGroup className="mb-3">
+                    <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="icon-user"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+        <Input type="select" name="usercatergory" id="usercatergory" onChange={this.oncatergoryselect}>
+         <option value="foreign">Foreigner</option>
+         <option value="local">Local</option>
+        </Input>
+      </InputGroup>
+
+      <InputGroup className="mb-3">
+                    <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="icon-user-female"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+        <Input type="select" name="idtype" id="idtype" value={this.state.idtype} onChange={this.onChangeHandler} disabled>
+         <option value="nic">NIC</option>
+         <option value="passport">Passport</option>
+        </Input>
+      </InputGroup>
+
+      
+      <InputGroup className="mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText> <i className="icon-bag"></i></InputGroupText>
+                      </InputGroupAddon>
+                      <Input type="text" placeholder={this.state.identitytype} name="identity" id="identity"  value={this.state.identity} onChange={this.onChangeHandler} />
+                    </InputGroup>
+
+
+{this.state.usercatergory==="local"?
+                    <InputGroup className="mb-3">
+                    <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="icon-pin"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+        <Input type="select" name="tokentype" id="tokentype" onChange={this.onChangeHandler}>
+        <option value="">Select token</option>
+         <option value="single">Single</option>
+         <option value="monthly">Monthly</option>
+        
+        </Input>
+      </InputGroup>
+:<></>}
+
+
                     <Button color="success" block>Create Account</Button>
                   </Form>
                 </CardBody>
