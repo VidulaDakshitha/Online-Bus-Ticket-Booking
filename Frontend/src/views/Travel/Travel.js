@@ -122,27 +122,34 @@ class Travel extends Component {
     }
     
 
-    checkInputAndSubmit = (e) => {
+    checkInputAndSubmit = async(e) => {
         e.preventDefault();
+
+
+        console.log(this.state.realTimeDB)
         
         // this.state.realTimeDB.find(val => {
+        //     console.log(val.status)
         //     if(val.status === "Active"){
         //         console.log("Inside if")
         //         this.setState({
         //             activeTrue: true,
-        //         })
+        //         },()=>console.log("Active: ", this.state.activeTrue))
         //     }
         // })
-        console.log(this.state.realTimeDB)
-        this.state.realTimeDB.map(val=>{
+// console.log(this.state.realTimeDB)
+      await  this.state.realTimeDB.map( val=>{
+            console.log("this is status"+val.status)
             if(val.status==="Active")
             {
-                console.log("its active")
+                                this.setState({
+                    activeTrue: true,
+                },()=>console.log("Active: ", this.state.activeTrue))
             }
         })
-        console.log("Active: ", this.state.activeTrue);
+        
 
-        if(this.state.activeTrue){
+        if(this.state.activeTrue===true){
             alert('Error: you already have a current journey');
         }
         else if(this.state.fromDestination === this.state.toDestination){
@@ -173,6 +180,7 @@ class Travel extends Component {
         })
         
     }
+    
     
     render() {
         return (
