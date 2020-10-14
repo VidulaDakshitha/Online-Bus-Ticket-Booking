@@ -17,7 +17,6 @@ export default class LatestTravelDetails extends Component {
 
     componentDidMount(){
         this.getData()
-        console.log(this.state.userEmail);
 
     }
 
@@ -27,7 +26,6 @@ export default class LatestTravelDetails extends Component {
         database.ref('journey').orderByChild("userID").equalTo(this.state.userEmail).on('value',(snapshot)=>{
             snapshot.forEach(data=>{
               tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
-                console.log(tempJounryData);
         
 
             });
@@ -42,12 +40,12 @@ export default class LatestTravelDetails extends Component {
     }
 
     deactivateJourney=(id)=>{
-         database.ref('journey/'+id).update( {status:"Deactivate"},(err)=>{
+         database.ref('journey/'+id).update( {status:"Completed"},(err)=>{
             if (err) {
                 console.log(err);
 
                 } else {
-                    console.log("Jounry deactivated");
+                    console.log("Jounry Completed");
                     this.getData();
                }
          });
@@ -62,7 +60,7 @@ export default class LatestTravelDetails extends Component {
 
                     return (
                         <Alert style={StyledHome.rowShadow} color="success" key={travle.id}>
-                            <p>Journy form <b>{travle.fromDestination}</b> to <b>{travle.toDestination}</b> <Button onClick={()=>{this.deactivateJourney(travle.id)}}> Deactivate </Button>     </p>
+                            <p>Journy form <b>{travle.fromDestination}</b> to <b>{travle.toDestination}</b> <Button outline color="danger" onClick={()=>{this.deactivateJourney(travle.id)}}> End Journey </Button>     </p>
                         </Alert>
                     )
 
