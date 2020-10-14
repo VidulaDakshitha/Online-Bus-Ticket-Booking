@@ -181,6 +181,7 @@ class Travel extends Component {
         
     }
     
+    
     render() {
         return (
             <div>
