@@ -20,42 +20,60 @@ import {
     
   } from "reactstrap";
 
-  const data = [
-      {id: 1, value: 'Kevin'}, 
-      {id: 2, value: 'Vidula'},
-      {id: 3, value: 'Dilshan'},
-      {id: 4, value: 'Sathira'}, 
-      {id: 5, value: 'Malidi'},
-      {id: 6, value: 'Janitha'}, 
-      {id: 7, value: 'Pramodya'}
+  import {database, firestore} from "../../firebasejs";
 
-    ];
-
+  let tempRealTimeDb = [];
+ 
 
 class AdminTopUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userID:"",
-            amountTopUp:"Colombo"
+            amountTopUp:"",
+            realTimeDB:[]
         };
     }
 
-    onChangeUserID = (event) => {
-        this.setState({
-            userID:event.target.value
+    componentDidMount(){
+        database.ref('userDetails').on('value',(snapshot)=>{
+            tempRealTimeDb=[];
+            snapshot.forEach(arr=>{
+                tempRealTimeDb=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
+            })
+
+            this.setState({
+                realTimeDB: tempRealTimeDb,
+            })
         })
+
     }
-    
-    onChangeAmountTopUp = (event) => {
+
+    onChangeHandler = (event) => {
         this.setState({
-            amountTopUp:event.target.value
+            [event.target.name]:event.target.value
         })
     }
 
     checkInputAndSubmit = (e) => {
         e.preventDefault();
         console.log("Data: ", this.state.userID, this.state.amountTopUp);
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+            database.ref('journey').push().set({
+                userID:this.state.userID,
+                fromDestination: this.state.fromDestination,
+                toDestination:this.state.toDestination,
+                date: this.state.date.toString(),
+                status: "Active",
+                fullAmount: this.state.totalAmount,
+                distance: this.state.distance
+              },
+              alert('Account updated!')
+              ).catch(err=>console.log(err))
     }
     
     render() {
@@ -70,21 +88,21 @@ class AdminTopUp extends Component {
 
                         <Form method ="POST" onSubmit={this.checkInputAndSubmit}>
                         <Label>Select the user account ID and name:</Label>
-                            <Input type="select"  name="userID" id="userID" onChange={this.onChangeUserID}>
-                            { data.map((value) => (    
-                            <option>{value.value}</option>
+                            <Input type="select"  name="userID" id="userID" onChange={this.onChangeHandler}>
+                            { this.state.realTimeDB.map(value => (    
+                            <option>{value.email}</option>
                             ))}
                             </Input>
                             <Label>Select to destination:</Label>
-                            <Input type="text" name="amount" id="amount" onChange={this.onChangeAmountTopUp} />
+                            <Input type="text" name="amountTopUp" id="amountTopUp" onChange={this.onChangeHandler} />
                             
                             <br />
-                            <Button type="submit" >Confirm</Button>
+                            <Button type="submit" >To Up Account</Button>
                         </Form>
                         <br />
                         <Alert color="dark">
                             <h4>USER: {this.state.userID}</h4>
-                            <h4>TOTAL AMOUNT: {this.state.amountTopUp}</h4> 
+                            <h4>TOTAL AMOUNT(LKR): {this.state.amountTopUp}</h4> 
                         </Alert>
                         </CardBody>
                         </Card>

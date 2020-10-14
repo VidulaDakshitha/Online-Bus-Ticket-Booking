@@ -58,7 +58,8 @@ class Travel extends Component {
             distance: 0,
             realTimeDB: [],
             valueStartDist: 0,
-            valueEndDist: 0
+            valueEndDist: 0,
+            date: new Date()
         };
     }
 
@@ -124,7 +125,7 @@ class Travel extends Component {
                 userID:this.state.userID,
                 fromDestination: this.state.fromDestination,
                 toDestination:this.state.toDestination,
-                date: new Date(),
+                date: this.state.date.toString(),
                 status: "Active",
                 fullAmount: this.state.totalAmount,
                 distance: this.state.distance
