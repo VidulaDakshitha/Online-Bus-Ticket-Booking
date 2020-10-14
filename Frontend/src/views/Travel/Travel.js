@@ -64,7 +64,8 @@ class Travel extends Component {
             date: new Date(),
             activeTrue: false,
             tokenExpired: false,
-            insufficientCredit: false
+            insufficientCredit: false,
+            availableAmount: 0
         };
     }
 
@@ -80,14 +81,14 @@ class Travel extends Component {
             })
         })
 
-        database.ref('token').on('value',(snapshot)=>{
-            tempRealTimeDb=[];
+        database.ref('token').orderByChild("email").equalTo(this.state.userID).on('value',(snapshot)=>{
+            tempRealTimeDbToken=[];
             snapshot.forEach(arr=>{
-                tempRealTimeDbToken=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
-            })
+                tempRealTimeDbToken=[...tempRealTimeDbToken,{id:arr.key,...arr.val()}]
+            });
 
             this.setState({
-                realTimeDBToken: tempRealTimeDbToken
+                realTimeDBToken: tempRealTimeDbToken,
             })
         })
 
@@ -142,24 +143,47 @@ class Travel extends Component {
         })
 
         await this.state.realTimeDBToken.map( val=>{
-            console.log("this is status"+val.isactive)
+            console.log("this is active status"+val.isactive)
             if(val.isactive===0)
             {
                 this.setState({
                     tokenExpired: true,
                 },()=>console.log("Token: ", this.state.tokenExpired))
             }
-        })
 
-        await this.state.realTimeDBToken.map( val=>{
-            console.log("this is amount: "+val.amount)
             if((val.amount - this.state.totalAmount) < 0)
             {
                 this.setState({
                     insufficientCredit: true,
                 },()=>console.log("Credit insufficient: ", this.state.insufficientCredit))
             }
+            else{
+                this.setState({
+                    availableAmount: val.amount - this.state.totalAmount,
+                },()=>console.log("Credit available: ", this.state.availableAmount))
+
+                console.log("Available amount; ", this.state.availableAmount)
+            }
+
+            
         })
+
+        // await this.state.realTimeDBToken.map( val=>{
+        //     console.log("this is amount: "+val.amount)
+        //     if((val.amount - this.state.totalAmount) < 0)
+        //     {
+        //         this.setState({
+        //             insufficientCredit: true,
+        //         },()=>console.log("Credit insufficient: ", this.state.insufficientCredit))
+        //     }
+        //     else{
+        //         this.setState({
+        //             availableAmount: val.amount - this.state.totalAmount,
+        //         },()=>console.log("Credit available: ", this.state.availableAmount))
+
+        //         console.log("Available amount; ", this.state.availableAmount)
+        //     }
+        // })
         
         if(this.state.insufficientCredit){
             alert('Error: credit insufficient!');
@@ -188,6 +212,26 @@ class Travel extends Component {
               },
               alert('Journey Confirmed! Total required payment will be deducted once the journey is completed!')
               ).catch(err=>console.log(err))
+
+            // //   database.ref('token').orderByChild("email").equalTo(this.state.userID).update( {amount:this.state.availableAmount},(err)=>{
+            // //     if (err) {
+            // //         console.log(err);
+    
+            // //         } else {
+            // //             console.log("Amount updated");
+            // //             this.getData();
+            // //        }
+            // //  });
+
+            // var database2=database.database().ref('token').child('email/'+this.state.userID);
+            // database2.once("value",function(snapshot){
+            //     console.log(snapshot.val())
+            // })
+            database.ref('token').orderByChild('email').equalTo(this.state.userID.trim()).once('value',(snapshot)=>{
+                snapshot.forEach(data=>{
+                    database.ref(`token/${data.key}/`).update({amount:this.state.availableAmount})
+                })
+              })
         }
 
         this.setState({
@@ -196,7 +240,8 @@ class Travel extends Component {
             totalAmount: 0, 
             activeTrue: false,
             tokenExpired: false,
-            insufficientCredit: false
+            insufficientCredit: false,
+            availableAmount: 0
         })
         
     }

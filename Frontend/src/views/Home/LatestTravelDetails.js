@@ -17,7 +17,6 @@ export default class LatestTravelDetails extends Component {
 
     componentDidMount(){
         this.getData()
-        console.log(this.state.userEmail);
 
     }
 
@@ -27,7 +26,6 @@ export default class LatestTravelDetails extends Component {
         database.ref('journey').orderByChild("userID").equalTo(this.state.userEmail).on('value',(snapshot)=>{
             snapshot.forEach(data=>{
               tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
-                console.log(tempJounryData);
         
 
             });
