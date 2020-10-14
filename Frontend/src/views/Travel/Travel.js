@@ -44,6 +44,7 @@ import {
 // const [error,setError]=useState('');
 
 let tempRealTimeDb = [];
+let tempRealTimeDbToken = [];
 
 class Travel extends Component {
 
@@ -57,10 +58,13 @@ class Travel extends Component {
             totalAmount: 0, 
             distance: 0,
             realTimeDB: [],
+            realTimeDBToken: [],
             valueStartDist: 0,
             valueEndDist: 0,
             date: new Date(),
-            activeTrue: false
+            activeTrue: false,
+            tokenExpired: false,
+            insufficientCredit: false
         };
     }
 
@@ -69,24 +73,26 @@ class Travel extends Component {
             tempRealTimeDb=[];
             snapshot.forEach(arr=>{
                 tempRealTimeDb=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
-            })
+            });
 
             this.setState({
                 realTimeDB: tempRealTimeDb,
             })
         })
 
+        database.ref('token').on('value',(snapshot)=>{
+            tempRealTimeDb=[];
+            snapshot.forEach(arr=>{
+                tempRealTimeDbToken=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
+            })
+
+            this.setState({
+                realTimeDBToken: tempRealTimeDbToken
+            })
+        })
+
     }
 
-    getActiveStatus = () => {
-        this.state.realTimeDB.find(val => {
-            if(val.status === "Active"){
-                this.setState({
-                    activeTrue: true
-                })
-            }
-        })
-    }
 
     onChangeHandler = (event) => {
         this.setState({
@@ -124,21 +130,8 @@ class Travel extends Component {
 
     checkInputAndSubmit = async(e) => {
         e.preventDefault();
-
-
-        console.log(this.state.realTimeDB)
         
-        // this.state.realTimeDB.find(val => {
-        //     console.log(val.status)
-        //     if(val.status === "Active"){
-        //         console.log("Inside if")
-        //         this.setState({
-        //             activeTrue: true,
-        //         },()=>console.log("Active: ", this.state.activeTrue))
-        //     }
-        // })
-// console.log(this.state.realTimeDB)
-      await this.state.realTimeDB.map( val=>{
+        await this.state.realTimeDB.map( val=>{
             console.log("this is status"+val.status)
             if(val.status==="Active")
             {
@@ -147,9 +140,34 @@ class Travel extends Component {
                 },()=>console.log("Active: ", this.state.activeTrue))
             }
         })
-        
 
-        if(this.state.activeTrue===true){
+        await this.state.realTimeDBToken.map( val=>{
+            console.log("this is status"+val.isactive)
+            if(val.isactive===0)
+            {
+                this.setState({
+                    tokenExpired: true,
+                },()=>console.log("Token: ", this.state.tokenExpired))
+            }
+        })
+
+        await this.state.realTimeDBToken.map( val=>{
+            console.log("this is amount: "+val.amount)
+            if((val.amount - this.state.totalAmount) < 0)
+            {
+                this.setState({
+                    insufficientCredit: true,
+                },()=>console.log("Credit insufficient: ", this.state.insufficientCredit))
+            }
+        })
+        
+        if(this.state.insufficientCredit){
+            alert('Error: credit insufficient!');
+        }
+        else if(this.state.tokenExpired ){
+            alert('Error: your token is expired');
+        }
+        else if(this.state.activeTrue===true){
             alert('Error: you already have a current journey');
         }
         else if(this.state.fromDestination === this.state.toDestination){
@@ -176,7 +194,9 @@ class Travel extends Component {
             toDestination:"Colombo 1",
             fromDestination:"Colombo 1",
             totalAmount: 0, 
-            activeTrue: false
+            activeTrue: false,
+            tokenExpired: false,
+            insufficientCredit: false
         })
         
     }

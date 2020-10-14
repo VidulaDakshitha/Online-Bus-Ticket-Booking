@@ -98,7 +98,6 @@ class AdminTopUp extends Component {
                             <Input type="select"  name="tokenType" id="tokenType" onChange={this.onChangeHandler}>
                             <option>Single</option>
                             <option>Monthly</option>
-                            <option>Temp token</option>
                             </Input>
 
                             <Label>Amount to topup</Label>
