@@ -1,6 +1,6 @@
 import {database, firestore} from "../../firebasejs";
 import React, { Component } from 'react'
-import { Alert, Col } from 'reactstrap'
+import { Alert, Button, Col } from 'reactstrap'
  
 
 export default class LatestTravelDetails extends Component {
@@ -41,16 +41,35 @@ export default class LatestTravelDetails extends Component {
  
     }
 
+    deactivateJourney=(id)=>{
+         database.ref('journey/'+id).update( {status:"Deactivate"},(err)=>{
+            if (err) {
+                console.log(err);
+
+                } else {
+                    console.log("Jounry deactivated");
+                    this.getData();
+               }
+         });
+    }
+
     showLastTravel=()=>{
 
                return this.state.latestTravel.map(travle=>{
 
+
+                if(travle.status=="Active"){
+
+                    return (
+                        <Alert style={StyledHome.rowShadow} color="success" key={travle.id}>
+                            <p>Journy form <b>{travle.fromDestination}</b> to <b>{travle.toDestination}</b> <Button onClick={()=>{this.deactivateJourney(travle.id)}}> Deactivate </Button>     </p>
+                        </Alert>
+                    )
+
+
+                }
            
-                return (
-                <Alert style={StyledHome.rowShadow} color="info" key={travle.id}>
-                   <p>Journy form <b>{travle.fromDestination}</b> to <b>{travle.toDestination}</b>      </p>
-            </Alert>
-            )
+             
         })
     }
 
