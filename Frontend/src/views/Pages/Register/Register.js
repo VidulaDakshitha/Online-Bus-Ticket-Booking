@@ -102,14 +102,14 @@ if(e.target.value==="foreign")
 {
 
   this.setState({
-    idtype:"nic",
-    identitytype:"Enter Nic"
+    idtype:"passport",
+    identitytype:"Enter passport Number"
   })
 document.getElementById("idtype").value="nic"
 }else{
   this.setState({
-    idtype:"passport",
-    identitytype:"Enter passport Number"
+    idtype:"nic",
+    identitytype:"Enter NIC"
   })
   document.getElementById("idtype").value="passport"
 }
