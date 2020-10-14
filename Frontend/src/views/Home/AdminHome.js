@@ -1,7 +1,37 @@
+import {database, firestore} from "../../firebasejs";
 import React, { Component } from 'react'
 import { Col, Container } from 'reactstrap'
 
 export default class AdminHome extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            passengerData:[],
+            jounryData:[],
+            isload:false
+        }
+    }
+
+    componentDidMount(){
+        this.getPassengerData()
+
+    }
+
+    getPassengerData =async ()=>{
+
+       
+
+    }
+
+    getJournyData = async ()=>{
+
+    }
+
+
+
+
+
     render() {
         return (
             <Col sm={StyledHome.ColumnSize}>
