@@ -44,6 +44,7 @@ import {
 // const [error,setError]=useState('');
 
 let tempRealTimeDb = [];
+let tempRealTimeDbToken = [];
 
 class Travel extends Component {
 
@@ -57,10 +58,14 @@ class Travel extends Component {
             totalAmount: 0, 
             distance: 0,
             realTimeDB: [],
+            realTimeDBToken: [],
             valueStartDist: 0,
             valueEndDist: 0,
             date: new Date(),
-            activeTrue: false
+            activeTrue: false,
+            tokenExpired: false,
+            insufficientCredit: false,
+            availableAmount: 0
         };
     }
 
@@ -69,24 +74,26 @@ class Travel extends Component {
             tempRealTimeDb=[];
             snapshot.forEach(arr=>{
                 tempRealTimeDb=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
-            })
+            });
 
             this.setState({
                 realTimeDB: tempRealTimeDb,
             })
         })
 
+        database.ref('token').orderByChild("email").equalTo(this.state.userID).on('value',(snapshot)=>{
+            tempRealTimeDbToken=[];
+            snapshot.forEach(arr=>{
+                tempRealTimeDbToken=[...tempRealTimeDbToken,{id:arr.key,...arr.val()}]
+            });
+
+            this.setState({
+                realTimeDBToken: tempRealTimeDbToken,
+            })
+        })
+
     }
 
-    getActiveStatus = () => {
-        this.state.realTimeDB.find(val => {
-            if(val.status === "Active"){
-                this.setState({
-                    activeTrue: true
-                })
-            }
-        })
-    }
 
     onChangeHandler = (event) => {
         this.setState({
@@ -100,7 +107,6 @@ class Travel extends Component {
         if((data.findIndex(e => e.value === this.state.fromDestination)) > (data.findIndex(e => e.value === this.state.toDestination)))
         {
             const tempVar = data.findIndex(e => e.value === this.state.fromDestination) - data.findIndex(e => e.value === this.state.toDestination);
-            console.log("Distance data: ", tempVar);
             this.setState({
                 totalAmount: tempVar * 10.5,
                 distance: tempVar
@@ -109,7 +115,6 @@ class Travel extends Component {
         else if((data.findIndex(e => e.value === this.state.fromDestination)) < (data.findIndex(e => e.value === this.state.toDestination)))
         {
             const tempVar = data.findIndex(e => e.value === this.state.toDestination) - data.findIndex(e => e.value === this.state.fromDestination)
-            console.log("Distance data else: ", tempVar);
             this.setState({
                 totalAmount: tempVar * 10.5,
                 distance: tempVar
@@ -124,32 +129,63 @@ class Travel extends Component {
 
     checkInputAndSubmit = async(e) => {
         e.preventDefault();
-
-
-        console.log(this.state.realTimeDB)
         
-        // this.state.realTimeDB.find(val => {
-        //     console.log(val.status)
-        //     if(val.status === "Active"){
-        //         console.log("Inside if")
-        //         this.setState({
-        //             activeTrue: true,
-        //         },()=>console.log("Active: ", this.state.activeTrue))
-        //     }
-        // })
-// console.log(this.state.realTimeDB)
-      await  this.state.realTimeDB.map( val=>{
-            console.log("this is status"+val.status)
+        await this.state.realTimeDB.map( val=>{
             if(val.status==="Active")
             {
-                                this.setState({
+                this.setState({
                     activeTrue: true,
-                },()=>console.log("Active: ", this.state.activeTrue))
+                })
             }
         })
-        
 
-        if(this.state.activeTrue===true){
+        await this.state.realTimeDBToken.map( val=>{
+            if(val.isactive===0)
+            {
+                this.setState({
+                    tokenExpired: true,
+                })
+            }
+
+            if((val.amount - this.state.totalAmount) < 0)
+            {
+                this.setState({
+                    insufficientCredit: true,
+                })
+            }
+            else{
+                this.setState({
+                    availableAmount: val.amount - this.state.totalAmount,
+                })
+            }
+
+            
+        })
+
+        // await this.state.realTimeDBToken.map( val=>{
+        //     console.log("this is amount: "+val.amount)
+        //     if((val.amount - this.state.totalAmount) < 0)
+        //     {
+        //         this.setState({
+        //             insufficientCredit: true,
+        //         },()=>console.log("Credit insufficient: ", this.state.insufficientCredit))
+        //     }
+        //     else{
+        //         this.setState({
+        //             availableAmount: val.amount - this.state.totalAmount,
+        //         },()=>console.log("Credit available: ", this.state.availableAmount))
+
+        //         console.log("Available amount; ", this.state.availableAmount)
+        //     }
+        // })
+        
+        if(this.state.insufficientCredit){
+            alert('Error: credit insufficient!');
+        }
+        else if(this.state.tokenExpired ){
+            alert('Error: your token is expired');
+        }
+        else if(this.state.activeTrue===true){
             alert('Error: you already have a current journey');
         }
         else if(this.state.fromDestination === this.state.toDestination){
@@ -170,17 +206,40 @@ class Travel extends Component {
               },
               alert('Journey Confirmed! Total required payment will be deducted once the journey is completed!')
               ).catch(err=>console.log(err))
+
+            // //   database.ref('token').orderByChild("email").equalTo(this.state.userID).update( {amount:this.state.availableAmount},(err)=>{
+            // //     if (err) {
+            // //         console.log(err);
+    
+            // //         } else {
+            // //             console.log("Amount updated");
+            // //             this.getData();
+            // //        }
+            // //  });
+
+            // var database2=database.database().ref('token').child('email/'+this.state.userID);
+            // database2.once("value",function(snapshot){
+            //     console.log(snapshot.val())
+            // })
+            database.ref('token').orderByChild('email').equalTo(this.state.userID.trim()).once('value',(snapshot)=>{
+                snapshot.forEach(data=>{
+                    database.ref(`token/${data.key}/`).update({amount:this.state.availableAmount})
+                })
+              })
         }
 
         this.setState({
             toDestination:"Colombo 1",
             fromDestination:"Colombo 1",
             totalAmount: 0, 
-            activeTrue: false
+            activeTrue: false,
+            tokenExpired: false,
+            insufficientCredit: false,
+            availableAmount: 0
         })
         
     }
-    
+
     
     render() {
         return (
@@ -201,7 +260,8 @@ class Travel extends Component {
                                 <th>To</th>
                                 <th>Status</th>
                                 <th>Amount(LKR)</th>
-                                <th>Distance(KM)</th>
+                                <th>Points</th>
+                                <th>Date:</th>
                                 </tr>
                             </thead>
                             {this.state.realTimeDB.map(
@@ -216,6 +276,7 @@ class Travel extends Component {
                                     <td>{data.status}</td>
                                     <td>{data.fullAmount}</td>
                                     <td>{data.distance}</td>
+                                    <td>{data.date}</td>
                                         </tr>
                                     </tbody>)
                             )

@@ -31,6 +31,7 @@ class AdminTopUp extends Component {
         this.state = {
             userID:"",
             amountTopUp:"",
+            tokenType: "",
             realTimeDB:[]
         };
     }
@@ -93,7 +94,13 @@ class AdminTopUp extends Component {
                             <option>{value.email}</option>
                             ))}
                             </Input>
-                            <Label>Select to destination:</Label>
+                        <Label>Token type</Label>
+                            <Input type="select"  name="tokenType" id="tokenType" onChange={this.onChangeHandler}>
+                            <option>Single</option>
+                            <option>Monthly</option>
+                            </Input>
+
+                            <Label>Amount to topup</Label>
                             <Input type="text" name="amountTopUp" id="amountTopUp" onChange={this.onChangeHandler} />
                             
                             <br />
