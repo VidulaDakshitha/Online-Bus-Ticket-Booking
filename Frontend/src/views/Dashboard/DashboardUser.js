@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody,CardHeader, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
+import { Button, Card, CardBody,CardHeader, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
 
 import {
     Nav,
@@ -9,11 +9,7 @@ import {
     TabPane,
     FormGroup,
     Label,
-    Table,
-    CardTitle,
-    CardText
-    
-  } from "reactstrap";
+} from "reactstrap";
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -36,6 +32,7 @@ import Travel from "../Travel/Travel";
 import AdminTopUp from "../AdminTopUp/AdminTopUp";
 import AdminUserHistory from "../AdminUserHistory/AdminUserHistory";
 import Sample from "../SamplePage";
+import RelodeTocken from "./RelodeTocken";
 
 const useStyles =theme => ({
     root: {
@@ -57,7 +54,7 @@ const useStyles =theme => ({
       background:
         'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 90%, rgba(0,0,0,0) 100%)',
     },
-  
+
     inline: {
       display: 'inline',
       color:"green"
@@ -68,7 +65,7 @@ const useStyles =theme => ({
     },
     root1: {
       width: '100%',
-   
+
       backgroundColor: theme.palette.background.paper,
     },
   });
@@ -84,12 +81,26 @@ class DashboardUser extends Component {
 
 
   toggle(tabPane, tab) {
-    const newArray = this.state.activeTab.slice();
+    this.props.history.push(`/dashboard/${tab}`)
+    /*const newArray = this.state.activeTab.slice();
     newArray[tabPane] = tab;
     this.setState({
       activeTab: newArray,
-    });
+    });*/
   }
+
+componentDidMount() {
+
+ console.log(this.props.history.location.pathname.split('/')[2])
+
+  this.props.history.listen((location, action) => {
+      console.log(location.pathname.split('/')[2])
+    this.setState({
+      activeTab:location.pathname.split('/')[2]
+    })
+  })
+}
+
 
 
 
@@ -114,133 +125,7 @@ class DashboardUser extends Component {
         <TabPane tabId="3">
 
             {
-                <Card>
-                    <CardBody>
-                <Form>
-
-
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Name of Owner</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                                 <Input
-                                    type="select"
-                                    id="method"
-                                    name="method"
-                                   
-                                   
-                                    onChange={this.changeHandler}
-                                    required
-                                  >
-                                <option value="">Select Payment Method</option>
-                                  <option value="2">Card</option>
-                                  <option value="3">Bank</option>
-                                  </Input>
-                  </Col>
-                </FormGroup>
-
-                   
-                  
-
-                            <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Name of Owner</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                                 <Input
-                                    type="text"
-                                    id="fullname"
-                                    name="fullname"
-                                    placeholder="Enter Full Name"
-                                    value={this.state.fullname}
-                                    onChange={this.changeHandler}
-                                    required
-                                  />
-                  </Col>
-                </FormGroup>
-
-
-                
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Card Number</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                                 <Input
-                                    type="text"
-                                    id="fullname"
-                                    name="fullname"
-                                    placeholder="xxxx-xxxx-xxxx"
-                                    value={this.state.fullname}
-                                    onChange={this.changeHandler}
-                                    required
-                                  />
-                  </Col>
-                </FormGroup>
-
-
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">CVC</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                                 <Input
-                                    type="number"
-                                    id="cvc"
-                                    name="cvc"
-                                    placeholder="3-digit"
-                                    value={this.state.fullname}
-                                    onChange={this.changeHandler}
-                                    required
-                                  />
-                  </Col>
-                </FormGroup>
-
-
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Recharge Amount</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                                 <Input
-                                    type="text"
-                                    id="cvc"
-                                    name="cvc"
-                                    placeholder="Amount in LKR"
-                                    value={this.state.fullname}
-                                    onChange={this.changeHandler}
-                                    required
-                                  />
-                  </Col>
-                </FormGroup>
-
-
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Available Amount</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                               <p style={{color:"red"}}> <b> Rs. 305,000.00</b></p>
-                  </Col>
-                </FormGroup>
-
-
-                <FormGroup row>
-                  <Col md="3">
-                   
-                  </Col>
-                  <Col xs="12" md="9">
-                  <Button style={{borderRadius:"10px"}} className="btn btn-success">Proceed</Button>
-                  </Col>
-                </FormGroup>
-
-
-
-
-                            </Form>
-                            </CardBody>
-                            </Card>
+              <RelodeTocken {...this.props} />
             }
             </TabPane>
 
@@ -269,13 +154,13 @@ class DashboardUser extends Component {
               <div>This is timetable</div>
             }
             </TabPane>
-         
+
       </>
     );
   }
 
 
-  
+
   render() {
 
     const {classes} = this.props;
@@ -283,18 +168,18 @@ class DashboardUser extends Component {
 
       <div>
 
-<GridList className={classes.gridList} cols={2.0} style={{cursor:"pointer"}}> 
+<GridList className={classes.gridList} cols={2.0} style={{cursor:"pointer"}}>
 
 
   <GridListTile key="1"
   onClick={()=>{}}
   style={{borderColor:"red",borderWidth:"medium"}}
- 
+
   >
     <img src={Train} style={{width:"100%"}} alt="image" />
-    
+
     <GridListTileBar
-    
+
       title="Train"
       classes={{
         root: classes.titleBar,
@@ -306,19 +191,19 @@ class DashboardUser extends Component {
           <StarBorderIcon className={classes.title} />
         </IconButton>
       }
-    
+
     />
   </GridListTile>
-  
+
   <GridListTile key="2"
   onClick={()=>{}}
   style={{borderColor:"red",borderWidth:"medium"}}
- 
+
   >
     <img src={Bus} style={{width:"100%"}} alt="image" />
-    
+
     <GridListTileBar
-    
+
       title="Bus"
       classes={{
         root: classes.titleBar,
@@ -330,19 +215,19 @@ class DashboardUser extends Component {
           <StarBorderIcon className={classes.title} />
         </IconButton>
       }
-    
+
     />
   </GridListTile>
 
   <GridListTile key="3"
   onClick={()=>{}}
   style={{borderColor:"red",borderWidth:"medium"}}
- 
+
   >
     <img src={Taxi} style={{width:"100%"}} alt="image" />
-    
+
     <GridListTileBar
-    
+
       title="Taxi"
       classes={{
         root: classes.titleBar,
@@ -354,19 +239,19 @@ class DashboardUser extends Component {
           <StarBorderIcon className={classes.title} />
         </IconButton>
       }
-    
+
     />
   </GridListTile>
 
   <GridListTile key="4"
   onClick={()=>{}}
   style={{borderColor:"red",borderWidth:"medium"}}
- 
+
   >
     <img src={Tuk} style={{width:"100%"}} alt="image" />
-    
+
     <GridListTileBar
-    
+
       title="Tuk Tuk"
       classes={{
         root: classes.titleBar,
@@ -378,7 +263,7 @@ class DashboardUser extends Component {
           <StarBorderIcon className={classes.title} />
         </IconButton>
       }
-    
+
     />
   </GridListTile>
 
@@ -490,7 +375,7 @@ class DashboardUser extends Component {
 
 
       </div>
-     
+
     );
   }
 }

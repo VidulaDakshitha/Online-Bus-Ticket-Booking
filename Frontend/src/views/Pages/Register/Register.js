@@ -37,7 +37,7 @@ class Register extends Component {
   componentDidMount() {
     auth.onAuthStateChanged((user)=>{
       if (user){
-      this.props.history.push("/dashboard");
+      this.props.history.push("/dashboard/1");
       }
     });
   }
@@ -48,7 +48,7 @@ class Register extends Component {
 
     this.setState({[e.target.name]:e.target.value})
 
-  
+
 
   }
 
@@ -151,7 +151,7 @@ if(this.state.usercatergory==="foreign")
     idtype:this.state.idtype,
     identity:this.state.identity,
     tokentype:"temporary"
-  
+
   }
 
 
@@ -175,7 +175,7 @@ if(this.state.usercatergory==="foreign")
     idtype:this.state.idtype,
     identity:this.state.identity,
     tokentype:this.state.tokentype
-  
+
   }
 
   if(this.state.tokentype==="monthly")
@@ -203,7 +203,7 @@ if(this.state.usercatergory==="foreign")
   }
 
 
-  
+
 }
 
 
@@ -254,7 +254,7 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
             <Col md="9" lg="7" xl="6">
               <Card className="mx-4">
                 <CardBody className="p-4">
-                
+
                     <h1>Register</h1>
                     <p className="text-muted">Create your account</p>
                     {this.state.error&&<div className="alert alert-danger">{this.state.error}</div>}
@@ -282,7 +282,7 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
                       <FormFeedback>Password length should be more than 7</FormFeedback>
                     </InputGroup>
 
-         
+
 
 
                     <InputGroup className="mb-4">
@@ -319,7 +319,7 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
         </Input>
       </InputGroup>
 
-      
+
       <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText> <i className="icon-bag"></i></InputGroupText>
@@ -339,14 +339,14 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
         <option value="">Select token</option>
          <option value="single">Single</option>
          <option value="monthly">Monthly</option>
-        
+
         </Input>
       </InputGroup>
 :<></>}
 
 
                     <Button color="success" onClick={()=>this.modelopen()} block>Create Account</Button>
-          
+
                 </CardBody>
 
               </Card>
@@ -377,8 +377,8 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
                                     type="select"
                                     id="method"
                                     name="method"
-                                   
-                                   
+
+
                                     onChange={this.changeHandler}
                                     required
                                   >
