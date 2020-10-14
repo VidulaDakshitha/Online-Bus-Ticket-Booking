@@ -59,7 +59,8 @@ class Travel extends Component {
             realTimeDB: [],
             valueStartDist: 0,
             valueEndDist: 0,
-            date: new Date()
+            date: new Date(),
+            activeTrue: false
         };
     }
 
@@ -75,6 +76,16 @@ class Travel extends Component {
             })
         })
 
+    }
+
+    getActiveStatus = () => {
+        this.state.realTimeDB.find(val => {
+            if(val.status === "Active"){
+                this.setState({
+                    activeTrue: true
+                })
+            }
+        })
     }
 
     onChangeHandler = (event) => {
@@ -113,8 +124,28 @@ class Travel extends Component {
 
     checkInputAndSubmit = (e) => {
         e.preventDefault();
+        
+        // this.state.realTimeDB.find(val => {
+        //     if(val.status === "Active"){
+        //         console.log("Inside if")
+        //         this.setState({
+        //             activeTrue: true,
+        //         })
+        //     }
+        // })
+console.log(this.state.realTimeDB)
+        this.state.realTimeDB.map(val=>{
+            if(val.status==="Active")
+            {
+                console.log("its active")
+            }
+        })
+        console.log("Active: ", this.state.activeTrue);
 
-        if(this.state.fromDestination === this.state.toDestination){
+        if(this.state.activeTrue){
+            alert('Error: you already have a current journey');
+        }
+        else if(this.state.fromDestination === this.state.toDestination){
             alert('Error: Both destinations are same! Can not confirm the Journey');
         }
         else if(this.state.totalAmount === 0){
@@ -138,6 +169,7 @@ class Travel extends Component {
             toDestination:"Colombo 1",
             fromDestination:"Colombo 1",
             totalAmount: 0, 
+            activeTrue: false
         })
         
     }
