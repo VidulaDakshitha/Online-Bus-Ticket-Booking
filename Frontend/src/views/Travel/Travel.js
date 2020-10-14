@@ -138,11 +138,11 @@ class Travel extends Component {
         //     }
         // })
 // console.log(this.state.realTimeDB)
-      await  this.state.realTimeDB.map( val=>{
+      await this.state.realTimeDB.map( val=>{
             console.log("this is status"+val.status)
             if(val.status==="Active")
             {
-                                this.setState({
+                this.setState({
                     activeTrue: true,
                 },()=>console.log("Active: ", this.state.activeTrue))
             }
@@ -180,7 +180,7 @@ class Travel extends Component {
         })
         
     }
-    
+
     
     render() {
         return (
@@ -201,7 +201,8 @@ class Travel extends Component {
                                 <th>To</th>
                                 <th>Status</th>
                                 <th>Amount(LKR)</th>
-                                <th>Distance(KM)</th>
+                                <th>Points</th>
+                                <th>Date:</th>
                                 </tr>
                             </thead>
                             {this.state.realTimeDB.map(
@@ -216,6 +217,7 @@ class Travel extends Component {
                                     <td>{data.status}</td>
                                     <td>{data.fullAmount}</td>
                                     <td>{data.distance}</td>
+                                    <td>{data.date}</td>
                                         </tr>
                                     </tbody>)
                             )
