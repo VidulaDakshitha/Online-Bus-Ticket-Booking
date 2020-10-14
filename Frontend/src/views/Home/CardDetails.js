@@ -50,11 +50,13 @@ const StyledHome ={
        
        },
         card:{
-           backgroundImage:'linear-gradient(to right top, #13c952, #00d48a, #00dcba, #00e3e1, #00e7fd)',
+           backgroundImage:'linear-gradient(to right top, #0effab, #00efda, #00dbfd, #00c2ff, #00a6ff)',
            borderRadius:10,
            height:175,
            padding:10,
            margin:5,
+           boxShadow: '-1px 4px 8px 0px #c7c7c7',
+
             
        }
    

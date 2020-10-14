@@ -1,30 +1,54 @@
+import {database, firestore} from "../../firebasejs";
 import React, { Component } from 'react'
 import { Alert, Col } from 'reactstrap'
+ 
 
 export default class LatestTravelDetails extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            latestTravel:[45,65 ]
+            latestTravel:[],
+            userEmail:localStorage.getItem("email"),
+            isload:false
         }
 
     }
 
     componentDidMount(){
+        this.getData()
+        console.log(this.state.userEmail);
 
     }
 
-    getData=()=>{
+    getData=async()=>{
+        var tempJounryData=[];
 
+        database.ref('journey').orderByChild("userID").equalTo(this.state.userEmail).on('value',(snapshot)=>{
+            snapshot.forEach(data=>{
+              tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
+                console.log(tempJounryData);
+        
+
+            });
+            this.setState({
+                latestTravel:tempJounryData,
+                isload:true
+            })
+        },
+        
+        )
+ 
     }
 
     showLastTravel=()=>{
 
                return this.state.latestTravel.map(travle=>{
-            return (
-                <Alert color="info">
-                    {travle}
+
+           
+                return (
+                <Alert style={StyledHome.rowShadow} color="info" key={travle.id}>
+                   <p>Journy form <b>{travle.fromDestination}</b> to <b>{travle.toDestination}</b>      </p>
             </Alert>
             )
         })
@@ -40,7 +64,7 @@ export default class LatestTravelDetails extends Component {
          <Col sm={StyledHome.ColumnSize}>
             <h5>Latest Transist Details</h5>
 
-            {this.state.latestTravel.size>0
+            {this.state.latestTravel.length<1
             ?  (<p>No data available</p>)
             :  (this.showLastTravel())
             }
@@ -69,7 +93,7 @@ const StyledHome ={
    
         ColumnSize:{
    
-           size: 'auto',
+           size: '6',
            offset: 1
        
        },
@@ -78,12 +102,9 @@ const StyledHome ={
            borderRadius:10
    
        },
-       card:{
-           backgroundImage:'linear-gradient(to right top, #02d5f8, #00e6e7, #53f3ca, #98fba7, #daff89)',
-           borderRadius:10,
-           height:175,
-           padding:10,
-           margin:5
+      
+       rowShadow:{
+        boxShadow: '-1px 4px 8px 0px #c7c7c7',
        }
    
    }
