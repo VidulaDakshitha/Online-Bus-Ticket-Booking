@@ -133,7 +133,7 @@ class Travel extends Component {
         //         })
         //     }
         // })
-console.log(this.state.realTimeDB)
+        console.log(this.state.realTimeDB)
         this.state.realTimeDB.map(val=>{
             if(val.status==="Active")
             {
