@@ -51,6 +51,7 @@
     "react-dom": "^16.8.6",
     "react-filter-search": "^1.0.11",
     "react-google-location": "^1.2.2",
+    "react-icons": "^3.11.0",
     "react-images-upload": "^1.2.8",
     "react-pagination-table": "^2.0.2",
     "react-pdf": "^4.1.0",

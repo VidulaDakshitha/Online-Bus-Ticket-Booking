@@ -1,23 +1,43 @@
 import React, { Component } from 'react'
 import { Col, Container } from 'reactstrap'
+import {database, firestore} from "../../firebasejs";
+
 
 export default class CardDetails extends Component {
 
     constructor(props){
         super(props)
         this.state = {
-            availableAmount:0,
-            amount:0,
-            expiredDate:""
-
+            cardData:[],
+            userEmail:localStorage.getItem("email"),
+            isload:false,
+            
         }
     }
 
     componentDidMount(){
+        this.getData()
 
     }
 
-    getData=()=>{
+    getData= async ()=> {
+        var tempJounryData=[];
+
+        database.ref('token').orderByChild("email").equalTo(this.state.userEmail).once('value',(snapshot)=>{
+            snapshot.forEach(data=>{
+              tempJounryData =  [... tempJounryData, {id:data.key,... data.val()}];
+                console.log(tempJounryData);
+        
+
+            });
+            this.setState({
+                cardData:tempJounryData,
+                isload:true
+            })
+        },
+        
+        )
+        
 
     }
 
@@ -27,14 +47,21 @@ export default class CardDetails extends Component {
         return (
             <Col sm={StyledHome.ColumnSize}>
                     <h5>Credit</h5>
-                    <Container style={StyledHome.card}>
+
+                    {this.state.isload?
+                    (<Container style={StyledHome.card}>
                          <p>Transist card</p>
-                         <h3>Available Amount :<span>{this.state.availableAmount}</span> </h3>
-                         <h6> Amount :<span>{this.state.amount}</span> </h6>
-                         <p> Expire date:<span>{this.state.expiredDate}</span> </p>
+                         <h3>Available Amount :<b>{this.state.cardData[0].amount}</b> </h3>
+                            
+                            <h5> Expire date: <span>{ this.state.cardData[0].tokentype}</span> </h5>
+
+                         <h6> Expire date: <span>{new Date(this.state.cardData[0].expiryDate).toDateString()}</span> </h6>
+                         <h6> IssueDate date:<span>{new Date(this.state.cardData[0].issueDate).toDateString()}</span> </h6>
 
 
-                    </Container>
+                    </Container>):'dxd' }
+
+                   
                 </Col>
         )
     }
