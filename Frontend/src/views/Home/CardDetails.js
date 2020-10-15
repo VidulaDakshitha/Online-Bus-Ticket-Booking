@@ -16,13 +16,19 @@ export default class CardDetails extends Component {
     }
 
     componentDidMount(){
+        this.getData()
+      
+
+    }
+
+    getData= async ()=> {
+
 
         database.ref('token').orderByChild("email").equalTo(this.state.userEmail).on('value',(snapshot)=>{
             var tempJounryData=[];
-
             snapshot.forEach(data=>{
-            //   tempJounryData =  [... tempJounryData, {id:data.key,... data.val()}];
-            tempJounryData.push(snapshot.val())
+              tempJounryData =  [... tempJounryData, {id:data.key,... data.val()}];
+            // tempJounryData.push(snapshot.val())
                 console.log(tempJounryData);
         
 
@@ -34,10 +40,6 @@ export default class CardDetails extends Component {
         },
         
         )
-
-    }
-
-    getData= async ()=> {
       
         
 

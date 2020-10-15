@@ -12,7 +12,7 @@ export default class AdmnReport extends Component {
         this.state = {
             passengerData:[],
             jounryData:[],
-            tokenDate:[],
+            tokenData:[],
             isload:false
 
         }
@@ -21,6 +21,7 @@ export default class AdmnReport extends Component {
 
         componentDidMount(){
             this.getPassengerData()
+            this.getTokeData()
              
 
         }
@@ -34,14 +35,9 @@ export default class AdmnReport extends Component {
                 snapshot.forEach(data=>{
                     tempPassengerData=  [...tempPassengerData,{id:data.key,... data.val()}];
                     console.log("get Passenger data");
-    
-                   
-            
+                               
     
                 });
-
-
-
 
                 this.setState({
                     passengerData:tempPassengerData,
@@ -68,52 +64,23 @@ export default class AdmnReport extends Component {
     
         }
     
-        getJournyData = async ()=>{
-    
-    
-            database.ref('journey').on('value',(snapshot)=>{
-                var tempJounryData=[];
+         getTokeData = async ()=>{
 
-                snapshot.forEach(data=>{
-                  tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
-                    console.log(tempJounryData);
-            
-    
-                });
-                this.setState({
-                    jounryData:tempJounryData,
-                    isload:true
-                })
-            },(err)=>{
-                if (err) {
-                    console.log(err);
-    
-                    } else {
-                        console.log("data retrived");
-                        this.getData();
-                   }
-    
-            }
-            
-            )
-    
-        }
-
-        getTokeData = async ()=>{
-    
-    
             database.ref('token').on('value',(snapshot)=>{
                 var tempTokenData=[];
-
                 snapshot.forEach(data=>{
-                  tempTokenData=   [... tempTokenData, {id:data.key,... data.val()}];
-                    console.log(tempTokenData);
-            
+                    tempTokenData=  [...tempTokenData,{id:data.key,... data.val()}];
+                    console.log("get Passenger data");
+                               
     
                 });
+
                 this.setState({
-                    tokenDate:tempTokenData,
+                    tokenData:tempTokenData,
                     isload:true
+                   
+    
+                     
                 })
             },(err)=>{
                 if (err) {
@@ -127,6 +94,9 @@ export default class AdmnReport extends Component {
             }
             
             )
+     
+        
+          
     
         }
 
@@ -135,7 +105,7 @@ export default class AdmnReport extends Component {
         return (
             <Row>
                
-                <Token></Token>
+                <Token tokenData={this.state.tokenData}></Token>
                 <Passenger passengerData={this.state.passengerData} load={this.state.isload}></Passenger>
              
                 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Table } from 'reactstrap';
+import { Col, Input, Table } from 'reactstrap';
 import {database, firestore} from "../../firebasejs";
 
 
@@ -9,7 +9,9 @@ export default class Passenger extends Component {
         super(props);
         this.state = {
             passengerData: props.passengerData,
-            isload:false
+            isload:false,
+            searchString:""
+
         }
 
 
@@ -22,6 +24,11 @@ export default class Passenger extends Component {
 
 
     }
+
+    handleChange = (e) => {
+        this.setState({ searchString:e.target.value });
+      }
+
 
     showPassengerTable = (passengers)=>{
 
@@ -41,7 +48,7 @@ export default class Passenger extends Component {
     }
 
     deletePassenger =(id)=>{
-        database.ref('passenger')
+        // database.ref('passenger')
 
     }
 
@@ -51,11 +58,30 @@ export default class Passenger extends Component {
 
 
     render() {
-        let d = this.props.passengerData
+        var passegerData = this.props.passengerData,
+        searchString = this.state.searchString.trim().toLowerCase();
+        if (searchString.length > 0) {
+            passegerData = passegerData.filter(function(i) {
+                 return (i.identity.toLowerCase().match( searchString )||
+                        i.username.toLowerCase().match( searchString )||
+                        i.usercatergory.toLowerCase().match( searchString )||
+                        i.tokentype.toString().match( searchString )
+                         );
+            });
+         }
+
+
+
+
+
+
+
+
+
         return (
-            <Col sm={StyledHome.ColumnSize}>
+            <Col sm={StyledHome.ColumnSize} style={StyledHome.colStyle}>
                   <h5>Passnger Details</h5>
-                  <p> {this.props.passengerData.length} </p>
+                  <Input placeholder={'Serach Passenger '}  value={this.state.searchString} onChange={this.handleChange}></Input>   
 
                   <Table size="sm" responsive>
                     <thead>
@@ -68,24 +94,12 @@ export default class Passenger extends Component {
 
                         </thead>
                         <tbody>
-                        {this.showPassengerTable(this.props.passengerData)}
+                        {this.showPassengerTable(passegerData)}
 
-                       {/* { d.map(passenger=> 
-           
-                        <tr key={passenger.id} >
-                             <th >{passenger.identity}</th>
-                            <td>{passenger.username}</td>
-                            <td>{passenger.usercatergory}</td>
-                            <td>{passenger.tokentype}</td>
-                         </tr>
-                       )
-      
-                          } */}
-                            
+                                                 
                         </tbody>
 
-
-      </Table>
+                 </Table>
                 
                 
             </Col>
@@ -105,6 +119,11 @@ const StyledHome ={
    ColumnSizefixd: {
     size: '6',
     offset: 1
-   }
+   },
+   colStyle:{
+    padding:12,
+    borderRadius:7,
+    backgroundColor:"#DCEAF5"
+}
 
 }
