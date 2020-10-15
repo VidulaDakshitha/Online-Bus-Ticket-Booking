@@ -18,6 +18,7 @@ export default class AdmnReport extends Component {
         }
     }
 
+
         componentDidMount(){
             this.getPassengerData()
              
@@ -26,9 +27,10 @@ export default class AdmnReport extends Component {
 
         getPassengerData =async ()=>{
 
-            var tempPassengerData=[];
+           
             
             database.ref('passenger').on('value',(snapshot)=>{
+                var tempPassengerData=[];
                 snapshot.forEach(data=>{
                     tempPassengerData=  [...tempPassengerData,{id:data.key,... data.val()}];
                     console.log("get Passenger data");
@@ -68,9 +70,10 @@ export default class AdmnReport extends Component {
     
         getJournyData = async ()=>{
     
-            var tempJounryData=[];
     
             database.ref('journey').on('value',(snapshot)=>{
+                var tempJounryData=[];
+
                 snapshot.forEach(data=>{
                   tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
                     console.log(tempJounryData);
@@ -98,9 +101,10 @@ export default class AdmnReport extends Component {
 
         getTokeData = async ()=>{
     
-            var tempTokenData=[];
     
             database.ref('token').on('value',(snapshot)=>{
+                var tempTokenData=[];
+
                 snapshot.forEach(data=>{
                   tempTokenData=   [... tempTokenData, {id:data.key,... data.val()}];
                     console.log(tempTokenData);

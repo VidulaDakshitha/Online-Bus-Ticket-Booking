@@ -1,153 +1,143 @@
-import React, { Component } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
 import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
-import { css } from "@emotion/core";
-import HashLoader from "react-spinners/HashLoader";
+
+import moment from "moment";
+
 import Wallpaper from "../../../assets/wallpaper.jpg";
 import {auth, database} from "../../../firebasejs";
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-  position: absolute;
-  margin-top: -13px;
-	margin-left: -13px;
-  left: 50%;
-  top: 50%;
-`;
 
-class Login extends Component {
 
-  constructor(props){
-    super(props);
-    this.state={
-      username:"",
-      password:"",
-      loading:false,
-      paneltype:"",
-      date: new Date(),
-      error:''
-    }
-  }
+function Login(props){
+
+
+
+    const [username,setUsername]=useState('');
+    const [password,setPassword]=useState('');
+    const [error,setError]=useState('');
 
 
 
 
 
-  onChangeHandler=(e)=>{
-
-    this.setState({
-      [e.target.name]:e.target.value
-    })
-
-  }
-
-  componentDidMount() {
-    auth.onAuthStateChanged((user)=>{
-      if (user){
-        this.props.history.push("/dashboard");
-      }
-    });
-  }
+ useEffect(()=>{
+   auth.onAuthStateChanged((user)=>{
+     if (user){
+       props.history.push("/dashboard/1");
+     }
+   });
+ },[])
 
 
-  onSubmitHandler=(e)=>{
+
+ const onSubmitHandler=(e)=>{
 
     e.preventDefault();
 
+if(username==="admin@gmail.com" && password==="admin")
+{
+  localStorage.setItem("usertype","admin")
+  localStorage.setItem("email",username);
+  localStorage.setItem('fulEmail',username);
 
-    var username=this.state.username.split("@")[0];
+ // this.props.history.push("/dashboard");
+
+ window.location.href="/#/dashboard"
+
+}else{
+
+
+
+
+    var user=username.split("@")[0];
     try {
-      auth.signInWithEmailAndPassword(this.state.username,this.state.password).then(()=>{
+      auth.signInWithEmailAndPassword(username,password).then(()=>{
 
-              localStorage.setItem("email",this.state.username);
-              this.props.history.push("/dashboard");
+        database.ref('token').orderByChild('email').equalTo(username.trim()).once('value',(snapshot)=>{
+          let time = new Date().getTime();
+          
+         
 
-              if(this.state.username==="admin" && this.state.password==="admin") {
-                localStorage.setItem("usertype","admin")
-
-              }else{
-                localStorage.setItem("usertype","user")
-              }
-            }).catch((error)=> {
-              this.setState({
-                error:error.message
-              });
-            });
+          snapshot.forEach(data=>{
+            localStorage.setItem("tokenType",data.val().tokentype)
 
 
+       if(moment(data.val().expiryDate).isBefore(moment(new Date()).format("YYYY-MM-DD")) && data.val().tokentype!=="single")
+       {
+        database.ref(`token/${data.key}/`).update({isactive:0})
+
+       }else if(moment(moment(data.val().issueDate).format("YYYY-MM-DD")).isBefore(moment(new Date()).format("YYYY-MM-DD")) && data.val().tokentype==="single")
+          {
+
+            database.ref(`token/${data.key}/`).update({isactive:0})
+          }
 
 
+          })
+        })
 
+        // if(user==="admin" && password==="admin") {
+        //   localStorage.setItem("usertype","admin")
+        // }else{
 
+        //   localStorage.setItem("usertype","user")
+        // }
+
+        localStorage.setItem("usertype","user")
+        localStorage.setItem("email",username);
+        localStorage.setItem('fulEmail',username);
+
+        this.props.history.push("/dashboard");
+
+    
+
+      }).catch((error)=> {
+             setError(error.message)
+      });
 
     }catch (e) {
 
     }
-
-
-
-
-
   }
+ }
 
 
 
 
-  render() {
+
     return (
       <div  style={{backgroundImage: `url(${Wallpaper})`,backgroundRepeat:"no-repeat",backgroundSize:"100% 100%"}}>
             <div style={{position:"absolute",paddingLeft:"20px",paddingTop:"20px"}}>
 
         </div>
-      <div className="app flex-row align-items-center">
+        <div className="app flex-row align-items-center">
+        <div className="sweet-loading text-center" style={{zIndex:"5"}}>
 
-
-
-
-
-
-
-
-
-               <div className="sweet-loading text-center" style={{zIndex:"5"}}>
-        <HashLoader
-          css={override}
-          size={75}
-          color={"#123abc"}
-          loading={this.state.loading}
-        />
       </div>
 
 
         <Container>
-
-
-
-
           <Row className="justify-content-center">
+
             <Col md="6">
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form onSubmit={this.onSubmitHandler}>
+                    <Form onSubmit={onSubmitHandler}>
                       <h1>Ticketing System</h1>
                       <p className="text-muted">Sign In to your account</p>
-
-                      {this.state.error&&<div className="alert alert-danger">{this.state.error}</div>}
-
-
+                      {error&&<div className="alert alert-danger">{error}</div>}
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="username" autoComplete="Email" name="username" value={this.state.username} onChange={this.onChangeHandler} required/>
+                        <Input type="text" placeholder="username" autoComplete="Email" name="username" value={username} onChange={e=>setUsername(e.target.value)} required/>
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -155,23 +145,22 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" name="password" value={this.state.password} onChange={this.onChangeHandler} required/>
+                        <Input type="password" placeholder="Password" autoComplete="current-password" name="password" value={password} onChange={e=>setPassword(e.target.value)} required/>
                       </InputGroup>
                       <Row>
                         <Col xs="6">
                           <Button color="primary" className="px-4">Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0" onClick={()=>{window.location.href="#/forgotpassword"}}>Forgot password?</Button>
+                          <Button color="link" className="px-0" onClick={()=>{props.history.push("/forgotpassword")}}>Forgot password?</Button>
                         </Col>
-                        <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0" onClick={()=>{ this.props.history.push("/register");}}>Register</Button>
+                        <Col xs="6" className="text-left">
+                          <Button color="link" className="px-0" onClick={()=>{ props.history.push("/register")}}>I do not have an account</Button>
                         </Col>
                       </Row>
                     </Form>
                   </CardBody>
                 </Card>
-
               </CardGroup>
             </Col>
           </Row>
@@ -180,7 +169,7 @@ class Login extends Component {
       </div>
 
     );
-  }
+
 }
 
 export default Login;
