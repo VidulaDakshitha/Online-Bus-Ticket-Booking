@@ -49,7 +49,7 @@ class AdminUserHistory extends Component {
         return (
             <div>
                 <Row>
-                    <Col xs="12" sm="10">
+                    <Col xs="12" sm="12">
                     <Card >
                     <CardHeader><h3>User History</h3></CardHeader>
                     <CardBody>
@@ -65,6 +65,7 @@ class AdminUserHistory extends Component {
                                 <th>Status</th>
                                 <th>Amount(LKR)</th>
                                 <th>Distance(KM)</th>
+                                <th>Date</th>
                                 </tr>
                             </thead>
                             {this.state.realTimeDB.map(
@@ -79,6 +80,7 @@ class AdminUserHistory extends Component {
                                     <td>{data.status}</td>
                                     <td>{data.fullAmount}</td>
                                     <td>{data.distance}</td>
+                                    <td>{data.date}</td>
                                         </tr>
                                     </tbody>)
                             )
