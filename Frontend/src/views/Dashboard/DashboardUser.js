@@ -157,13 +157,13 @@ componentDidMount() {
             <TabPane tabId="8">
 
             {
-              <div>This is Admin Topup</div>
+              <div><AdminTopUp /></div>
             }
             </TabPane>
             <TabPane tabId="9">
 
             {
-              <div>This is Passenger history</div>
+              <div><AdminUserHistory /></div>
             }
             </TabPane>
 
