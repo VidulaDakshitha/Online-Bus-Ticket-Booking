@@ -15,7 +15,6 @@ export default  class Token extends Component {
 
     componentDidMount(){
 
-        console.log(this.state.tokenData.length);
 
 
 }
@@ -23,7 +22,7 @@ export default  class Token extends Component {
 
 
     tokenDeactive=(id,active)=>{
-
+       //Token Activate or deactovate
         if(active==1){
 
             database.ref('token/'+id).update({isactive:0},(err)=>{
@@ -35,6 +34,7 @@ export default  class Token extends Component {
                    }
             });
 
+            //If Token is deactivate ,Token re-activate form this function
         }else if(active==0){
 
             database.ref('token/'+id).update({isactive:1},(err)=>{
@@ -54,11 +54,12 @@ export default  class Token extends Component {
 
     }
 
+//Token search text handler
     handleChange = (e) => {
         this.setState({ searchString:e.target.value });
       }
 
-
+//Geneate Token table
     showTokenTable = (tokens)=>{
 
         return(  tokens.map((token,i)=>{
@@ -70,6 +71,7 @@ export default  class Token extends Component {
                    <td>{new Date( token.issueDate).toDateString()}</td>
                    <td>{token.tokentype}</td>
                    <td>
+                       {/* If token is deactivate ,token activate button show */}
                        {token.isactive==1?
                        <Button outline color="danger" onClick={()=>{this.tokenDeactive(token.id,token.isactive)}}>deactivate</Button>:
                        <Button outline color="success" onClick={()=>{this.tokenDeactive(token.id,token.isactive)}}>activate</Button>
@@ -92,6 +94,7 @@ export default  class Token extends Component {
 
 
 
+        //Filter data
         var tokenData = this.props.tokenData,
         searchString = this.state.searchString.trim().toLowerCase();
                 if (searchString.length > 0) {
@@ -134,7 +137,7 @@ export default  class Token extends Component {
     }
 }
 
-
+//Token Style
 const StyledHome ={
      
     ColumnSize:{
