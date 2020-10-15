@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody,CardHeader, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
-
+import QRcodefile from "../QRcode/QRcode";
 import {
     Nav,
     NavItem,
@@ -141,7 +141,8 @@ componentDidMount() {
             <TabPane tabId="5">
 
             {
-              <div className="text-center"><img className="img-fluid" src={qr}/></div>
+              // <div className="text-center"><img className="img-fluid" src={qr}/></div>
+              <QRcodefile/>
             }
             </TabPane>
             <TabPane tabId="6">
