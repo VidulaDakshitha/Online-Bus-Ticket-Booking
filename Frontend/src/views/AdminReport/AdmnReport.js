@@ -20,15 +20,16 @@ export default class AdmnReport extends Component {
 
 
         componentDidMount(){
+            //Load Token and passenger data
             this.getPassengerData()
             this.getTokeData()
              
 
         }
 
+        //Get all passenger data from firbase
         getPassengerData =async ()=>{
-
-           
+          
             
             database.ref('passenger').on('value',(snapshot)=>{
                 var tempPassengerData=[];
@@ -64,6 +65,7 @@ export default class AdmnReport extends Component {
     
         }
     
+        //Get all Token data form firbase
          getTokeData = async ()=>{
 
             database.ref('token').on('value',(snapshot)=>{
@@ -107,8 +109,7 @@ export default class AdmnReport extends Component {
                
                 <Token tokenData={this.state.tokenData}></Token>
                 <Passenger passengerData={this.state.passengerData} load={this.state.isload}></Passenger>
-             
-                
+
             </Row>
         );
     }

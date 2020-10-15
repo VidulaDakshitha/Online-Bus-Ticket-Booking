@@ -23,6 +23,7 @@ export default class LatestTravelDetails extends Component {
 
     }
 
+    //Get Latst Active journey
     getData=async()=>{
         var tempJounryData=[];
 
@@ -41,6 +42,7 @@ export default class LatestTravelDetails extends Component {
  
     }
 
+    //Deactiate Jounry
     deactivateJourney=(id)=>{
         
         database.ref('journey/'+id).update( {status:"Completed"},(err)=>{
@@ -78,6 +80,7 @@ export default class LatestTravelDetails extends Component {
          }
     }
 
+    //Show last jounry
     showLastTravel=()=>{
 
                return this.state.latestTravel.map(travle=>{
