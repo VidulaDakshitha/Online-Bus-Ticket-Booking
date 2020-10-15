@@ -96,7 +96,7 @@ class AdminTopUp extends Component {
                     database.ref(`token/${data.key}/`).update({
                         amount:this.state.totalAmount,
                         issueDate: this.state.today,
-                        expiryDate: moment(moment().add(1,'d').toDate()).format("YYYY-MM-DD"),
+                        expiryDate: "",
                         isactive: 1,
                         tokentype: "single"
                     

@@ -66,7 +66,7 @@ export default  class Token extends Component {
                return(
                  <tr key={token.id} >
                    <th>{token.email}</th>
-                   <td>{token.isactive==0?<Badge color="secondary">De Active</Badge>:<Badge   color="success">Active</Badge> }</td>
+                   <td>{token.isactive==0?<Badge color="secondary">InActive</Badge>:<Badge   color="success">Active</Badge> }</td>
                    <td>{token.amount}</td>
                    <td>{new Date( token.issueDate).toDateString()}</td>
                    <td>{token.tokentype}</td>

@@ -81,7 +81,7 @@ export default class Passenger extends Component {
                         <tr>
                             <th>identity</th>
                             <th>username</th>
-                            <th>usercatergory</th>
+                            <th>usertype</th>
                             <th>tokentype</th>
                             </tr>
 

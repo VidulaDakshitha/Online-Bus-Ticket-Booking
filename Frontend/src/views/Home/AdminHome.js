@@ -138,7 +138,7 @@ export default class AdminHome extends Component {
                  
                     </Col>
                     <Col style={StyledHome.card,StyledHome.color3}>
-                        <h5>Forign User </h5>
+                        <h5>Foreign User </h5>
                         <h3>{this.state.passengerData.length-this.state.localPassenger.length}</h3>
 
 
@@ -150,7 +150,7 @@ export default class AdminHome extends Component {
                     </IconContext.Provider>
                     </Col>
                     <Col style={StyledHome.card,StyledHome.color4}>
-                        <h5>Total Jounry</h5>
+                        <h5>Total Journey</h5>
                         <h3>{this.state.jounryData.length} </h3>
 
                         <IconContext.Provider value={{size:"2em" }} >

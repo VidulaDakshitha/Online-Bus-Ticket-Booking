@@ -66,12 +66,12 @@ export default class CardDetails extends Component {
 
                     {this.state.cardData.length>0?
                     (<Container style= {(this.state.cardData[0].tokentype=='single')?StyledHome.cardMonthly: StyledHome.cardSingl}>
-                         <p>Transist card</p>
+                         <p>Transit token card</p>
                          <h3>Available Amount :<b>{this.state.cardData[0].amount}</b> </h3>
-                         <h6> Expire date: <span>{ this.state.cardData[0].tokentype}</span> </h6>
+                         <h6> Expire Type: <span>{ this.state.cardData[0].tokentype}</span> </h6>
                          <h6> Expire date: <span>{new Date(this.state.cardData[0].expiryDate).toDateString()}</span> </h6>
-                         <p> IssueDate date:<span>{new Date(this.state.cardData[0].issueDate).toDateString()}</span> </p>
-                         <p>  {this.state.cardData[0].isactive==0?<Badge color="secondary" pill>Token Expireed</Badge> :<Badge color="success" pill>Token Valied</Badge>}  </p>
+                         <p> IssueDate: <span>{new Date(this.state.cardData[0].issueDate).toDateString()}</span> </p>
+                         <p>  {this.state.cardData[0].isactive==0?<Badge color="secondary" pill>Token Expireed</Badge> :<Badge color="success" pill>Token Valid</Badge>}  </p>
                            
                                         
                          
