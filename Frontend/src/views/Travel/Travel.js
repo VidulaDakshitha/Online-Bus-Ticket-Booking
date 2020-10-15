@@ -1,27 +1,20 @@
-import React, { Component, useState, useEffect } from 'react';
-import { Button, Card, CardBody,CardHeader, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
+import React, { Component } from 'react';
+import { Button, Card, CardBody,CardHeader, Col, Form, Input, Row } from 'reactstrap';
 import {
-    Nav,
-    NavItem,
-    NavLink,
-    TabContent,
-    TabPane,
-    FormGroup,
     Label,
-    Table,
-    CardTitle,
     CardText,
-    Dropdown,
-    DropdownToggle,
-    DropdownItem,
-    DropdownMenu,
-    Select,
     Alert,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
+    Table
     
   } from "reactstrap";
+
+// import Table from "@material-ui/core/Table";
+// import TableBody from "@material-ui/core/TableBody";
+// import TableCell from "@material-ui/core/TableCell";
+// import TableHead from "@material-ui/core/TableHead";
+// import TableRow from "@material-ui/core/TableRow";
+// import TablePagination from "@material-ui/core/TablePagination";
+// import Paper from "@material-ui/core/Paper";
   
 
   import {database, firestore} from "../../firebasejs";
@@ -69,7 +62,9 @@ class Travel extends Component {
             pageNumber:1,
             limit:1,
             pageCount:null,
-            length:null
+            length:null,
+            page: 0,
+            rowsPerPage: 8
         };
     }
 
@@ -148,6 +143,14 @@ class Travel extends Component {
         }
 
     }
+
+    handleChangePage = (event, page) => {
+        this.setState({ page });
+      };
+    
+      handleChangeRowsPerPage = event => {
+        this.setState({ rowsPerPage: event.target.value });
+      };
     
 
     checkInputAndSubmit = async(e) => {
@@ -265,8 +268,9 @@ class Travel extends Component {
 
     
     render() {
-
-        const { pageNumber } = this.state;
+        // const { data, rowsPerPage, page } = this.state;
+        // const emptyRows =
+        // rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return (
             <div>
@@ -308,7 +312,50 @@ class Travel extends Component {
                             )
                         }
                         </Table>
-
+                        {/* <Table responsive bordered className="table">
+                            <TableHead>
+                                <TableRow>
+                                <TableCell>REF No.</TableCell>
+                                <TableCell>UserID</TableCell>
+                                <TableCell>From</TableCell>
+                                <TableCell>To</TableCell>
+                                <TableCell>Status</TableCell>
+                                <TableCell>Amount(LKR)</TableCell>
+                                <TableCell>Points</TableCell>
+                                <TableCell>Date:</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            {this.state.realTimeDB.map(
+                                data=>(
+                                    
+                                    <TableBody>
+                                        <TableRow>
+                                    <TableCell component = "th" scope="row">{data.id}</TableCell>
+                                    <TableCell>{data.userID}</TableCell>
+                                    <TableCell>{data.fromDestination}</TableCell>
+                                    <TableCell>{data.toDestination}</TableCell>
+                                    <TableCell>{data.status}</TableCell>
+                                    <TableCell>{data.fullAmount}</TableCell>
+                                    <TableCell>{data.distance}</TableCell>
+                                    <TableCell>{data.date}</TableCell>
+                                        </TableRow>
+                                        {emptyRows > 0 && (
+                                        <TableRow style={{ height: 49 * emptyRows }}>
+                                        <TableCell colSpan={6} />
+                                        </TableRow>
+                                    )}
+                                    </TableBody>)
+                            )
+                        }
+                        </Table>
+                        <TablePagination
+                            component="div"
+                            count={this.state.realTimeDB.length}
+                            rowsPerPage={this.state.rowsPerPage}
+                            page={this.state.page}
+                            onChangePage={this.handleChangePage}
+                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                        /> */}
                    
                     </CardBody>
                     </Card>

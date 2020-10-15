@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Col, Container } from 'reactstrap'
+import { FaBus } from 'react-icons/fa';
+import { IconContext } from 'react-icons/lib';
+import { Badge, Col, Container, Row } from 'reactstrap'
 import {database, firestore} from "../../firebasejs";
 
 
@@ -28,8 +30,10 @@ export default class CardDetails extends Component {
             var tempJounryData=[];
             snapshot.forEach(data=>{
               tempJounryData =  [... tempJounryData, {id:data.key,... data.val()}];
-            // tempJounryData.push(snapshot.val())
                 console.log(tempJounryData);
+
+                localStorage.setItem("tokenID", tempJounryData[0].id);
+
         
 
             });
@@ -37,6 +41,8 @@ export default class CardDetails extends Component {
                 cardData:tempJounryData,
                 isload:true
             })
+
+
         },
         
         )
@@ -53,15 +59,24 @@ export default class CardDetails extends Component {
                     <h5>Credit</h5>
 
                     {this.state.cardData.length>0?
-                    (<Container style={StyledHome.card}>
-                         <p>Transist card</p>
+                    (<Container style= {(this.state.cardData[0].tokentype=='single')?StyledHome.cardMonthly: StyledHome.cardSingl}>
+                         <p>Transit token card</p>
                          <h3>Available Amount :<b>{this.state.cardData[0].amount}</b> </h3>
-                            <h5> Expire date: <span>{ this.state.cardData[0].tokentype}</span> </h5>
-
+                         <h6> Expire Type: <span>{ this.state.cardData[0].tokentype}</span> </h6>
                          <h6> Expire date: <span>{new Date(this.state.cardData[0].expiryDate).toDateString()}</span> </h6>
-                         <h6> IssueDate date:<span>{new Date(this.state.cardData[0].issueDate).toDateString()}</span> </h6>
-
-
+                         <p> IssueDate: <span>{new Date(this.state.cardData[0].issueDate).toDateString()}</span> </p>
+                         <p>  {this.state.cardData[0].isactive==0?<Badge color="secondary" pill>Token Expireed</Badge> :<Badge color="success" pill>Token Valid</Badge>}  </p>
+                           
+                       
+                              
+                         
+                            
+                        
+                        
+                         
+                         
+                         
+                         
                     </Container>):' Loadding...' }
 
                    
@@ -79,16 +94,31 @@ const StyledHome ={
            offset: 1
        
        },
-        card:{
+        cardSingl:{
            backgroundImage:'linear-gradient(to right top, #0effab, #00efda, #00dbfd, #00c2ff, #00a6ff)',
            borderRadius:10,
-           height:175,
+           height:200,
            padding:10,
            margin:5,
            boxShadow: '-1px 4px 8px 0px #c7c7c7',
 
             
-       }
+       },
+       iconAligment:{
+        textAlign: 'end',
+        padding:10,
+        marginLeft: '100'
+       },
+       cardMonthly:{
+          backgroundImage:'linear-gradient(to right top, #f44838, #fe731e, #fe9d00, #f5c500, #e2eb12)',
+          borderRadius:10,
+          height:175,
+          padding:10,
+          margin:5,
+          boxShadow: '-1px 4px 8px 0px #c7c7c7',
+
+           
+      }
    
    }
    
