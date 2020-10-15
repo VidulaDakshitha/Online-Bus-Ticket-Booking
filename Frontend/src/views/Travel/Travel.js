@@ -138,7 +138,7 @@ class Travel extends Component {
                 })
             }
         })
-
+        
         await this.state.realTimeDBToken.map( val=>{
             if(val.isactive===0)
             {
