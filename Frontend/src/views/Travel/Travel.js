@@ -65,22 +65,33 @@ class Travel extends Component {
             activeTrue: false,
             tokenExpired: false,
             insufficientCredit: false,
-            availableAmount: 0
+            availableAmount: 0,
+            pageNumber:1,
+            limit:1,
+            pageCount:null,
+            length:null
         };
     }
 
-    componentDidMount(){
+    componentDidMount=async()=>{
+
+
+      
         database.ref('journey').orderByChild("userID").equalTo(this.state.userID).on('value',(snapshot)=>{
             tempRealTimeDb=[];
+            //console.log(snapshot.numChildren())
             snapshot.forEach(arr=>{
+                
                 tempRealTimeDb=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
             });
-
+           
             this.setState({
                 realTimeDB: tempRealTimeDb,
+                
             })
         })
 
+    
         database.ref('token').orderByChild("email").equalTo(this.state.userID).on('value',(snapshot)=>{
             tempRealTimeDbToken=[];
             snapshot.forEach(arr=>{
@@ -91,6 +102,18 @@ class Travel extends Component {
                 realTimeDBToken: tempRealTimeDbToken,
             })
         })
+        this.receivedData(1, 1);
+    }
+
+
+    receivedData=(e, index)=>{
+
+
+
+        this.setState({
+            pageCount:Math.ceil(this.state.length/this.state.limit),
+            pageNumber:Math.ceil(this.state.length/this.state.limit)
+        },()=>console.log("counr"+this.state.pageCount))
 
     }
 
@@ -242,6 +265,9 @@ class Travel extends Component {
 
     
     render() {
+
+        const { pageNumber } = this.state;
+
         return (
             <div>
                 <Row>
@@ -282,6 +308,8 @@ class Travel extends Component {
                             )
                         }
                         </Table>
+
+                   
                     </CardBody>
                     </Card>
 

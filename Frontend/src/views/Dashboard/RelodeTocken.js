@@ -34,14 +34,14 @@ function RelodeTocken(props) {
 
         let newAmount=(Number.parseInt(data.val().amount)+Number.parseInt(amount));
 
-if(data.val().isactive===0 && data.val().tokentype==="monthly")
+if(data.val().isactive===0 && (data.val().tokentype==="monthly"||data.val().tokentype==="temporary"))
 {
   const issuedate=new Date().toString();
   const expire=moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD");
 
  database.ref(`token/${data.key}/`).update({amount:newAmount,isactive:1,issueDate:issuedate,expiryDate:expire});
  setSuccess('Top-up Successfully');
-}else if(data.val().isactive===1 && data.val().tokentype==="monthly")
+}else if(data.val().isactive===1 && (data.val().tokentype==="monthly"||data.val().tokentype==="temporary"))
 {
 
   const issuedate=new Date().toString();
@@ -52,7 +52,7 @@ if(data.val().isactive===0 && data.val().tokentype==="monthly")
  setSuccess('Top-up Successfully');
 
 
-}else if(data.val().isactive===0 && (data.val().tokentype==="single"||data.val().tokentype==="temporary"))
+}else if(data.val().isactive===0 && data.val().tokentype==="single")
 {
 
   const issuedate=new Date(datevalue).toString();
@@ -61,7 +61,7 @@ if(data.val().isactive===0 && data.val().tokentype==="monthly")
  database.ref(`token/${data.key}/`).update({amount:newAmount,isactive:1,issueDate:issuedate});
  setSuccess('Top-up Successfully');
 
-}else if(data.val().isactive===1 && (data.val().tokentype==="single"||data.val().tokentype==="temporary"))
+}else if(data.val().isactive===1 && data.val().tokentype==="single")
 {
   const issuedate=new Date().toString();
   
@@ -86,10 +86,11 @@ if(data.val().isactive===0 && data.val().tokentype==="monthly")
   return(
     <Card>
       <CardBody>
-      {(status.toString()==="1" && parseFloat(tAmount)<100 && type==="monthly") || ((status.toString()==="1"||status.toString()==="0") && (type==="single"||type==="temporary")) ||(status.toString()==="0" && type==="monthly") ?
+      {(status.toString()==="1" && parseFloat(tAmount)<100 && (type==="monthly"||type==="temporary")) || ((status.toString()==="1"||status.toString()==="0") && type==="single") ||(status.toString()==="0" && (type==="monthly"||type==="temporary")) ?
     
         <form onSubmit={submit}>
           {success&&<div className="alert alert-success">{success}</div>}
+
 
 {status.toString()==="0" && (type==="single"||type==="temporary")?
           <FormGroup row>
@@ -100,7 +101,8 @@ if(data.val().isactive===0 && data.val().tokentype==="monthly")
               <Input value={datevalue}  type="date" id="datevalue" name="datevalue" onChange={e=>setDatevalue(e.target.value)}  />
             </Col>
           </FormGroup>
-:<h3 className="text-center">The date the topup can be used {moment(moment()).format("YYYY-MM-DD")}</h3>}
+:type!=="monthly"?
+<h3 className="text-center">The date the topup can be used {moment(moment()).format("YYYY-MM-DD")}</h3>:<></>}
 
           <FormGroup row>
             <Col md="3">
