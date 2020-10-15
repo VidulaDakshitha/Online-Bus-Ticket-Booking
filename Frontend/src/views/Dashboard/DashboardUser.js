@@ -32,6 +32,8 @@ import Travel from "../Travel/Travel";
 import AdminTopUp from "../AdminTopUp/AdminTopUp";
 import AdminUserHistory from "../AdminUserHistory/AdminUserHistory";
 import Sample from "../SamplePage";
+import AdmnReport from '../AdminReport/AdmnReport';
+ 
 import RelodeTocken from "./RelodeTocken";
 
 const useStyles =theme => ({
@@ -145,7 +147,7 @@ componentDidMount() {
             <TabPane tabId="6">
 
             {
-              <div>This is reports</div>
+              <AdmnReport></AdmnReport>
             }
             </TabPane>
             <TabPane tabId="7">

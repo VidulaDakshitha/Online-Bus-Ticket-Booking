@@ -29,10 +29,10 @@ export default class AdminHome extends Component {
         var tempPassengerData=[];
         var tempLocalPassengerData=[];
 
-        database.ref('passenger').on('value',(snapshot)=>{
+        database.ref('passenger').once('value',(snapshot)=>{
             snapshot.forEach(data=>{
                 tempPassengerData=   [...tempPassengerData, {id:data.key,... data.val()}];
-                console.log(tempPassengerData);
+                // console.log(tempPassengerData);
 
                 if(data.val().usercatergory=="local"){
                     tempLocalPassengerData=   [...tempLocalPassengerData, {id:data.key,... data.val()}];
@@ -72,7 +72,7 @@ export default class AdminHome extends Component {
         database.ref('journey').on('value',(snapshot)=>{
             snapshot.forEach(data=>{
               tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
-                console.log(tempJounryData);
+                // console.log(tempJounryData);
         
 
             });
