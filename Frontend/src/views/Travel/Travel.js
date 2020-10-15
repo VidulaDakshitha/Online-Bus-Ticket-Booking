@@ -107,7 +107,6 @@ class Travel extends Component {
         if((data.findIndex(e => e.value === this.state.fromDestination)) > (data.findIndex(e => e.value === this.state.toDestination)))
         {
             const tempVar = data.findIndex(e => e.value === this.state.fromDestination) - data.findIndex(e => e.value === this.state.toDestination);
-            console.log("Distance data: ", tempVar);
             this.setState({
                 totalAmount: tempVar * 10.5,
                 distance: tempVar
@@ -116,7 +115,6 @@ class Travel extends Component {
         else if((data.findIndex(e => e.value === this.state.fromDestination)) < (data.findIndex(e => e.value === this.state.toDestination)))
         {
             const tempVar = data.findIndex(e => e.value === this.state.toDestination) - data.findIndex(e => e.value === this.state.fromDestination)
-            console.log("Distance data else: ", tempVar);
             this.setState({
                 totalAmount: tempVar * 10.5,
                 distance: tempVar
@@ -133,36 +131,32 @@ class Travel extends Component {
         e.preventDefault();
         
         await this.state.realTimeDB.map( val=>{
-            console.log("this is status"+val.status)
             if(val.status==="Active")
             {
                 this.setState({
                     activeTrue: true,
-                },()=>console.log("Active: ", this.state.activeTrue))
+                })
             }
         })
 
         await this.state.realTimeDBToken.map( val=>{
-            console.log("this is active status"+val.isactive)
             if(val.isactive===0)
             {
                 this.setState({
                     tokenExpired: true,
-                },()=>console.log("Token: ", this.state.tokenExpired))
+                })
             }
 
             if((val.amount - this.state.totalAmount) < 0)
             {
                 this.setState({
                     insufficientCredit: true,
-                },()=>console.log("Credit insufficient: ", this.state.insufficientCredit))
+                })
             }
             else{
                 this.setState({
                     availableAmount: val.amount - this.state.totalAmount,
-                },()=>console.log("Credit available: ", this.state.availableAmount))
-
-                console.log("Available amount; ", this.state.availableAmount)
+                })
             }
 
             
