@@ -11,6 +11,7 @@ function RelodeTocken(props) {
   const [success,setSuccess]=useState('');
   const [status,setStatus]=useState('');
   const [type,setType]=useState('');
+  const [datevalue,setDatevalue]=useState('');
 
   useState(()=>{
 
@@ -51,9 +52,17 @@ if(data.val().isactive===0 && data.val().tokentype==="monthly")
  setSuccess('Top-up Successfully');
 
 
-}else if((data.val().isactive===0||data.val().isactive===1) && (data.val().tokentype==="single"||data.val().tokentype==="temporary"))
+}else if(data.val().isactive===0 && (data.val().tokentype==="single"||data.val().tokentype==="temporary"))
 {
 
+  const issuedate=new Date(datevalue).toString();
+  
+
+ database.ref(`token/${data.key}/`).update({amount:newAmount,isactive:1,issueDate:issuedate});
+ setSuccess('Top-up Successfully');
+
+}else if(data.val().isactive===1 && (data.val().tokentype==="single"||data.val().tokentype==="temporary"))
+{
   const issuedate=new Date().toString();
   
 
@@ -61,7 +70,6 @@ if(data.val().isactive===0 && data.val().tokentype==="monthly")
  setSuccess('Top-up Successfully');
 
 }
-
        // let newAmount=(Number.parseInt(data.val().amount)+Number.parseInt(amount));
         // database.ref(`token/${data.key}/`).update({amount:newAmount});
         // setSuccess('Top-up Successfully');
@@ -82,6 +90,17 @@ if(data.val().isactive===0 && data.val().tokentype==="monthly")
     
         <form onSubmit={submit}>
           {success&&<div className="alert alert-success">{success}</div>}
+
+{status.toString()==="0" && (type==="single"||type==="temporary")?
+          <FormGroup row>
+            <Col md="3">
+              <Label htmlFor="date-input">Date to be used</Label>
+            </Col>
+            <Col xs="12" md="9">
+              <Input value={datevalue}  type="date" id="datevalue" name="datevalue" onChange={e=>setDatevalue(e.target.value)}  />
+            </Col>
+          </FormGroup>
+:<h3 className="text-center">The date the topup can be used {moment(moment()).format("YYYY-MM-DD")}</h3>}
 
           <FormGroup row>
             <Col md="3">
