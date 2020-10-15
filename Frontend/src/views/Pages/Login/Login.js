@@ -5,6 +5,7 @@ import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
 
+import moment from "moment";
 
 import Wallpaper from "../../../assets/wallpaper.jpg";
 import {auth, database} from "../../../firebasejs";
@@ -37,6 +38,20 @@ function Login(props){
 
     e.preventDefault();
 
+if(username==="admin@gmail.com" && password==="admin")
+{
+  localStorage.setItem("usertype","admin")
+  localStorage.setItem("email",username);
+  localStorage.setItem('fulEmail',username);
+
+ // this.props.history.push("/dashboard");
+
+ window.location.href="/#/dashboard"
+
+}else{
+
+
+
 
     var user=username.split("@")[0];
     try {
@@ -44,24 +59,41 @@ function Login(props){
 
         database.ref('token').orderByChild('email').equalTo(username.trim()).once('value',(snapshot)=>{
           let time = new Date().getTime();
+          
+         
+
           snapshot.forEach(data=>{
             localStorage.setItem("tokenType",data.val().tokentype)
-            if (time!== new Date(data.val().expiryDate).getTime()){
-              database.ref(`token/${data.key}/`).update({isactive:0})
-            }
+
+
+       if(moment(data.val().expiryDate).isBefore(moment(new Date()).format("YYYY-MM-DD")) && data.val().tokentype!=="single")
+       {
+        database.ref(`token/${data.key}/`).update({isactive:0})
+
+       }else if(moment(moment(data.val().issueDate).format("YYYY-MM-DD")).isBefore(moment(new Date()).format("YYYY-MM-DD")) && data.val().tokentype==="single")
+          {
+
+            database.ref(`token/${data.key}/`).update({isactive:0})
+          }
+
+
           })
         })
 
-        if(user==="admin" && password==="admin") {
-          localStorage.setItem("usertype","admin")
-        }else{
+        // if(user==="admin" && password==="admin") {
+        //   localStorage.setItem("usertype","admin")
+        // }else{
 
-          localStorage.setItem("usertype","user")
-        }
+        //   localStorage.setItem("usertype","user")
+        // }
+
+        localStorage.setItem("usertype","user")
         localStorage.setItem("email",username);
         localStorage.setItem('fulEmail',username);
 
         this.props.history.push("/dashboard");
+
+    
 
       }).catch((error)=> {
              setError(error.message)
@@ -70,7 +102,7 @@ function Login(props){
     }catch (e) {
 
     }
-
+  }
  }
 
 
