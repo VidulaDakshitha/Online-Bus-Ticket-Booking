@@ -155,7 +155,7 @@ if(username==="admin@gmail.com" && password==="admin")
                           <Button color="link" className="px-0" onClick={()=>{props.history.push("/forgotpassword")}}>Forgot password?</Button>
                         </Col>
                         <Col xs="6" className="text-left">
-                          <Button color="link" className="px-0" onClick={()=>{ props.history.push("/register")}}>I already have an account</Button>
+                          <Button color="link" className="px-0" onClick={()=>{ props.history.push("/register")}}>I do not have an account</Button>
                         </Col>
                       </Row>
                     </Form>
