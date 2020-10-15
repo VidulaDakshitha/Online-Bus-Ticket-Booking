@@ -66,11 +66,15 @@ if(username==="admin@gmail.com" && password==="admin")
             localStorage.setItem("tokenType",data.val().tokentype)
 
 
-       if(moment(data.val().expiryDate).isBefore(moment(new Date()).format("YYYY-MM-DD")))
+       if(moment(data.val().expiryDate).isBefore(moment(new Date()).format("YYYY-MM-DD")) && data.val().tokentype!=="single")
        {
         database.ref(`token/${data.key}/`).update({isactive:0})
-       }
 
+       }else if(moment(moment(data.val().issueDate).format("YYYY-MM-DD")).isBefore(moment(new Date()).format("YYYY-MM-DD")) && data.val().tokentype==="single")
+          {
+
+            database.ref(`token/${data.key}/`).update({isactive:0})
+          }
 
 
           })
