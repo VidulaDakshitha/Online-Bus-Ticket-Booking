@@ -29,7 +29,7 @@ export default class AdminHome extends Component {
         var tempPassengerData=[];
         var tempLocalPassengerData=[];
 
-        database.ref('passenger').on('value',(snapshot)=>{
+        database.ref('passenger').once('value',(snapshot)=>{
             snapshot.forEach(data=>{
                 tempPassengerData=   [...tempPassengerData, {id:data.key,... data.val()}];
                 console.log(tempPassengerData);

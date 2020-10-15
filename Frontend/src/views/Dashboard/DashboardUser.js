@@ -36,7 +36,8 @@ import Travel from "../Travel/Travel";
 import AdminTopUp from "../AdminTopUp/AdminTopUp";
 import AdminUserHistory from "../AdminUserHistory/AdminUserHistory";
 import Sample from "../SamplePage";
-
+import AdmnReport from '../AdminReport/AdmnReport';
+ 
 const useStyles =theme => ({
     root: {
       display: 'flex',
@@ -260,7 +261,7 @@ class DashboardUser extends Component {
             <TabPane tabId="6">
 
             {
-              <div>This is reports</div>
+              <AdmnReport></AdmnReport>
             }
             </TabPane>
             <TabPane tabId="7">
