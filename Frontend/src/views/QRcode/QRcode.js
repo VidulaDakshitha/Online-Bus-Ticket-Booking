@@ -40,8 +40,9 @@ class QRcodefile extends Component {
 
       <div className="text-center">
 
-<QRCode value={localStorage.getItem("email")} width="50%" />
-        
+
+<QRCode value={localStorage.getItem("email")} style={{width:"250px",height:"250px"}} />
+    
       </div>
     );
   }

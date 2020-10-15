@@ -20,16 +20,14 @@ export default class Passenger extends Component {
 
     componentDidMount(){
 
-         console.log(this.state.passengerData.length);
-
 
     }
-
+//Passenger search text handler
     handleChange = (e) => {
         this.setState({ searchString:e.target.value });
       }
 
-
+//Generate Passeger table
     showPassengerTable = (passengers)=>{
 
      return(  passengers.map((passenger,i)=>{
@@ -58,6 +56,8 @@ export default class Passenger extends Component {
 
 
     render() {
+
+        //Filter Data 
         var passegerData = this.props.passengerData,
         searchString = this.state.searchString.trim().toLowerCase();
         if (searchString.length > 0) {
@@ -69,13 +69,6 @@ export default class Passenger extends Component {
                          );
             });
          }
-
-
-
-
-
-
-
 
 
         return (
@@ -107,6 +100,7 @@ export default class Passenger extends Component {
     }
 }
 
+//Passenger Token
 const StyledHome ={
      
     ColumnSize:{

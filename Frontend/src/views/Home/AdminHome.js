@@ -7,6 +7,11 @@ import { IconContext } from "react-icons/lib";
 
 export default class AdminHome extends Component {
 
+    /**
+     * AdminHome show basic statstic of Jounry ,Passenger 
+     * 
+     */
+
     constructor(props) {
         super(props);
         this.state = {
@@ -24,9 +29,13 @@ export default class AdminHome extends Component {
 
     }
 
-    getPassengerData =async ()=>{
+    
 
+    getPassengerData =async ()=>{
+    //get all passenger data
         var tempPassengerData=[];
+
+    //get all local passenger data    
         var tempLocalPassengerData=[];
 
         database.ref('passenger').once('value',(snapshot)=>{
@@ -66,7 +75,7 @@ export default class AdminHome extends Component {
     }
 
     getJournyData = async ()=>{
-
+        //get all journey data
         var tempJounryData=[];
 
         database.ref('journey').on('value',(snapshot)=>{
