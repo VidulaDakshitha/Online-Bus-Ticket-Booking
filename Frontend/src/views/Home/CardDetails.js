@@ -7,6 +7,10 @@ import {database, firestore} from "../../firebasejs";
 
 export default class CardDetails extends Component {
 
+    /**
+     * Show Token details for user
+     */
+
     constructor(props){
         super(props)
         this.state = {
@@ -25,6 +29,7 @@ export default class CardDetails extends Component {
 
     getData= async ()=> {
 
+        //get card data form firbase
 
         database.ref('token').orderByChild("email").equalTo(this.state.userEmail).on('value',(snapshot)=>{
             var tempJounryData=[];
@@ -32,6 +37,7 @@ export default class CardDetails extends Component {
               tempJounryData =  [... tempJounryData, {id:data.key,... data.val()}];
                 console.log(tempJounryData);
 
+                //set token id to localStorage
                 localStorage.setItem("tokenID", tempJounryData[0].id);
 
         
@@ -67,15 +73,7 @@ export default class CardDetails extends Component {
                          <p> IssueDate date:<span>{new Date(this.state.cardData[0].issueDate).toDateString()}</span> </p>
                          <p>  {this.state.cardData[0].isactive==0?<Badge color="secondary" pill>Token Expireed</Badge> :<Badge color="success" pill>Token Valied</Badge>}  </p>
                            
-                       
-                              
-                         
-                            
-                        
-                        
-                         
-                         
-                         
+                                        
                          
                     </Container>):' Loadding...' }
 
@@ -112,7 +110,7 @@ const StyledHome ={
        cardMonthly:{
           backgroundImage:'linear-gradient(to right top, #f44838, #fe731e, #fe9d00, #f5c500, #e2eb12)',
           borderRadius:10,
-          height:175,
+          height:200,
           padding:10,
           margin:5,
           boxShadow: '-1px 4px 8px 0px #c7c7c7',

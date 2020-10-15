@@ -24,10 +24,11 @@ class QRcodefile extends Component {
   componentDidMount() {
     auth.onAuthStateChanged((user)=>{
       if (user){
-      this.props.history.push("/dashboard/1");
+      // this.props.history.push("/dashboard/1");
       }
     });
 
+    
 
 
   }
