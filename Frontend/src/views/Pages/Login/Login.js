@@ -58,7 +58,7 @@ function Login(props){
 
           localStorage.setItem("usertype","user")
         }
-        localStorage.setItem("email",user);
+        localStorage.setItem("email",username);
         localStorage.setItem('fulEmail',username);
 
         this.props.history.push("/dashboard");
