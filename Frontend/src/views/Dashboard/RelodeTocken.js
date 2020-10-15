@@ -2,32 +2,75 @@ import React, { useState} from "react";
 
 import {Button, Card, CardBody, Col,  FormGroup, Input, Label} from "reactstrap";
 import {database} from "../../firebasejs";
+import moment from "moment";
 
 function RelodeTocken(props) {
 
   const [amount,setAmount]=useState('');
   const [tAmount,setTAmount]=useState('');
   const [success,setSuccess]=useState('');
+  const [status,setStatus]=useState('');
+  const [type,setType]=useState('');
 
   useState(()=>{
 
     database.ref('token').orderByChild('email').equalTo(localStorage.getItem('fulEmail')).on('value',(snapshot)=>{
       snapshot.forEach(data=>{
         setTAmount(data.val().amount)
+        setStatus(data.val().isactive)
+        setType(data.val().tokentype)
+
+       
       })
     })
+    
   },[]);
 
   const submit =e=>{
     e.preventDefault();
     database.ref('token').orderByChild('email').equalTo(localStorage.getItem('fulEmail')).once('value',(snapshot)=>{
       snapshot.forEach(data=>{
+
         let newAmount=(Number.parseInt(data.val().amount)+Number.parseInt(amount));
-        database.ref(`token/${data.key}/`).update({amount:newAmount});
-        setSuccess('Top-up Successfully');
-        setTimeout(()=>{
-          props.history.push("/dashboard/1");
-        },1000)
+
+if(data.val().isactive===0 && data.val().tokentype==="monthly")
+{
+  const issuedate=new Date().toString();
+  const expire=moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD");
+
+ database.ref(`token/${data.key}/`).update({amount:newAmount,isactive:1,issueDate:issuedate,expiryDate:expire});
+ setSuccess('Top-up Successfully');
+}else if(data.val().isactive===1 && data.val().tokentype==="monthly")
+{
+
+  const issuedate=new Date().toString();
+  const expire=moment(moment(data.val().expiryDate).add(30,'d')).format("YYYY-MM-DD");
+
+
+ database.ref(`token/${data.key}/`).update({amount:newAmount,isactive:1,issueDate:issuedate,expiryDate:expire});
+ setSuccess('Top-up Successfully');
+
+
+}else if((data.val().isactive===0||data.val().isactive===1) && (data.val().tokentype==="single"||data.val().tokentype==="temporary"))
+{
+
+  const issuedate=new Date().toString();
+  
+
+ database.ref(`token/${data.key}/`).update({amount:newAmount,isactive:1,issueDate:issuedate});
+ setSuccess('Top-up Successfully');
+
+}
+
+       // let newAmount=(Number.parseInt(data.val().amount)+Number.parseInt(amount));
+        // database.ref(`token/${data.key}/`).update({amount:newAmount});
+        // setSuccess('Top-up Successfully');
+        // setTimeout(()=>{
+        //   props.history.push("/dashboard/1");
+        // },1000)
+
+
+
       })
     })
   }
@@ -35,6 +78,8 @@ function RelodeTocken(props) {
   return(
     <Card>
       <CardBody>
+      {(status.toString()==="1" && parseFloat(tAmount)<100 && type==="monthly") || ((status.toString()==="1"||status.toString()==="0") && (type==="single"||type==="temporary")) ||(status.toString()==="0" && type==="monthly") ?
+    
         <form onSubmit={submit}>
           {success&&<div className="alert alert-success">{success}</div>}
 
@@ -43,7 +88,7 @@ function RelodeTocken(props) {
               <Label htmlFor="date-input">Name of Owner</Label>
             </Col>
             <Col xs="12" md="9">
-              <Input type="text" id="fullname" name="fullname" placeholder="Enter Full Name" required/>
+              <Input type="text" id="fullname" name="fullname" placeholder="Enter Full Name" />
             </Col>
           </FormGroup>
 
@@ -53,7 +98,7 @@ function RelodeTocken(props) {
               <Label htmlFor="date-input">Payment Method</Label>
             </Col>
             <Col xs="12" md="9">
-              <Input type="select" id="method" name="method" required>
+              <Input type="select" id="method" name="method" >
                 <option value="">Select Payment Method</option>
                 <option value="2">Card</option>
                 <option value="3">Bank</option>
@@ -68,7 +113,7 @@ function RelodeTocken(props) {
               <Label htmlFor="date-input">Card Number</Label>
             </Col>
             <Col xs="12" md="9">
-              <Input type="text" id="fullname" name="fullname" placeholder="xxxx-xxxx-xxxx"  required/>
+              <Input type="text" id="fullname" name="fullname" placeholder="xxxx-xxxx-xxxx"  />
             </Col>
           </FormGroup>
 
@@ -78,7 +123,7 @@ function RelodeTocken(props) {
               <Label htmlFor="date-input">CVC</Label>
             </Col>
             <Col xs="12" md="9">
-              <Input type="number" id="cvc" name="cvc" placeholder="3-digit" required/>
+              <Input type="number" id="cvc" name="cvc" placeholder="3-digit" />
             </Col>
           </FormGroup>
 
@@ -114,8 +159,12 @@ function RelodeTocken(props) {
 
 
 
-
         </form>
+        :<div>
+          
+          <h4>Please use your money to travel and top up once over</h4>
+        <h5>Currently You Have  <b> Rs. {tAmount}</b></h5>
+          </div>}
       </CardBody>
     </Card>
   )
