@@ -27,7 +27,6 @@ export default class LatestTravelDetails extends Component {
             snapshot.forEach(data=>{
               tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
         
-
             });
             this.setState({
                 latestTravel:tempJounryData,
@@ -40,7 +39,8 @@ export default class LatestTravelDetails extends Component {
     }
 
     deactivateJourney=(id)=>{
-         database.ref('journey/'+id).update( {status:"Completed"},(err)=>{
+        
+        database.ref('journey/'+id).update( {status:"Completed"},(err)=>{
             if (err) {
                 console.log(err);
 

@@ -23,7 +23,7 @@ export default class CardDetails extends Component {
     getData= async ()=> {
         var tempJounryData=[];
 
-        database.ref('token').orderByChild("email").equalTo(this.state.userEmail).once('value',(snapshot)=>{
+        database.ref('token').orderByChild("email").equalTo(this.state.userEmail).on('value',(snapshot)=>{
             snapshot.forEach(data=>{
               tempJounryData =  [... tempJounryData, {id:data.key,... data.val()}];
                 console.log(tempJounryData);
@@ -48,18 +48,17 @@ export default class CardDetails extends Component {
             <Col sm={StyledHome.ColumnSize}>
                     <h5>Credit</h5>
 
-                    {this.state.isload?
+                    {this.state.cardData.length>0?
                     (<Container style={StyledHome.card}>
                          <p>Transist card</p>
                          <h3>Available Amount :<b>{this.state.cardData[0].amount}</b> </h3>
-                            
                             <h5> Expire date: <span>{ this.state.cardData[0].tokentype}</span> </h5>
 
                          <h6> Expire date: <span>{new Date(this.state.cardData[0].expiryDate).toDateString()}</span> </h6>
                          <h6> IssueDate date:<span>{new Date(this.state.cardData[0].issueDate).toDateString()}</span> </h6>
 
 
-                    </Container>):'dxd' }
+                    </Container>):' Loadding...' }
 
                    
                 </Col>
