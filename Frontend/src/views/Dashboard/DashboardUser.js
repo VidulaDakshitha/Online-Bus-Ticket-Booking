@@ -154,6 +154,18 @@ componentDidMount() {
               <div>This is timetable</div>
             }
             </TabPane>
+            <TabPane tabId="8">
+
+            {
+              <div>This is Admin Topup</div>
+            }
+            </TabPane>
+            <TabPane tabId="9">
+
+            {
+              <div>This is Passenger history</div>
+            }
+            </TabPane>
 
       </>
     );
@@ -286,7 +298,11 @@ componentDidMount() {
                   <b>Home</b>
                 </NavLink>
               </NavItem>
-              <NavItem>
+
+
+{localStorage.getItem("usertype")==="user"?
+<>
+<NavItem>
                 <NavLink
                   active={this.state.activeTab[0] === "2"}
                   onClick={() => {
@@ -296,10 +312,6 @@ componentDidMount() {
                   <b>Travel</b>
                 </NavLink>
               </NavItem>
-
-{localStorage.getItem("usertype")==="user"?
-<>
-
               <NavItem>
                 <NavLink
                   active={this.state.activeTab[0] === "3"}
@@ -358,6 +370,27 @@ componentDidMount() {
                   }}
                 >
                 <b> TimeTable</b>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  active={this.state.activeTab[0] === "8"}
+                  onClick={() => {
+                    this.toggle(0, "8");
+                  }}
+                >
+                <b> Admin Topup</b>
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink
+                  active={this.state.activeTab[0] === "9"}
+                  onClick={() => {
+                    this.toggle(0, "9");
+                  }}
+                >
+                <b> Passenger History</b>
                 </NavLink>
               </NavItem>
               </>
