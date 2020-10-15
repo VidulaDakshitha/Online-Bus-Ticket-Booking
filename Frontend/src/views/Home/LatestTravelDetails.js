@@ -87,10 +87,10 @@ export default class LatestTravelDetails extends Component {
 
                     return (
                         <Alert style={StyledHome.rowShadow} color="warning" key={travle.id}>
-                            <Badge color="success"  pill>active Journy</Badge>
-                            <p>Journy form 
-                            <b>{travle.fromDestination}</b> to
-                            <b>{travle.toDestination}</b> 
+                            <Badge color="success"  pill>Active Journey</Badge>
+                            <p>Journey from 
+                            <b> {travle.fromDestination} </b> to
+                            <b> {travle.toDestination} </b> 
                              
                              <Button outline color="danger" onClick={()=>{this.deactivateJourney(travle.id)}}> End Journey </Button> 
                              

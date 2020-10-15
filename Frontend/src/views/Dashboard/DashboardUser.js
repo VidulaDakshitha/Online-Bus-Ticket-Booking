@@ -312,7 +312,7 @@ componentDidMount() {
                     this.toggle(0, "2");
                   }}
                 >
-                  <b>Travel</b>
+                  <b>Journey</b>
                 </NavLink>
               </NavItem>
               <NavItem>
