@@ -97,19 +97,6 @@ class Travel extends Component {
                 realTimeDBToken: tempRealTimeDbToken,
             })
         })
-        this.receivedData(1, 1);
-    }
-
-
-    receivedData=(e, index)=>{
-
-
-
-        this.setState({
-            pageCount:Math.ceil(this.state.length/this.state.limit),
-            pageNumber:Math.ceil(this.state.length/this.state.limit)
-        },()=>console.log("counr"+this.state.pageCount))
-
     }
 
 
@@ -228,10 +215,15 @@ class Travel extends Component {
                 date: this.state.date.toString(),
                 status: "Active",
                 fullAmount: this.state.totalAmount,
-                distance: this.state.distance
+                distance: this.state.distance,
+                started:0
               },
               alert('Journey Confirmed! Total required payment will be deducted once the journey is completed!')
               ).catch(err=>console.log(err))
+
+
+      
+
 
             // //   database.ref('token').orderByChild("email").equalTo(this.state.userID).update( {amount:this.state.availableAmount},(err)=>{
             // //     if (err) {

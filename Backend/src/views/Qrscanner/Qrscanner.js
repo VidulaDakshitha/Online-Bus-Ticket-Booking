@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import QrReader from 'react-qr-reader'
 import Swal from 'sweetalert2';
 import queryString from "query-string";
-
+import {database, firestore} from "../../firebasejs";
 
 class Qrscanner extends Component{
     constructor(props){
@@ -18,43 +18,68 @@ class Qrscanner extends Component{
 
     componentDidMount() {
       const handler = e => this.setState({matches: e.matches});
-      window.matchMedia("(min-width: 1008px)").addListener(handler);
+      
 
       localStorage.setItem("item",JSON.stringify(this.state.empty));
     }
 
 handleScan=(data)=>{
 
-    // if (data) {
-    //     this.setState({
-    //       result: data
-    //     },async()=>{
+  console.log(data)
+    if (data) {
+        this.setState({
+          result: data
+        },async()=>{
 
 
-    //       if(this.state.result!=="")
-    //       {
-    //         let value3=this.state.result.split("?");
-    //         const values=queryString.parse(value3[1]);
-
-      
-    //       if(value3[1].includes("sub_domain"))
-    //       {
-
-    //        await localStorage.setItem("sub_domain",values.sub_domain);
-    //         window.location.href="#/menu"
+          if(this.state.result!=="" || this.state.result!==null)
+          {
            
-    //       }else{
-    //         Swal.fire({
-    //           icon:'error',
-    //           title:'Oopss....',
-    //           text:"please provide valid QR code for digital menu"
-    //         })
+            database.ref('journey').orderByChild('userID').equalTo(this.state.result.trim()).once('value',(snapshot)=>{
+              snapshot.forEach(data=>{
+console.log(data.val().status)
+                if(data.val().status==="Active")
+                {
 
-    //       }
+                  if(data.val().started===0)
+                  {
+
+                    database.ref(`journey/${data.key}/`).update({
+                      
+                      started:1
+                      })
+
+                  }else{
+
+                    database.ref(`journey/${data.key}/`).update({
+                      
+                      status:"Completed"
+                      })
+
+                  }
+
+                 
+
+
+                }else{
+let dataemail=this.state.result.split("@")[0];
+
+                  database.ref(`penalty/${dataemail}/`).push().set({
+
+                    userID:this.state.result,
+                    date:new Date()
+
+                  })
+                }
+              
+                  })
+              },
+              alert('Single token updated!')
+              ).catch(err=>console.log(err))
             
-    //       }
-    //     })
-    //   }
+          }
+        })
+      }
 }
 
 handleError = err => {
