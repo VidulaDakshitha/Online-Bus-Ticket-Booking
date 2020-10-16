@@ -97,19 +97,6 @@ class Travel extends Component {
                 realTimeDBToken: tempRealTimeDbToken,
             })
         })
-        this.receivedData(1, 1);
-    }
-
-
-    receivedData=(e, index)=>{
-
-
-
-        this.setState({
-            pageCount:Math.ceil(this.state.length/this.state.limit),
-            pageNumber:Math.ceil(this.state.length/this.state.limit)
-        },()=>console.log("counr"+this.state.pageCount))
-
     }
 
 

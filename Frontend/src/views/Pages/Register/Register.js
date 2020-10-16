@@ -119,6 +119,7 @@ if(e.target.value==="foreign")
 {
 
   this.setState({
+    tokentype: "temporary",
     idtype:"passport",
     identitytype:"Enter passport Number"
   })
@@ -433,7 +434,7 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
                     <Label htmlFor="date-input">Payable Amount</Label>
                   </Col>
                   <Col xs="12" md="9">
-                    {this.state.tokentype==="sinle"||this.state.tokentype==="temporary"?
+                    {this.state.tokentype==="single"||this.state.tokentype==="temporary"?
                                <p style={{color:"red"}}> <b> Rs. 200.00</b></p>
                                :<p style={{color:"red"}}> <b> Rs. 1000.00</b></p>}
                   </Col>
