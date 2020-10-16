@@ -72,7 +72,6 @@ export default class AdmnReport extends Component {
                 var tempTokenData=[];
                 snapshot.forEach(data=>{
                     tempTokenData=  [...tempTokenData,{id:data.key,... data.val()}];
-                    console.log("get Passenger data");
                                
     
                 });

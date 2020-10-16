@@ -95,7 +95,6 @@ export default class AdminCharts extends Component {
             }
         }
 
-        console.log(datarry);
         
 
 

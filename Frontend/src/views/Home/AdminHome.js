@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'reactstrap'
 import { FaUserFriends,FaBeer, FaBus, FaCarSide, FaWalking, FaGrav } from 'react-icons/fa';
 import { IconContext } from "react-icons/lib";
 import AdminCharts from "../AdminReport/AdminCharts/AdminCharts";
+import Adminsmap from "../AdminReport/AdminMap/Adminsmap";
 
 
 export default class AdminHome extends Component {
@@ -168,7 +169,7 @@ export default class AdminHome extends Component {
 
                     <AdminCharts passeger={this.state.passengerData} localPassenger={this.state.localPassenger} jounry={this.state.jounryData}  />
 
-
+                    <Adminsmap></Adminsmap>
              </Row>
                 
                 
