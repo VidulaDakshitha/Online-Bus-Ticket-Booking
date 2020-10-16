@@ -8,6 +8,9 @@ import {
     
   } from "reactstrap";
 
+  import moment from "moment";
+
+
 // import Table from "@material-ui/core/Table";
 // import TableBody from "@material-ui/core/TableBody";
 // import TableCell from "@material-ui/core/TableCell";
@@ -298,7 +301,7 @@ class Travel extends Component {
                                     <td>{data.status}</td>
                                     <td>{data.fullAmount}</td>
                                     <td>{data.distance}</td>
-                                    <td>{data.date}</td>
+                                    <td>{moment(data.date).format("YYYY-MM-DD")}</td>
                                         </tr>
                                     </tbody>)
                             )
