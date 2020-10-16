@@ -207,7 +207,7 @@ if(this.state.usercatergory==="foreign")
 
 }
 
-console.log(`http://${window.location.host}/#/verify`)
+
 
     auth.sendSignInLinkToEmail(this.state.email,{url:`http://${window.location.host}/#/verify`,handleCodeInApp:true}).then(res=>{
 
