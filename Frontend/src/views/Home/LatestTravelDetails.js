@@ -25,9 +25,10 @@ export default class LatestTravelDetails extends Component {
 
     //Get Latst Active journey
     getData=async()=>{
-        var tempJounryData=[];
 
         database.ref('journey').orderByChild("userID").equalTo(this.state.userEmail).on('value',(snapshot)=>{
+            var tempJounryData=[];
+
             snapshot.forEach(data=>{
               tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
         

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import { FaUserFriends,FaBeer, FaBus, FaCarSide, FaWalking, FaGrav } from 'react-icons/fa';
 import { IconContext } from "react-icons/lib";
+import AdminCharts from "../AdminReport/AdminCharts/AdminCharts";
 
 
 export default class AdminHome extends Component {
@@ -32,13 +33,16 @@ export default class AdminHome extends Component {
     
 
     getPassengerData =async ()=>{
-    //get all passenger data
-        var tempPassengerData=[];
-
-    //get all local passenger data    
-        var tempLocalPassengerData=[];
+   
 
         database.ref('passenger').once('value',(snapshot)=>{
+
+             //get all passenger data
+        var tempPassengerData=[];
+
+        //get all local passenger data    
+            var tempLocalPassengerData=[];
+
             snapshot.forEach(data=>{
                 tempPassengerData=   [...tempPassengerData, {id:data.key,... data.val()}];
                 // console.log(tempPassengerData);
@@ -76,9 +80,10 @@ export default class AdminHome extends Component {
 
     getJournyData = async ()=>{
         //get all journey data
-        var tempJounryData=[];
 
         database.ref('journey').on('value',(snapshot)=>{
+            var tempJounryData=[];
+
             snapshot.forEach(data=>{
               tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
                 // console.log(tempJounryData);
@@ -162,8 +167,9 @@ export default class AdminHome extends Component {
                     </Col>
 
              </Row>
-            
-            
+                
+                    {/* <AdminCharts passeger={this.state.passengerData} localPassenger={this.state.localPassenger} jounry={this.state.jounryData}  /> */}
+                
         </Container>
         )
     }
