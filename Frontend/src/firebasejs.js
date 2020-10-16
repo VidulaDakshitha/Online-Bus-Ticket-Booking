@@ -6,13 +6,13 @@ import firebase from "firebase/app";
 
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AuthDomain,
-    databaseURL: process.env.REACT_APP_DatabaseURL,
-    projectId: process.env.REACT_APP_ProjectId,
-    storageBucket: process.env.REACT_APP_StorageBucket,
-    messagingSenderId: process.env.REACT_APP_MessagingSenderId,
-    appId: process.env.REACT_APP_AppId,
+    apiKey: "AIzaSyAjS-NRIKCIYOh5zLQg4mE3dLoWFSzBXcM",
+    authDomain: "ticketsystem-e895b.firebaseapp.com",
+    databaseURL: "https://ticketsystem-e895b.firebaseio.com",
+    projectId: "ticketsystem-e895b",
+    storageBucket: "ticketsystem-e895b.appspot.com",
+    messagingSenderId: "195590015564",
+    appId: "1:195590015564:web:aaaca6fba7d06801e642e9",
     measurementId: process.env.REACT_APP_MeasurementId
 };
 
@@ -24,3 +24,4 @@ const storage = firebase.storage();
 
 
 export {auth,firebase,firestore,database,storage};
+
