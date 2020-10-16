@@ -166,9 +166,11 @@ export default class AdminHome extends Component {
 
                     </Col>
 
+                    <AdminCharts passeger={this.state.passengerData} localPassenger={this.state.localPassenger} jounry={this.state.jounryData}  />
+
+
              </Row>
                 
-                    {/* <AdminCharts passeger={this.state.passengerData} localPassenger={this.state.localPassenger} jounry={this.state.jounryData}  /> */}
                 
         </Container>
         )
