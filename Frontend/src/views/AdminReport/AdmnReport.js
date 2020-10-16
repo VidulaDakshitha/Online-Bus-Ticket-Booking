@@ -35,10 +35,10 @@ export default class AdmnReport extends Component {
                 var tempPassengerData=[];
                 snapshot.forEach(data=>{
                     tempPassengerData=  [...tempPassengerData,{id:data.key,... data.val()}];
-                    console.log("get Passenger data");
                                
     
                 });
+                console.log("get Passenger data");
 
                 this.setState({
                     passengerData:tempPassengerData,
