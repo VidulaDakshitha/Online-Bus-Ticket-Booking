@@ -11,7 +11,7 @@ function VerifyUser(props) {
 
   useEffect(()=>{
 
-    console.log(window.location)
+
     if (auth.isSignInWithEmailLink(window.location.href)){
 
       if (!email) {
