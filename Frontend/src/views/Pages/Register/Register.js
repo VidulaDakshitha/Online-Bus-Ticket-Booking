@@ -207,25 +207,29 @@ if(this.state.usercatergory==="foreign")
 
 }
 
+console.log(`http://${window.location.host}/#/verify`)
 
+    auth.sendSignInLinkToEmail(this.state.email,{url:`http://${window.location.host}/#/verify`,handleCodeInApp:true}).then(res=>{
 
-auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
-  .then(()=>{
-    var username=this.state.email.split("@")[0];
-    database.ref('passenger').push().set(regUsers).catch(err=>console.log(err.message));
-    database.ref('token').push().set(tokendata).catch(err=>console.log(err.message));
-    localStorage.setItem("usertype","user");
-    localStorage.setItem("email",this.state.email);
+      localStorage.setItem('tempEmail',this.state.email);
+      localStorage.setItem('tempPass',this.state.password);
+      var username=this.state.email.split("@")[0];
+      database.ref('passenger').push().set(regUsers).catch(err=>console.log(err.message));
+      database.ref('token').push().set(tokendata).catch(err=>console.log(err.message));
+      localStorage.setItem("usertype","user");
+      localStorage.setItem("email",this.state.email);
 
+      this.props.history.push("/confirm");
 
-
-  }).catch(err=>{
+    }).catch(err=>{
 
       this.setState({
         error:err.message
       })
 
-});
+    })
+
+
   }
 
 
@@ -279,7 +283,7 @@ auth.createUserWithEmailAndPassword(this.state.email,this.state.password)
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Password" name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onPasswordChange}/>
+                      <Input type="password" placeholder="Password"  name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onPasswordChange}/>
                       <FormFeedback>Password length should be more than 7</FormFeedback>
                     </InputGroup>
 

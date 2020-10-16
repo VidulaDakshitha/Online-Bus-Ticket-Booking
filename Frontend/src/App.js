@@ -5,6 +5,8 @@ import { HashRouter, Route, Switch} from "react-router-dom";
 
 
 import "./App.scss";
+import ConfirmEmail from "./views/Pages/Confirem/ConfiremEmail";
+import VerifyUser from "./views/Pages/VerifyUser";
 
 // Containers
 const DefaultLayout = React.lazy(() => import("./containers/DefaultLayout"));
@@ -30,6 +32,19 @@ class App extends Component {
     <HashRouter>
         <React.Suspense fallback={loading()}>
           <Switch>
+            <Route
+              exact
+              path="/confirm"
+              name="Confirm Email Page"
+              render={(props) => <ConfirmEmail {...props} />}
+            />
+
+            <Route
+              exact
+              path="/verify"
+              name="verify Email Page"
+              render={(props) => <VerifyUser {...props} />}
+            />
             <Route
               exact
               path="/"
