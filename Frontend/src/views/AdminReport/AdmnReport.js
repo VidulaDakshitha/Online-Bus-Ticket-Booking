@@ -3,7 +3,6 @@ import {database, firestore} from "../../firebasejs";
 import { Col, Container, Row } from 'reactstrap';
 import Token from './Token';
 import Passenger from './Passenger';
-import Journy from './Journy';
 
 export default class AdmnReport extends Component {
     constructor(props) {

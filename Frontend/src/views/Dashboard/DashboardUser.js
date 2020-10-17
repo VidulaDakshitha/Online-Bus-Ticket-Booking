@@ -361,7 +361,7 @@ componentDidMount() {
                     this.toggle(0, "6");
                   }}
                 >
-                <b> Info</b>
+                <b> Admin Report</b>
                 </NavLink>
               </NavItem>
 
