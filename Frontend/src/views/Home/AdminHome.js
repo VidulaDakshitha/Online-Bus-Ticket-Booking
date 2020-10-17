@@ -9,10 +9,11 @@ import Adminsmap from "../AdminReport/AdminMap/Adminsmap";
 
 export default class AdminHome extends Component {
 
-    /**
-     * AdminHome show basic statstic of Jounry ,Passenger 
-     * 
-     */
+  /**
+ * IT18045840
+ * S.D.S.L Dissanayake
+ */
+
 
     constructor(props) {
         super(props);

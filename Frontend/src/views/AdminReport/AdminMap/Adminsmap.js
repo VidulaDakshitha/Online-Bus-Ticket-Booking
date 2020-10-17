@@ -3,6 +3,10 @@ import GoogleMapReact from 'google-map-react';
 import {database, firestore} from "../../../firebasejs";
 
 let tempRealTimeDb = [];
+/**
+ * IT18045840
+ * S.D.S.L Dissanayake
+ */
 
 
 
@@ -37,50 +41,7 @@ export default class Adminsmap extends Component {
  
     getPosstion=(name)=>{
 
-        // const position={
-        //     "Kollupitiya":{
-        //         latitude:6.914747,
-        //         longitude:79.851471
-        //     },
-        //     "Moratuwa":{
-        //         latitude:6.793260,
-        //         longitude:79.880650
-        //     },
-        //     "Dehiwala":{
-        //         latitude:6.839670,
-        //         longitude:79.875969
-
-        //     },
-        //     "Wellawatta":{
-        //         latitude:6.268910,
-        //         longitude:80.039429
-
-        //     },
-        //     "Mount Lavnia":{
-        //         latitude:6.831209,
-        //         longitude:79.862967
-
-        //     },
-
-        //     "Bambalapitiya":{
-        //         latitude:6.893843,
-        //         longitude:79.853225
-
-        //     },
-
-        //     "Ratmalana":{
-        //         latitude:6.814471,
-        //         longitude:79.868288
-
-        //     },
-
-        //     "Colombo 1":{
-        //         latitude:6.934468,
-        //         longitude:79.847946
-
-        //     },
-
-        // }
+       
 
       if(name=='Kollupitiya'){
           return( {
@@ -177,45 +138,25 @@ export default class Adminsmap extends Component {
 
 
 
-        // let marker=[{
-        //          latitude:6.9044,
-        //          longitude :79.85,
-        //          passeger:125
-         
-        //      },
-         
-        //       {
-        //          latitude:6.934468,
-        //          longitude :79.847946,
-        //          passeger:354
-
-         
-        //      }]
+      
 
        return( datarry.map(marker => (
             <div style={makerstyles}
-                // position={{ lat: marker.position.latitude, lng: marker.position.longitude }}
+            //set maker latitude and longitude
                 lat={ marker.position.latitude}
                 lng={marker.position.longitude}
                
               >{marker.value}</div>
           ))
 
-    //       return( 
-    //              marker.map(marker => (
-    //                 <p
-    //                      lat={ marker.latitude}
-    //                      lng={ marker.longitude}
-                         
-    //                 >fdhyfyfy</p>
-    //              ))
+
        )
     }
 
 
 
 
-
+//group data by thire properties
     groupByKey=(array, key) =>{
         return array
           .reduce((hash, obj) => {
@@ -270,7 +211,7 @@ const makerstyles={
     borderWidth: 'thick',
     borderColor: '#fbfbfb',
     height: '50px',
-    backgroundColor: '#2361e0',
+    backgroundColor: '#2361e095',
     borderRadius: '100%',
     color: 'white'
 }

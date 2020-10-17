@@ -2,7 +2,11 @@ import {database, firestore} from "../../firebasejs";
 import React, { Component } from 'react'
 import { Alert, Badge, Button, Col } from 'reactstrap'
 import LastjorunyImage from "../../assets/last_journy.png"
- 
+ /**
+ * IT18045840
+ * S.D.S.L Dissanayake
+ */
+
 
 export default class LatestTravelDetails extends Component {
 
