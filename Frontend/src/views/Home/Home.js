@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Col, Container, Row   } from 'reactstrap';
-import CardBackground from "../../assets/card_back.png";
+import {  Row   } from 'reactstrap';
+
 import AdminHome from './AdminHome';
 import CardDetails from './CardDetails';
 import LatestTravelDetails from './LatestTravelDetails';
@@ -17,19 +17,19 @@ class Home extends Component {
 
     render() {
         return (
-                              
+
         <Row>
             {localStorage.getItem("usertype")==="user"?(
-           < >
-                
+           <>
+
                 <CardDetails/>
                 <LatestTravelDetails/>
 
-               
+
             </>
-            
+
             )
-            
+
             : (
                 <>
                 <AdminHome/>
@@ -38,10 +38,10 @@ class Home extends Component {
              )
     }
 
-           
+
         </Row>
-                 
-             
+
+
         );
     }
 
@@ -49,15 +49,15 @@ class Home extends Component {
 }
 
 const StyledHome ={
- s1: { 
+ s1: {
       backgroundColor:'red',
-      
+
       borderRadius:7
-     
+
     },
-notificationPanal: { 
+notificationPanal: {
         backgroundColor:'green',
-       
+
         alignItems: 'center',
         borderRadius:7
     },
@@ -66,7 +66,7 @@ notificationPanal: {
 
         size: 'auto',
         offset: 1
-    
+
     },
     imageStyle:{
         width:'100%',
@@ -86,7 +86,7 @@ notificationPanal: {
 
 
 
- 
+
 
 
 export default Home;

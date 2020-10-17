@@ -21,7 +21,7 @@ export default class AdminHome extends Component {
             passengerData:[],
             jounryData:[],
             localPassenger:[],
-            
+
             isload:false
         }
     }
@@ -32,17 +32,17 @@ export default class AdminHome extends Component {
 
     }
 
-    
+
 
     getPassengerData =async ()=>{
-   
+
 
         database.ref('passenger').once('value',(snapshot)=>{
 
              //get all passenger data
         var tempPassengerData=[];
 
-        //get all local passenger data    
+        //get all local passenger data
             var tempLocalPassengerData=[];
 
             snapshot.forEach(data=>{
@@ -51,16 +51,16 @@ export default class AdminHome extends Component {
 
                 if(data.val().usercatergory=="local"){
                     tempLocalPassengerData=   [...tempLocalPassengerData, {id:data.key,... data.val()}];
-     
+
                 }
-        
+
 
             });
             this.setState({
                 passengerData:tempPassengerData,
                 localPassenger:tempLocalPassengerData,
 
-                 
+
             })
         },(err)=>{
             if (err) {
@@ -72,11 +72,11 @@ export default class AdminHome extends Component {
                }
 
         }
-        
+
         )
- 
-    
-       
+
+
+
 
     }
 
@@ -89,7 +89,7 @@ export default class AdminHome extends Component {
             snapshot.forEach(data=>{
               tempJounryData=   [... tempJounryData, {id:data.key,... data.val()}];
                 // console.log(tempJounryData);
-        
+
 
             });
             this.setState({
@@ -106,7 +106,7 @@ export default class AdminHome extends Component {
                }
 
         }
-        
+
         )
 
     }
@@ -120,117 +120,135 @@ export default class AdminHome extends Component {
 
             <Container  >
 
-                <Row>
-                    <Col style={StyledHome.card,StyledHome.color1}>
-                     <h5>Total Register User   </h5>
-                     <h3>{this.state.passengerData.length}</h3>
+                <Row className="px-5">
 
-                     <IconContext.Provider value={{size:"2em" }} >
-                         <div style={StyledHome.iconAligment}>
-                         <FaUserFriends/>
-                        </div>
-                    </IconContext.Provider>
-                 
+                    <Col sm="3" className="p-3" >
+                      <div style={StyledHome.card,StyledHome.color1}>
+                        <h5 className="text-center">Total Register User   </h5>
+                        <h3 className="text-center">{this.state.passengerData.length}</h3>
+
+                        <IconContext.Provider  value={{size:"2em" }} >
+                          <div style={StyledHome.iconAligment}>
+                            <FaUserFriends/>
+                          </div>
+                        </IconContext.Provider>
+                      </div>
+
+
+
+
                     </Col>
-                    <Col style={StyledHome.card,StyledHome.color2}>
-                        <h5>Local User  </h5>
-                        <h3>{this.state.localPassenger.length}</h3>
+                    <Col className="p-3" sm="3">
+                      <div  style={StyledHome.card,StyledHome.color2}>
+                        <h5 className="text-center">Local User  </h5>
+                        <h3 className="text-center">{this.state.localPassenger.length}</h3>
 
 
                         <IconContext.Provider value={{size:"2em" }} >
-                         <div style={StyledHome.iconAligment}>
-                         <FaWalking/>
-                        </div>
-                    </IconContext.Provider>
-                 
+                          <div style={StyledHome.iconAligment}>
+                            <FaWalking/>
+                          </div>
+                        </IconContext.Provider>
+                      </div>
+
+
                     </Col>
-                    <Col style={StyledHome.card,StyledHome.color3}>
-                        <h5>Foreign User </h5>
-                        <h3>{this.state.passengerData.length-this.state.localPassenger.length}</h3>
+                    <Col className="p-3" sm="3" >
+                      <div style={StyledHome.card,StyledHome.color3}>
+                        <h5 className="text-center">Foreign User </h5>
+                        <h3 className="text-center">{this.state.passengerData.length-this.state.localPassenger.length}</h3>
 
 
 
                         <IconContext.Provider value={{size:"2em" }} >
-                         <div style={StyledHome.iconAligment}>
-                         <FaGrav/>
-                        </div>
-                    </IconContext.Provider>
+                          <div style={StyledHome.iconAligment}>
+                            <FaGrav/>
+                          </div>
+                        </IconContext.Provider>
+                      </div>
+
                     </Col>
-                    <Col style={StyledHome.card,StyledHome.color4}>
-                        <h5>Total Journey</h5>
-                        <h3>{this.state.jounryData.length} </h3>
+                    <Col  className="p-3" sm="3" >
+                      <div style={StyledHome.card,StyledHome.color4}>
+                        <h5 className="text-center">Total Journey</h5>
+                        <h3 className="text-center">{this.state.jounryData.length} </h3>
 
                         <IconContext.Provider value={{size:"2em" }} >
-                         <div style={StyledHome.iconAligment}>
-                         <FaBus/>
-                        </div>
-                    </IconContext.Provider>
+                          <div style={StyledHome.iconAligment}>
+                            <FaBus/>
+                          </div>
+                        </IconContext.Provider>
+                      </div>
+
 
                     </Col>
 
-                    <AdminCharts passeger={this.state.passengerData} localPassenger={this.state.localPassenger} jounry={this.state.jounryData}  />
 
-                    <Adminsmap></Adminsmap>
              </Row>
-                
-                
+              <AdminCharts passeger={this.state.passengerData} localPassenger={this.state.localPassenger} jounry={this.state.jounryData}  />
+
+              <div className="row p-5">
+                <Adminsmap></Adminsmap>
+              </div>
+
+
         </Container>
         )
     }
 }
 
 const StyledHome ={
-    s1: { 
+    s1: {
          backgroundColor:'red',
-         
+
          borderRadius:7
-        
+
        },
-   notificationPanal: { 
+   notificationPanal: {
            backgroundColor:'green',
-          
+
            alignItems: 'center',
            borderRadius:7
        },
-   
+
         ColumnSize:{
-   
+
            size: 'auto',
            offset: 1
-       
+
        },
        imageStyle:{
            width:'100%',
            borderRadius:10
-   
+
        },
        card:{
            borderRadius:10,
            height:150,
            color:'white',
            padding:10,
-           margin:5
-       }, 
+
+       },
 
        iconAligment:{
-        textAlign: 'end',
-       }, 
+        textAlign: 'center',
+       },
        color1:{
         borderRadius:10,
         height:150,
         color:'white',
         padding:10,
-        margin:5,
+
         backgroundImage:'linear-gradient(to right top, #ff447d, #ff685c, #ff9934, #ffcc00, #f2fd00)',
 
-       }, 
+       },
        color2:{
         backgroundImage:'linear-gradient(to right top, #5dd831, #4cde53, #39e370, #26e789, #12eba0)',
         borderRadius:10,
         height:150,
         color:'white',
         padding:10,
-        margin:5
+
        },
        color3:{
         backgroundImage:'linear-gradient(to right top, #3172d8, #0095ee, #00b5f4, #00d1ee, #12ebe2)',
@@ -238,7 +256,7 @@ const StyledHome ={
         height:150,
         color:'white',
         padding:10,
-        margin:5
+
        },
        color4:{
         backgroundImage:'linear-gradient(to right top, #1fcf3d, #5cd732, #83de26, #a5e51b, #c5eb12)',
@@ -246,11 +264,11 @@ const StyledHome ={
         height:150,
         color:'white',
         padding:10,
-        margin:5
+
        },
-       
 
 
-   
+
+
    }
-   
+

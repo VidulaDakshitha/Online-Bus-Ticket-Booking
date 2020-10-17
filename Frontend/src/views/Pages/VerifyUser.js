@@ -33,7 +33,7 @@ function VerifyUser(props) {
         })
         .catch(function(error) {
           setErr(error.message);
-          console.log(error)
+
         });
     }
   },[email])
