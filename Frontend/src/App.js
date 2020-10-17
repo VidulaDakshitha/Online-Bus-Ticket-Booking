@@ -19,6 +19,7 @@ const Page500 = React.lazy(() => import("./views/Pages/Page500"));
 const ForgotPassword=React.lazy(() => import("./views/Pages/ForgotPassword/ForgotPassword"));
 const ResetPassword=React.lazy(() => import("./views/Pages/ResetPassword/ResetPassword"));
 
+
 const loading = () => (
   <div>
   </div>

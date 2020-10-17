@@ -27,7 +27,7 @@ function VerifyUser(props) {
           setSuccess('Email Verification Successful');
           window.localStorage.removeItem('tempEmail');
           setInterval(()=>{
-            props.history.push("/dashboard/1");
+            props.history.push("/dashboard");
           },2000)
 
         })
