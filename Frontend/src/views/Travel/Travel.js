@@ -74,7 +74,7 @@ class Travel extends Component {
     componentDidMount=async()=>{
 
 
-
+        console.log("this is travel")
         database.ref('journey').orderByChild("userID").equalTo(this.state.userID).on('value',(snapshot)=>{
             tempRealTimeDb=[];
             //console.log(snapshot.numChildren())

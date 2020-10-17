@@ -3,6 +3,11 @@ import QrReader from 'react-qr-reader'
 import Swal from 'sweetalert2';
 import queryString from "query-string";
 import {database, firestore} from "../../firebasejs";
+import "alertifyjs/build/css/alertify.min.css";
+import "alertifyjs/build/css/alertify.css";
+import "alertifyjs/build/css/themes/default.min.css";
+import alertify from "alertifyjs/build/alertify";
+import successimag from "./Successpage.js";
 
 class Qrscanner extends Component{
     constructor(props){
@@ -37,7 +42,7 @@ handleScan=(data)=>{
            
             database.ref('journey').orderByChild('userID').equalTo(this.state.result.trim()).once('value',(snapshot)=>{
               snapshot.forEach(data=>{
-console.log(data.val().status)
+
                 if(data.val().status==="Active")
                 {
 
@@ -48,6 +53,13 @@ console.log(data.val().status)
                       
                       started:1
                       })
+                      localStorage.setItem("capturedemail",this.state.result);
+
+                      // return(
+                      //   <successimag/>
+                      // )
+                    
+                      window.location.href="/#/successpage";
 
                   }else{
 
@@ -55,6 +67,15 @@ console.log(data.val().status)
                       
                       status:"Completed"
                       })
+
+                      database.ref(`current`).push().set({
+
+                        userID:this.state.result,
+                        date:new Date().toString()
+    
+                      })
+
+                      window.location.href="/#/endtrip";
 
                   }
 
@@ -67,14 +88,16 @@ let dataemail=this.state.result.split("@")[0];
                   database.ref(`penalty/${dataemail}/`).push().set({
 
                     userID:this.state.result,
-                    date:new Date()
+                    date:new Date().toString()
 
                   })
+
+                  window.location.href="/#/errorpage"
                 }
               
                   })
               },
-              alert('Single token updated!')
+       alert("Successfully scanned")
               ).catch(err=>console.log(err))
             
           }
@@ -96,7 +119,7 @@ handleError = err => {
 
 
 
-<div>
+<div className="animated fadeIn">
 
 
 <div style={{backgroundColor:"#244f24",width:"100%",height:"10%"}}><b><p style={{color:"white"}}>Powered by Code4</p></b></div>
