@@ -1,40 +1,39 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, {mount, shallow} from 'enzyme';
 import Token from './Token';
-import Adapter from 'enzyme-adapter-react-16';
+import jest from 'jest';
 
-Enzyme.configure({ adapter: new Adapter() });
 
 
 
 describe('Token', () => {
 
+  it("renders App component without crashing", () => {
+    shallow(<Token />);
+  });
 
-it('should be contain search name',()=>{
-    let wrapper = shallow(<Token/>);
-    const h5=wrapper.find('h5');
-    const result = h5.text();
+  // it('update search key',()=>{
 
-    expect(result.text()).toBe("Token Details");
-})
+  //   const handleChange=jest.fn();
+  //   const wrapper =shallow(<Token/> );  
+
+  //   const searchbox= wrapper.find(<Input name="searchbar"onChange={handleChange}/>);
+  //   const event = {
+  //     preventDefault() {},
+  //     target: { value: 'the-value' }
+  //   };
+
+  //   searchbox.simulate('change',event);
+
+  //   const status=wrapper.state.searchString;
+
+  //   expect(handleChange).equal('the-value')
 
 
-it('include six th tags',()=>{
-    let wrapper =shallow(<Token/>);
-    expect(wrapper.find("th").length).toEqual(6);
-});
+    
+  // })
 
+  
 
-
-
-it("responds to name change", done => {
-    const handleChangeSpy = sinon.spy(Token.prototype, "handleChange");
-    const event = {target: {name: "searchbar", value: "spam"}};
-    const wrap = mount(
-      <Token />
-    );
-    wrap.ref('searchbar').simulate('change', event);
-    expect(handleChangeSpy.calledOnce).to.equal(true);
-  })
 
 })

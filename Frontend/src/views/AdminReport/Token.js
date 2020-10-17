@@ -65,9 +65,9 @@ export default  class Token extends Component {
 
 //Geneate Token table
     showTokenTable = (tokens)=>{
-      
+      let tokenss=[]
 
-        return(  tokens.map((token,i)=>{
+        return(  tokenss.map((token,i)=>{
                return(
                  <tr key={token.id} >
                    <th>{token.email}</th>

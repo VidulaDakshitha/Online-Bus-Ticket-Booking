@@ -3,14 +3,14 @@ import {database, firestore} from "../../firebasejs";
 import {Col, Container, NavItem, NavLink, Row, TabContent, TabPane} from 'reactstrap';
 import Token from './Token';
 import Passenger from './Passenger';
-import Home from "../Home/Home";
-import Travel from "../Travel/Travel";
-import RelodeTocken from "../Dashboard/RelodeTocken";
-import QRcodefile from "../QRcode/QRcode";
-import AdminTopUp from "../AdminTopUp/AdminTopUp";
-import AdminUserHistory from "../AdminUserHistory/AdminUserHistory";
-import Nav from "reactstrap/es/Nav";
-import classnames from 'classnames';
+// import Home from "../Home/Home";
+// import Travel from "../Travel/Travel";
+// import RelodeTocken from "../Dashboard/RelodeTocken";
+// import QRcodefile from "../QRcode/QRcode";
+// import AdminTopUp from "../AdminTopUp/AdminTopUp";
+// import AdminUserHistory from "../AdminUserHistory/AdminUserHistory";
+// import Nav from "reactstrap/es/Nav";
+// import classnames from 'classnames';
 
 
 export default class AdmnReport extends Component {
