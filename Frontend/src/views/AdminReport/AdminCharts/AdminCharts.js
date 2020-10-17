@@ -3,7 +3,10 @@ import { PieChart } from 'react-minimal-pie-chart';
 import { Col, Container, Row } from 'reactstrap'
 import {database, firestore} from "../../../firebasejs";
 let tempRealTimeDb = [];
-
+/**
+ * IT18045840
+ * S.D.S.L Dissanayake
+ */
 
 
 export default class AdminCharts extends Component {
@@ -20,6 +23,7 @@ export default class AdminCharts extends Component {
 
     componentDidMount() {
 
+        //get journey from firbase
         database.ref('journey').on('value',(snapshot)=>{
             tempRealTimeDb=[];
             snapshot.forEach(arr=>{
@@ -72,6 +76,7 @@ export default class AdminCharts extends Component {
     }
 
 
+    //journy filter and group by thire fromDestination property
     groupAndFilterDataFromDestination=()=>{
         let jorurnyarry=this.state.realTimeDB;
         let groupjourny=  this.groupByKey(jorurnyarry,'fromDestination')
@@ -108,6 +113,7 @@ export default class AdminCharts extends Component {
 
     }
 
+    //journy data filter by passenger todestinations
     groupAndFilterDataToDestination=()=>{
         let jorurnyarry=this.state.realTimeDB;
         let groupjourny=  this.groupByKey(jorurnyarry,'toDestination')
