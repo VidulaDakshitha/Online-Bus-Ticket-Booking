@@ -26,10 +26,10 @@ function VerifyUser(props) {
         .then(function(result) {
           setSuccess('Email Verification Successful');
           window.localStorage.removeItem('tempEmail');
-          setInterval(()=>{
-            props.history.push("/dashboard");
-          },2000)
-
+          // setInterval(()=>{
+          //   props.history.push("/dashboard");
+          // },2000)
+          props.history.push("/dashboard/1");
         })
         .catch(function(error) {
           setErr(error.message);
