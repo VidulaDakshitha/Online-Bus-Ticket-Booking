@@ -65,7 +65,7 @@ export default  class Token extends Component {
 
 //Geneate Token table
     showTokenTable = (tokens)=>{
-      
+     
 
         return(  tokens.map((token,i)=>{
                return(

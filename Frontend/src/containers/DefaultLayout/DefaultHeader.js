@@ -5,9 +5,8 @@ import PropTypes from 'prop-types';
 import "./Style.scss";
 import {  AppNavbarBrand } from '@coreui/react';
 import logo from '../../assets/logo2.png'
-import imgavatar from "../../assets/8.jpg";
+import imgavatar from "../../assets/avatar1.png";
 import {auth} from "../../firebasejs";
-
 
 
 const propTypes = {

@@ -313,6 +313,7 @@ if(this.state.usercatergory==="foreign")
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input type="select" name="usercatergory" id="usercatergory" onChange={this.oncatergoryselect}>
+                <option value="foreign">Select foreigner</option>
                   <option value="foreign">Foreigner</option>
                   <option value="local">Local</option>
                 </Input>
