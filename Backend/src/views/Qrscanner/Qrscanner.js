@@ -68,6 +68,13 @@ handleScan=(data)=>{
                       status:"Completed"
                       })
 
+                      database.ref(`current`).push().set({
+
+                        userID:this.state.result,
+                        date:new Date().toString()
+    
+                      })
+
                       window.location.href="/#/endtrip";
 
                   }
