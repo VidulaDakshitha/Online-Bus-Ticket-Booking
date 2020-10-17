@@ -201,14 +201,7 @@ export default class Adminsmap extends Component {
               >{marker.value}</div>
           ))
 
-    //       return( 
-    //              marker.map(marker => (
-    //                 <p
-    //                      lat={ marker.latitude}
-    //                      lng={ marker.longitude}
-                         
-    //                 >fdhyfyfy</p>
-    //              ))
+
        )
     }
 
@@ -270,7 +263,7 @@ const makerstyles={
     borderWidth: 'thick',
     borderColor: '#fbfbfb',
     height: '50px',
-    backgroundColor: '#2361e0',
+    backgroundColor: '#2361e095',
     borderRadius: '100%',
     color: 'white'
 }
