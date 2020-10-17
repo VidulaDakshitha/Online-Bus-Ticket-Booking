@@ -83,9 +83,9 @@ let dataemail=this.state.result.split("@")[0];
                     userID:this.state.result,
                     date:new Date().toString()
 
-                  },()=> window.location.href="/#/errorpage")
+                  })
 
-                 
+                  window.location.href="/#/errorpage"
                 }
               
                   })
