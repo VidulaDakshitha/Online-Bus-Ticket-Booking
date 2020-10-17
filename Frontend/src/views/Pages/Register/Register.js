@@ -7,6 +7,9 @@ import "alertifyjs/build/css/themes/default.min.css";
 import alertify from "alertifyjs/build/alertify";
 import {auth, database} from "../../../firebasejs";
 import moment from "moment";
+import {AppNavbarBrand} from "@coreui/react";
+import logo from "../../../assets/logo2.png";
+import DefaultFooter from "../../../containers/DefaultLayout/DefaultFooter";
 class Register extends Component {
 
   constructor(props){
@@ -252,212 +255,220 @@ if(this.state.usercatergory==="foreign")
   render() {
     return (
 
+<div className="">
+  <div className="d-flex justify-content-between bg-white px-4">
+    <AppNavbarBrand style={{paddingbottom:200}} full={{ src: logo, width: 100, height: 45, alt: 'CoreUI Logo' }}/>
+  </div>
 
-      <div className="app flex-row align-items-center">
-        <Container>
-          <Row className="justify-content-center">
-            <Col md="9" lg="7" xl="6">
-              <Card className="mx-4">
-                <CardBody className="p-4">
+    <Container className="mt-3  ">
+      <Row className="justify-content-center">
+        <Col md="9" lg="7" xl="6">
+          <Card className="mx-4 shadow">
+            <CardBody className="p-4">
 
-                    <h1>Register</h1>
-                    <p className="text-muted">Create your account</p>
-                    {this.state.error&&<div className="alert alert-danger">{this.state.error}</div>}
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-user"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="text" placeholder="Username" name="username" vlue={this.state.username} onChange={this.onChangeHandler}   autoComplete="username" />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>@</InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="text" placeholder="Email" name="email" autoComplete="email" value={this.state.email} onChange={this.onChangeHandler} />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-lock"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="password" placeholder="Password"  name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onPasswordChange}/>
-                      <FormFeedback>Password length should be more than 7</FormFeedback>
-                    </InputGroup>
-
-
-
-
-                    <InputGroup className="mb-4">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-lock"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="password" placeholder="Repeat password" name="confirmPass" autoComplete="new-password" valid={this.state.valid} invalid={this.state.invalid} onChange={this.HandlepasswordConfirm}/>
-                      <FormFeedback>Passwords doesn't match</FormFeedback>
-                    </InputGroup>
-
-                    <InputGroup className="mb-3">
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-user"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-        <Input type="select" name="usercatergory" id="usercatergory" onChange={this.oncatergoryselect}>
-         <option value="foreign">Foreigner</option>
-         <option value="local">Local</option>
-        </Input>
-      </InputGroup>
-
-      <InputGroup className="mb-3">
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-user-female"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-        <Input type="select" name="idtype" id="idtype" value={this.state.idtype} onChange={this.onChangeHandler} disabled>
-         <option value="nic">NIC</option>
-         <option value="passport">Passport</option>
-        </Input>
-      </InputGroup>
+              <h1>Register</h1>
+              <p className="text-muted">Create your account</p>
+              {this.state.error&&<div className="alert alert-danger">{this.state.error}</div>}
+              <InputGroup className="mb-3">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="icon-user"></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input type="text" placeholder="Username" name="username" vlue={this.state.username} onChange={this.onChangeHandler}   autoComplete="username" />
+              </InputGroup>
+              <InputGroup className="mb-3">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>@</InputGroupText>
+                </InputGroupAddon>
+                <Input type="text" placeholder="Email" name="email" autoComplete="email" value={this.state.email} onChange={this.onChangeHandler} />
+              </InputGroup>
+              <InputGroup className="mb-3">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="icon-lock"></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input type="password" placeholder="Password"  name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onPasswordChange}/>
+                <FormFeedback>Password length should be more than 7</FormFeedback>
+              </InputGroup>
 
 
-      <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText> <i className="icon-bag"></i></InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="text" placeholder={this.state.identitytype} name="identity" id="identity"  value={this.state.identity} onChange={this.onChangeHandler} />
-                    </InputGroup>
 
 
-{this.state.usercatergory==="local"?
-                    <InputGroup className="mb-3">
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-pin"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-        <Input type="select" name="tokentype" id="tokentype" onChange={this.onChangeHandler}>
-        <option value="">Select token</option>
-         <option value="single">Single</option>
-         <option value="monthly">Monthly</option>
+              <InputGroup className="mb-4">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="icon-lock"></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input type="password" placeholder="Repeat password" name="confirmPass" autoComplete="new-password" valid={this.state.valid} invalid={this.state.invalid} onChange={this.HandlepasswordConfirm}/>
+                <FormFeedback>Passwords doesn't match</FormFeedback>
+              </InputGroup>
 
-        </Input>
-      </InputGroup>
-:<></>}
+              <InputGroup className="mb-3">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="icon-user"></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input type="select" name="usercatergory" id="usercatergory" onChange={this.oncatergoryselect}>
+                  <option value="foreign">Foreigner</option>
+                  <option value="local">Local</option>
+                </Input>
+              </InputGroup>
+
+              <InputGroup className="mb-3">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <i className="icon-user-female"></i>
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input type="select" name="idtype" id="idtype" value={this.state.idtype} onChange={this.onChangeHandler} disabled>
+                  <option value="nic">NIC</option>
+                  <option value="passport">Passport</option>
+                </Input>
+              </InputGroup>
 
 
-                    <Button color="success" onClick={()=>this.modelopen()} block>Create Account</Button>
+              <InputGroup className="mb-3">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText> <i className="icon-bag"></i></InputGroupText>
+                </InputGroupAddon>
+                <Input type="text" placeholder={this.state.identitytype} name="identity" id="identity"  value={this.state.identity} onChange={this.onChangeHandler} />
+              </InputGroup>
 
-                </CardBody>
 
-              </Card>
+              {this.state.usercatergory==="local"?
+                <InputGroup className="mb-3">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="icon-pin"></i>
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input type="select" name="tokentype" id="tokentype" onChange={this.onChangeHandler}>
+                    <option value="">Select token</option>
+                    <option value="single">Single</option>
+                    <option value="monthly">Monthly</option>
+
+                  </Input>
+                </InputGroup>
+                :<></>}
+
+
+              <Button color="success" className="primary-button" onClick={()=>this.modelopen()} block>Create Account</Button>
+              <Col xs="6" className="text-left mt-4">
+                <Button color="link" className="px-0 " onClick={()=>{ this.props.history.push("/login")}}>I already have an account</Button>
+              </Col>
+            </CardBody>
+
+          </Card>
+
+        </Col>
+      </Row>
+    </Container>
+
+
+
+    <Modal
+      isOpen={this.state.large}
+      toggle={this.toggleLarge}
+      className={"modal-lg " + this.props.className}
+    >
+      <Form onSubmit={this.onSubmitHandler}>
+        <ModalHeader toggle={this.toggleLarge}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add Payment</ModalHeader>
+        <ModalBody >
+
+
+
+
+          <FormGroup row>
+            <Col md="3">
+              <Label htmlFor="date-input">Name of Owner</Label>
             </Col>
-          </Row>
-        </Container>
+            <Col xs="12" md="9">
+              <Input
+                type="select"
+                id="method"
+                name="method"
+
+
+                onChange={this.changeHandler}
+                required
+              >
+                <option value="">Select Payment Method</option>
+                <option value="2">Card</option>
+                <option value="3">Bank</option>
+              </Input>
+            </Col>
+          </FormGroup>
 
 
 
-        <Modal
-            isOpen={this.state.large}
-            toggle={this.toggleLarge}
-            className={"modal-lg " + this.props.className}
-          >
-              <Form onSubmit={this.onSubmitHandler}>
-              <ModalHeader toggle={this.toggleLarge}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add Payment</ModalHeader>
-              <ModalBody >
+          <FormGroup row>
+            <Col md="3">
+              <Label htmlFor="date-input">Card Number</Label>
+            </Col>
+            <Col xs="12" md="9">
+              <Input
+                type="text"
+                id="fullname"
+                name="fullname"
+                placeholder="xxxx-xxxx-xxxx"
+                value={this.state.fullname}
+                onChange={this.changeHandler}
+                required
+              />
+            </Col>
+          </FormGroup>
+
+
+          <FormGroup row>
+            <Col md="3">
+              <Label htmlFor="date-input">CVC</Label>
+            </Col>
+            <Col xs="12" md="9">
+              <Input
+                type="number"
+                id="cvc"
+                name="cvc"
+                placeholder="3-digit"
+                value={this.state.fullname}
+                onChange={this.changeHandler}
+                required
+              />
+            </Col>
+          </FormGroup>
 
 
 
-
-              <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Name of Owner</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                                 <Input
-                                    type="select"
-                                    id="method"
-                                    name="method"
-
-
-                                    onChange={this.changeHandler}
-                                    required
-                                  >
-                                <option value="">Select Payment Method</option>
-                                  <option value="2">Card</option>
-                                  <option value="3">Bank</option>
-                                  </Input>
-                  </Col>
-                </FormGroup>
+          <FormGroup row>
+            <Col md="3">
+              <Label htmlFor="date-input">Payable Amount</Label>
+            </Col>
+            <Col xs="12" md="9">
+              {this.state.tokentype==="single"||this.state.tokentype==="temporary"?
+                <p style={{color:"red"}}> <b> Rs. 200.00</b></p>
+                :<p style={{color:"red"}}> <b> Rs. 1000.00</b></p>}
+            </Col>
+          </FormGroup>
 
 
 
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Card Number</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                                 <Input
-                                    type="text"
-                                    id="fullname"
-                                    name="fullname"
-                                    placeholder="xxxx-xxxx-xxxx"
-                                    value={this.state.fullname}
-                                    onChange={this.changeHandler}
-                                    required
-                                  />
-                  </Col>
-                </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button id="submitbtn" type="submit" color="success">
+            Save
+          </Button>
+          <Button color="secondary" onClick={()=>this.setState({large:false})}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Form>
+    </Modal>
 
+</div>
 
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">CVC</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                                 <Input
-                                    type="number"
-                                    id="cvc"
-                                    name="cvc"
-                                    placeholder="3-digit"
-                                    value={this.state.fullname}
-                                    onChange={this.changeHandler}
-                                    required
-                                  />
-                  </Col>
-                </FormGroup>
-
-
-
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Payable Amount</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    {this.state.tokentype==="single"||this.state.tokentype==="temporary"?
-                               <p style={{color:"red"}}> <b> Rs. 200.00</b></p>
-                               :<p style={{color:"red"}}> <b> Rs. 1000.00</b></p>}
-                  </Col>
-                </FormGroup>
-
-
-
-              </ModalBody>
-              <ModalFooter>
-                <Button id="submitbtn" type="submit" color="success">
-                  Save
-                </Button>
-                <Button color="secondary" onClick={()=>this.setState({large:false})}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Form>
-          </Modal>
-      </div>
     );
   }
 }

@@ -17,7 +17,7 @@ import {
     DropdownMenu,
     Select,
     Alert
-    
+
   } from "reactstrap";
 
   import {database, firestore} from "../../firebasejs";
@@ -44,18 +44,19 @@ class AdminUserHistory extends Component {
         })
 
     }
-    
+
     render() {
         return (
             <div>
                 <Row>
                     <Col xs="12" sm="12">
                     <Card >
-                    <CardHeader><h3>User History</h3></CardHeader>
+                    <CardHeader className="primary-bg"><h3>User History</h3></CardHeader>
                     <CardBody>
-                    <CardText>You can view all the user history</CardText>
-                   
-                    <Table responsive bordered className="table">
+
+
+                      <Table size="sm" className="mt-3" responsive>
+                       
                             <thead>
                                 <tr>
                                 <th>REF No.</th>
@@ -70,7 +71,7 @@ class AdminUserHistory extends Component {
                             </thead>
                             {this.state.realTimeDB.map(
                                 data=>(
-                                    
+
                                     <tbody>
                                         <tr>
                                     <th scope="row">{data.id}</th>
@@ -89,7 +90,7 @@ class AdminUserHistory extends Component {
                     </CardBody>
                     </Card>
 
-                   
+
                     </Col>
             </Row>
             </div>

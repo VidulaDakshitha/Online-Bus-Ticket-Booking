@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody,CardHeader, Col, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import QRcodefile from "../QRcode/QRcode";
 import {
     Nav,
@@ -7,8 +7,7 @@ import {
     NavLink,
     TabContent,
     TabPane,
-    FormGroup,
-    Label,
+
 } from "reactstrap";
 
 
@@ -19,7 +18,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
-import qr from "../../assets/qr.PNG";
+
 
 import Train from "../../assets/train.jpg";
 import Bus from "../../assets/bus.jpg";
@@ -31,10 +30,11 @@ import Home from '../Home/Home';
 import Travel from "../Travel/Travel";
 import AdminTopUp from "../AdminTopUp/AdminTopUp";
 import AdminUserHistory from "../AdminUserHistory/AdminUserHistory";
-import Sample from "../SamplePage";
+
 import AdmnReport from '../AdminReport/AdmnReport';
- 
+
 import RelodeTocken from "./RelodeTocken";
+import TimeTable from "../AdminReport/TimeTable";
 
 const useStyles =theme => ({
     root: {
@@ -93,7 +93,6 @@ class DashboardUser extends Component {
 
 componentDidMount() {
 
- console.log(this.props.history.location.pathname.split('/')[2])
 
   this.props.history.listen((location, action) => {
       console.log(location.pathname.split('/')[2])
@@ -112,63 +111,43 @@ componentDidMount() {
     return (
       <>
         <TabPane tabId="1">
-          {
-               <Home/>
-          }
+          <Home/>
         </TabPane>
+
         <TabPane tabId="2">
-
-          {
-          <div>
-            <Travel />
-          </div>
-          }
+          <Travel />
         </TabPane>
+
         <TabPane tabId="3">
+          <RelodeTocken {...this.props} />
+        </TabPane>
 
-            {
-              <RelodeTocken {...this.props} />
-            }
-            </TabPane>
+        <TabPane tabId="4">
+          <div>This is help</div>
+        </TabPane>
 
-            <TabPane tabId="4">
+        <TabPane tabId="5">
+          {/* <div className="text-center"><img className="img-fluid" src={qr}/></div>*/}
+            <QRcodefile/>
+        </TabPane>
 
-            {
-                <div>This is help</div>
-            }
-            </TabPane>
 
-            <TabPane tabId="5">
+        <TabPane tabId="6">
+          <AdmnReport></AdmnReport>
+        </TabPane>
 
-            {
-              // <div className="text-center"><img className="img-fluid" src={qr}/></div>
-              <QRcodefile/>
-            }
-            </TabPane>
-            <TabPane tabId="6">
+        <TabPane tabId="7">
+          <TimeTable/>
+        </TabPane>
 
-            {
-              <AdmnReport></AdmnReport>
-            }
-            </TabPane>
-            <TabPane tabId="7">
 
-            {
-              <div>This is timetable</div>
-            }
-            </TabPane>
-            <TabPane tabId="8">
+        <TabPane tabId="8">
+          <AdminTopUp />
+        </TabPane>
 
-            {
-              <div><AdminTopUp /></div>
-            }
-            </TabPane>
-            <TabPane tabId="9">
-
-            {
-              <div><AdminUserHistory /></div>
-            }
-            </TabPane>
+        <TabPane tabId="9">
+          <AdminUserHistory />
+        </TabPane>
 
       </>
     );
@@ -181,9 +160,9 @@ componentDidMount() {
     const {classes} = this.props;
     return (
 
-      <div>
+      <div className="slideshow">
 
-<GridList className={classes.gridList} cols={2.0} style={{cursor:"pointer"}}>
+<GridList  className={classes.gridList} cols={2.0} style={{cursor:"pointer"}}>
 
 
   <GridListTile key="1"
@@ -191,7 +170,7 @@ componentDidMount() {
   style={{borderColor:"red",borderWidth:"medium"}}
 
   >
-    <img src={Train} style={{width:"100%"}} alt="image" />
+    <img src="https://images.unsplash.com/photo-1549118560-5f5ee56cfe55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=375&q=80" style={{width:"100%"}} alt="image" />
 
     <GridListTileBar
 
@@ -215,7 +194,7 @@ componentDidMount() {
   style={{borderColor:"red",borderWidth:"medium"}}
 
   >
-    <img src={Bus} style={{width:"100%"}} alt="image" />
+    <img src="https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80" style={{width:"100%"}} alt="image" />
 
     <GridListTileBar
 
@@ -239,7 +218,7 @@ componentDidMount() {
   style={{borderColor:"red",borderWidth:"medium"}}
 
   >
-    <img src={Taxi} style={{width:"100%"}} alt="image" />
+    <img src="https://images.unsplash.com/photo-1485739139909-d0d1783a7196?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" style={{width:"100%"}} alt="image" />
 
     <GridListTileBar
 
@@ -263,7 +242,7 @@ componentDidMount() {
   style={{borderColor:"red",borderWidth:"medium"}}
 
   >
-    <img src={Tuk} style={{width:"100%"}} alt="image" />
+    <img src="https://images.unsplash.com/photo-1494094957169-98a78486526e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" style={{width:"100%"}} alt="image" />
 
     <GridListTileBar
 
@@ -285,10 +264,7 @@ componentDidMount() {
 </GridList>
 
 
-
-
-
-<Row>
+        <Row className="mt-4">
           <Col>
             <Nav tabs>
               <NavItem>

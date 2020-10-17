@@ -17,14 +17,14 @@ import {
     DropdownMenu,
     Select,
     Alert
-    
+
   } from "reactstrap";
   import moment from "moment";
   import {database, firestore} from "../../firebasejs";
 
   let tempRealTimeDb = [];
   let tempRealTimeDbToken = [];
- 
+
 
 class AdminTopUp extends Component {
     constructor(props) {
@@ -75,7 +75,7 @@ class AdminTopUp extends Component {
     onSubmit = async(e) => {
         e.preventDefault();
 
-        
+
 
         if(this.state.userID !== "" || this.state.amountTopUp !== "" || this.state.tokenType !== "")
         {
@@ -87,7 +87,7 @@ class AdminTopUp extends Component {
                     })
                 }
             })
-            
+
             console.log("Avai amount", this.state.avaiAmount)
 
             if(this.state.tokenType === "single"){
@@ -99,7 +99,7 @@ class AdminTopUp extends Component {
                         expiryDate: "",
                         isactive: 1,
                         tokentype: "single"
-                    
+
                         })
                     })
                 },
@@ -115,7 +115,7 @@ class AdminTopUp extends Component {
                         expiryDate: moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD"),
                         isactive: 1,
                         tokentype: "monthly"
-                    
+
                         })
                     })
                 },
@@ -133,21 +133,21 @@ class AdminTopUp extends Component {
             amountTopUp: ""
         })
     }
-    
+
     render() {
         return (
             <div>
                 <Row>
-                    <Col xs="12" sm="8">
-                        <Card >
-                        <CardHeader><h3>Top Up user's accounts</h3></CardHeader>
+                    <Col xs="12" sm="8" className="mx-auto mt-3">
+                        <Card className="shadow">
+                        <CardHeader className="primary-bg"><h3>Top Up user's accounts</h3></CardHeader>
                         <CardBody>
                         <CardText>As the admin you can topup user's accounts when they physically visit the bus station</CardText>
 
                         <Form method ="POST" onSubmit={this.onSubmit}>
                         <Label>Select the user account ID and name:</Label>
                             <Input type="select"  name="userID" id="userID" onChange={this.onChangeHandler}>
-                            { this.state.realTimeDB.map(value => (    
+                            { this.state.realTimeDB.map(value => (
                             <option>{value.email}</option>
                             ))}
                             </Input>
@@ -159,20 +159,20 @@ class AdminTopUp extends Component {
 
                             <Label>Amount to topup</Label>
                             <Input type="text" name="amountTopUp" id="amountTopUp" onChange={this.onChangeHandler} />
-                            
+
                             <br />
-                            <Button type="submit" >To Up Account</Button>
+                            <Button className="primary-button" type="submit" >To Up Account</Button>
                         </Form>
                         <br />
-                        <Alert color="dark">
+                        <Alert color="dark" className="primary-bg">
                             <h4>USER: {this.state.userID}</h4>
-                            <h4>TOTAL AMOUNT(LKR): {this.state.amountTopUp}</h4> 
+                            <h4>TOTAL AMOUNT(LKR): {this.state.amountTopUp}</h4>
                             <h4>TOKEN TYPE: {this.state.tokenType}</h4>
                         </Alert>
                         </CardBody>
                         </Card>
-                    
-                
+
+
                     </Col>
             </Row>
             </div>
