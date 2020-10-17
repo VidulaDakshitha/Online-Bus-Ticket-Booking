@@ -6,10 +6,11 @@ import {database, firestore} from "../../firebasejs";
 
 
 export default class CardDetails extends Component {
+/**
+ * IT18045840
+ * S.D.S.L Dissanayake
+ */
 
-    /**
-     * Show Token details for user
-     */
 
     constructor(props){
         super(props)
