@@ -90,11 +90,7 @@ let dataemail=this.state.result.split("@")[0];
               
                   })
               },
-              Swal.fire(
-                'Good Job!',
-                'QR scanned Successfully',
-               'success'
-              )
+       alert("Successfully scanned")
               ).catch(err=>console.log(err))
             
           }
