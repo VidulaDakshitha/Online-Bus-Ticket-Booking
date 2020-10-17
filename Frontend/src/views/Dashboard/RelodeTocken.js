@@ -32,7 +32,7 @@ function RelodeTocken(props) {
 
   const submit =e=>{
     e.preventDefault();
-    database.ref('token').orderByChild('email').equalTo(localStorage.getItem('fulEmail')).once('value',(snapshot)=>{
+    database.ref('token').orderByChild('email').equalTo(localStorage.getItem('email')).once('value',(snapshot)=>{
       snapshot.forEach(data=>{
 
         let newAmount=(Number.parseInt(data.val().amount)+Number.parseInt(amount));
