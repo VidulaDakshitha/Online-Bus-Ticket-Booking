@@ -15,7 +15,7 @@ export default class AdminCharts extends Component {
         super(props)
         this.state = {
             realTimeDB:[],
-                    
+
         }
 
     }
@@ -36,9 +36,9 @@ export default class AdminCharts extends Component {
         })
 
 
-    
-    
-   
+
+
+
     }
 
     filterData=()=>{
@@ -63,7 +63,7 @@ export default class AdminCharts extends Component {
 
 
 
-        return(    
+        return(
         <PieChart
             data={[
               { title: 'Kollupitiya',value:destination1.length, color: '#E38627' },
@@ -95,16 +95,16 @@ export default class AdminCharts extends Component {
 
                 }
 
-                
+
                 datarry.push(tempobject)
             }
         }
 
-        
 
 
 
-        return(    
+
+        return(
 
         <PieChart
         label={(props) => { return props.dataEntry.title;}}
@@ -132,17 +132,17 @@ export default class AdminCharts extends Component {
 
                 }
 
-                
+
                 datarry.push(tempobject)
             }
         }
 
         console.log(datarry);
-        
 
 
 
-        return(    
+
+        return(
 
         <PieChart
         label={(props) => { return props.dataEntry.title;}}
@@ -157,46 +157,46 @@ export default class AdminCharts extends Component {
     groupByKey=(array, key) =>{
         return array
           .reduce((hash, obj) => {
-            if(obj[key] === undefined) return hash; 
+            if(obj[key] === undefined) return hash;
             return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
           }, {})
      }
- 
 
 
 
-    
+
+
 
 
     render() {
-         
-        return (
-            <Row>
 
-            
+        return (
+            <Row className="mt-2">
+
+
                <Col>
-               <h5>Passenger start points </h5>
+               <h5 className="text-center">Passenger start points </h5>
                 <Row style={chartStyle}>
                     {this.groupAndFilterDataFromDestination()}
-                </Row>    
+                </Row>
                 </Col>
-                     
-          
-           
-              <Col>  
-              <h5>Passenger Destination </h5>
+
+
+
+              <Col>
+                <h5 className="text-center">Passenger Destination </h5>
               <Row style={chartStyle}>
                     {this.groupAndFilterDataToDestination()}
-                </Row>  
+                </Row>
               </Col>
-                
-                     
-           
+
+
+
 
             </Row>
 
 
-      
+
         )
     }
 }
@@ -209,5 +209,5 @@ export default class AdminCharts extends Component {
         color:'white',
         padding:10,
         margin:5
-    
+
  }

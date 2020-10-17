@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem } from 'reactstrap';
+
+import {  UncontrolledDropdown, DropdownItem, DropdownMenu, Nav, Dropdown, DropdownToggle} from 'reactstrap';
 import PropTypes from 'prop-types';
 import "./Style.scss";
-import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import {  AppNavbarBrand } from '@coreui/react';
 import logo from '../../assets/logo2.png'
 import imgavatar from "../../assets/8.jpg";
 import {auth} from "../../firebasejs";
+
 
 
 const propTypes = {
@@ -18,6 +19,13 @@ const defaultProps = {};
 
 class DefaultHeader extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state={
+      show:false
+    }
+
+  }
 
   logout=()=>{
     auth.signOut().then(()=>{
@@ -35,32 +43,38 @@ class DefaultHeader extends Component {
 
 
     return (
-      <React.Fragment>
+      <div className="d-flex justify-content-between bg-white px-4">
         {/* <AppSidebarToggler className="d-lg-none" display="md" mobile /> */}
 
-        <AppNavbarBrand style={{paddingbottom:200}}
-          full={{ src: logo, width: 100, height: 45, alt: 'CoreUI Logo' }}
+          <AppNavbarBrand style={{paddingbottom:200}} full={{ src: logo, width: 100, height: 45, alt: 'CoreUI Logo' }}/>
 
-        />
+
 
         {/* <AppSidebarToggler className="d-md-down-none" display="lg" /> */}
 
-        <Nav className="d-md-down-none" >
+
+
 
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <img src={imgavatar}  className="img-avatar" alt="admin@bootstrapmaster.com" />
             </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
+             <DropdownMenu right>
+               <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
 
-    <DropdownItem ><i className="fa fa-shield"></i>{localStorage.getItem("usertype")}</DropdownItem>
-              <DropdownItem onClick={this.logout}><i className="fa fa-lock"></i> Logout</DropdownItem>
+               <DropdownItem >
+                 <i className="fa fa-shield"></i>
+                 {localStorage.getItem("usertype")}
+               </DropdownItem>
+              <DropdownItem onClick={this.logout}>
+                <i className="fa fa-lock"></i>
+                Logout
+              </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
-        </Nav>
 
-      </React.Fragment>
+
+      </div>
     );
   }
 }

@@ -1,5 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardGroup,
+  Col,
+  Container, DropdownItem, DropdownMenu, DropdownToggle,
+  Form,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row,
+  UncontrolledDropdown
+} from 'reactstrap';
 
 import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
@@ -9,6 +23,9 @@ import moment from "moment";
 
 import Wallpaper from "../../../assets/wallpaper.jpg";
 import {auth, database} from "../../../firebasejs";
+import {AppNavbarBrand} from "@coreui/react";
+import logo from "../../../assets/logo2.png";
+import imgavatar from "../../../assets/8.jpg";
 
 
 
@@ -110,22 +127,20 @@ if(username==="admin@gmail.com" && password==="admin")
 
 
     return (
-      <div  style={{backgroundImage: `url(${Wallpaper})`,backgroundRepeat:"no-repeat",backgroundSize:"100% 100%"}}>
-            <div style={{position:"absolute",paddingLeft:"20px",paddingTop:"20px"}}>
-
+      <div>
+        <div className="d-flex justify-content-between bg-white px-4">
+          <AppNavbarBrand style={{paddingbottom:200}} full={{ src: logo, width: 100, height: 45, alt: 'CoreUI Logo' }}/>
         </div>
-        <div className="app flex-row align-items-center">
-        <div className="sweet-loading text-center" style={{zIndex:"5"}}>
-
-      </div>
 
 
-        <Container>
+
+
+        <Container className="mt-5">
           <Row className="justify-content-center">
 
             <Col md="6">
               <CardGroup>
-                <Card className="p-4">
+                <Card className="p-4 shadow">
                   <CardBody>
                     <Form onSubmit={onSubmitHandler}>
                       <h1>Ticketing System</h1>
@@ -149,13 +164,13 @@ if(username==="admin@gmail.com" && password==="admin")
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4">Login</Button>
+                          <Button color="primary" className="px-4 primary-button">Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0" onClick={()=>{props.history.push("/forgotpassword")}}>Forgot password?</Button>
                         </Col>
                         <Col xs="6" className="text-left">
-                          <Button color="link" className="px-0" onClick={()=>{ props.history.push("/register")}}>I do not have an account</Button>
+                          <Button color="link" className="px-0 " onClick={()=>{ props.history.push("/register")}}>I do not have an account</Button>
                         </Col>
                       </Row>
                     </Form>
@@ -166,7 +181,7 @@ if(username==="admin@gmail.com" && password==="admin")
           </Row>
         </Container>
       </div>
-      </div>
+
 
     );
 

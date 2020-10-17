@@ -32,7 +32,7 @@ export default  class Token extends Component {
             database.ref('token/'+id).update({isactive:0},(err)=>{
                 if (err) {
                     console.log(err);
-    
+
                     } else {
                         console.log("Jounry Completed");
                    }
@@ -44,16 +44,16 @@ export default  class Token extends Component {
             database.ref('token/'+id).update({isactive:1},(err)=>{
                 if (err) {
                     console.log(err);
-    
+
                     } else {
                         console.log("Jounry Completed");
                    }
             });
 
-            
+
         }
 
-       
+
 
 
     }
@@ -80,19 +80,19 @@ export default  class Token extends Component {
                        <Button outline color="danger" onClick={()=>{this.tokenDeactive(token.id,token.isactive)}}>deactivate</Button>:
                        <Button outline color="success" onClick={()=>{this.tokenDeactive(token.id,token.isactive)}}>activate</Button>
 
-                       
+
                     }
                     </td>
                  </tr>
-         
+
                )
            })
         )
-   
+
     }
 
 
-     
+
 
     render() {
 
@@ -111,11 +111,11 @@ export default  class Token extends Component {
                     });
                  }
         return (
-            <Col sm={StyledHome.ColumnSize}  style={StyledHome.colStyle}>
+          < Col className="p-3 mt-2">
                  <h5>Token Details</h5>
 
-                 <Input placeholder={'Serach Token '}  value={this.state.searchString} onChange={this.handleChange}></Input>   
-                 <Table size="sm" responsive>
+                 <Input placeholder={'Serach Token '}  value={this.state.searchString} onChange={this.handleChange}></Input>
+                 <Table size="sm" className="mt-3" responsive>
                     <thead>
                         <tr>
                             <th>Email</th>
@@ -131,26 +131,26 @@ export default  class Token extends Component {
                         <tbody>
                         {this.showTokenTable(tokenData)}
 
-                                                 
+
                         </tbody>
 
                  </Table>
-                
-            </Col>
+
+          </Col>
         );
     }
 }
 
 //Token Style
 const StyledHome ={
-     
+
     ColumnSize:{
 
        size: 'auto',
        offset: 1
-   
+
    },
-   
+
    ColumnSizefixd: {
     size: '6',
     offset: 1
@@ -162,4 +162,3 @@ const StyledHome ={
    }
 
 }
- 

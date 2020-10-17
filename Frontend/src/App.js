@@ -3,7 +3,7 @@ import { HashRouter, Route, Switch} from "react-router-dom";
 
 
 
-
+import "./app.css"
 import "./App.scss";
 import ConfirmEmail from "./views/Pages/Confirem/ConfiremEmail";
 import VerifyUser from "./views/Pages/VerifyUser";

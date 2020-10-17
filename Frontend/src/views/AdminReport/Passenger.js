@@ -19,7 +19,7 @@ export default class Passenger extends Component {
         }
 
 
-        
+
     }
 
     componentDidMount(){
@@ -37,12 +37,12 @@ export default class Passenger extends Component {
      return(  passengers.map((passenger,i)=>{
             return(
               <tr key={i} >
-                <th >{passenger.identity}</th>
-                <td>{passenger.username}</td>
-                <td>{passenger.usercatergory}</td>
-                <td>{passenger.tokentype}</td>
+                <th className="py-2">{passenger.identity}</th>
+                <td className="py-2">{passenger.username}</td>
+                <td className="py-2">{passenger.usercatergory}</td>
+                <td className="py-2">{passenger.tokentype}</td>
               </tr>
-      
+
             )
         })
      )
@@ -61,7 +61,7 @@ export default class Passenger extends Component {
 
     render() {
 
-        //Filter Data 
+        //Filter Data
         var passegerData = this.props.passengerData,
         searchString = this.state.searchString.trim().toLowerCase();
         if (searchString.length > 0) {
@@ -76,12 +76,12 @@ export default class Passenger extends Component {
 
 
         return (
-            <Col sm={StyledHome.ColumnSize} style={StyledHome.colStyle}>
+            < Col className="p-3 mt-2">
                   <h5>Passnger Details</h5>
-                  <Input placeholder={'Serach Passenger '}  value={this.state.searchString} onChange={this.handleChange}></Input>   
+                  <Input placeholder={'Serach Passenger '}  value={this.state.searchString} onChange={this.handleChange}></Input>
 
-                  <Table size="sm" responsive>
-                    <thead>
+              <Table size="sm" className="mt-3" responsive>
+                <thead>
                         <tr>
                             <th>identity</th>
                             <th>username</th>
@@ -93,12 +93,12 @@ export default class Passenger extends Component {
                         <tbody>
                         {this.showPassengerTable(passegerData)}
 
-                                                 
+
                         </tbody>
 
                  </Table>
-                
-                
+
+
             </Col>
         );
     }
@@ -106,14 +106,14 @@ export default class Passenger extends Component {
 
 //Passenger Token
 const StyledHome ={
-     
+
     ColumnSize:{
 
        size: 'auto',
        offset: 1
-   
+
    },
-   
+
    ColumnSizefixd: {
     size: '6',
     offset: 1
