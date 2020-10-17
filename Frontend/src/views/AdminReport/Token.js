@@ -103,11 +103,20 @@ export default  class Token extends Component {
         searchString = this.state.searchString.trim().toLowerCase();
                 if (searchString.length > 0) {
                     tokenData = tokenData.filter(function(i) {
-                         return (i.email.toLowerCase().match( searchString )||
-                                i.tokentype.toLowerCase().match( searchString )||
-                                i.id.toLowerCase().match( searchString )||
-                                i.amount.toString().match( searchString )
-                                 );
+
+                        if(!(i.email==null||i.tokentype==null||i.id==null||i.amount==null)){
+                            return (i.email.toLowerCase().match( searchString )||
+                            i.tokentype.toLowerCase().match( searchString )||
+                            i.id.toLowerCase().match( searchString )||
+                            i.amount.toString().match( searchString )
+                             );
+
+                        }
+
+                         
+
+
+
                     });
                  }
         return (
