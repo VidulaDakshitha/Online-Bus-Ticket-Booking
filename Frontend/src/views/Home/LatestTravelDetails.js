@@ -100,7 +100,7 @@ export default class LatestTravelDetails extends Component {
                             <b> {travle.fromDestination} </b> to
                             <b> {travle.toDestination} </b> 
                              
-                             <Button outline color="danger" onClick={()=>{this.deactivateJourney(travle.id)}}> End Journey </Button> 
+                             {/* <Button outline color="danger" onClick={()=>{this.deactivateJourney(travle.id)}}> End Journey </Button>  */}
                              
                             </p>
                         </Alert>

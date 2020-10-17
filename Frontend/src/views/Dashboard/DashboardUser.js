@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row } from 'reactstrap';
+import { Button, Col, Modal, ModalBody, Row } from 'reactstrap';
 import QRcodefile from "../QRcode/QRcode";
 import {
     Nav,
@@ -17,7 +17,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-
+import {database, firestore} from "../../firebasejs";
 
 
 import Train from "../../assets/train.jpg";
@@ -42,7 +42,7 @@ const useStyles =theme => ({
       flexWrap: 'wrap',
       justifyContent: 'space-around',
       overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.background.paper
     },
     gridList: {
       flexWrap: 'nowrap',
@@ -71,12 +71,17 @@ const useStyles =theme => ({
       backgroundColor: theme.palette.background.paper,
     },
   });
+
+  let tempRealTimeDb = [];
 class DashboardUser extends Component {
 
   constructor(props){
     super(props);
     this.state={
         activeTab: new Array(4).fill("1"),
+        realTimeDB: [],
+        userID: localStorage.getItem("email"),
+        large:false
 
     }
   }
@@ -91,8 +96,9 @@ class DashboardUser extends Component {
     });*/
   }
 
-componentDidMount() {
+componentDidMount = async() => {
 
+  console.log("dashboard")
 
   this.props.history.listen((location, action) => {
       console.log(location.pathname.split('/')[2])
@@ -100,9 +106,50 @@ componentDidMount() {
       activeTab:location.pathname.split('/')[2]
     })
   })
+
+  database.ref('current').orderByChild("userID").equalTo(this.state.userID).on('value',(snapshot)=>{
+    tempRealTimeDb=[];
+    //console.log(snapshot.numChildren())
+    snapshot.forEach(arr=>{
+
+        tempRealTimeDb=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
+
+        console.log("length", tempRealTimeDb.length)
+        if(tempRealTimeDb.length > 0){
+          console.log("visited")
+          this.togglelarge()
+          //alert("Journey completed!")
+        }
+        // tempRealTimeDb.forEach(data=>{
+        //   if(data.)
+        // })
+    });
+
+    this.setState({
+        realTimeDB: tempRealTimeDb,
+
+    })
+})
 }
 
+togglelarge=()=>{
 
+  this.setState({
+    large:!this.state.large
+  })
+
+}
+
+deleteCurrent = () =>{
+  database.ref('current').orderByChild('userID').equalTo(this.state.userID.trim()).once('value',(snapshot)=>{
+    snapshot.forEach(data=>{
+        database.ref(`current/${data.key}/`).remove()
+    })
+  })
+  this.setState({
+    large:false
+  })
+}
 
 
 
@@ -263,6 +310,17 @@ componentDidMount() {
 
 </GridList>
 
+<Modal isOpen={this.state.large}
+toggle={this.togglelarge}
+className={"modal-lg"+this.props.className}>
+  <ModalBody>
+    <div className="text-center">
+<h3 className="text-center">Successfully Completed Trip</h3>
+<br></br>
+<Button className="btn-lg btn btn-success" onClick={()=>this.deleteCurrent()}>OK</Button>
+</div>
+  </ModalBody>
+</Modal>
 
         <Row className="mt-4">
           <Col>
