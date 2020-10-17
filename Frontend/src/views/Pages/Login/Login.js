@@ -59,8 +59,8 @@ if(username==="admin@gmail.com" && password==="admin")
 
         database.ref('token').orderByChild('email').equalTo(username.trim()).once('value',(snapshot)=>{
           let time = new Date().getTime();
-          
-         
+
+
 
           snapshot.forEach(data=>{
             localStorage.setItem("tokenType",data.val().tokentype)
@@ -93,7 +93,7 @@ if(username==="admin@gmail.com" && password==="admin")
 
         this.props.history.push("/dashboard");
 
-    
+
 
       }).catch((error)=> {
              setError(error.message)
