@@ -32,7 +32,7 @@ export default  class Token extends Component {
             database.ref('token/'+id).update({isactive:0},(err)=>{
                 if (err) {
                     console.log(err);
-    
+
                     } else {
                         console.log("Jounry Completed");
                    }
@@ -44,16 +44,16 @@ export default  class Token extends Component {
             database.ref('token/'+id).update({isactive:1},(err)=>{
                 if (err) {
                     console.log(err);
-    
+
                     } else {
                         console.log("Jounry Completed");
                    }
             });
 
-            
+
         }
 
-       
+
 
 
     }
@@ -65,6 +65,7 @@ export default  class Token extends Component {
 
 //Geneate Token table
     showTokenTable = (tokens)=>{
+      
 
         return(  tokens.map((token,i)=>{
                return(
@@ -80,19 +81,19 @@ export default  class Token extends Component {
                        <Button outline color="danger" onClick={()=>{this.tokenDeactive(token.id,token.isactive)}}>deactivate</Button>:
                        <Button outline color="success" onClick={()=>{this.tokenDeactive(token.id,token.isactive)}}>activate</Button>
 
-                       
+
                     }
                     </td>
                  </tr>
-         
+
                )
            })
         )
-   
+
     }
 
 
-     
+
 
     render() {
 
@@ -103,18 +104,27 @@ export default  class Token extends Component {
         searchString = this.state.searchString.trim().toLowerCase();
                 if (searchString.length > 0) {
                     tokenData = tokenData.filter(function(i) {
-                         return (i.email.toLowerCase().match( searchString )||
-                                i.tokentype.toLowerCase().match( searchString )||
-                                i.id.toLowerCase().match( searchString )||
-                                i.amount.toString().match( searchString )
-                                 );
+
+                        if(!(i.email==null||i.tokentype==null||i.id==null||i.amount==null)){
+                            return (i.email.toLowerCase().match( searchString )||
+                            i.tokentype.toLowerCase().match( searchString )||
+                            i.id.toLowerCase().match( searchString )||
+                            i.amount.toString().match( searchString )
+                             );
+
+                        }
+
+                         
+
+
+
                     });
                  }
         return (
             <Col sm={StyledHome.ColumnSize}  style={StyledHome.colStyle}>
-                 <h5>Token Details</h5>
+                 <h5 id="title">Token Details</h5>
 
-                 <Input placeholder={'Serach Token '}  value={this.state.searchString} onChange={this.handleChange}></Input>   
+                 <Input name="searchbar" placeholder={'Serach Token '}  value={this.state.searchString} onChange={this.handleChange}></Input>   
                  <Table size="sm" responsive>
                     <thead>
                         <tr>
@@ -131,26 +141,26 @@ export default  class Token extends Component {
                         <tbody>
                         {this.showTokenTable(tokenData)}
 
-                                                 
+
                         </tbody>
 
                  </Table>
-                
-            </Col>
+
+          </Col>
         );
     }
 }
 
 //Token Style
 const StyledHome ={
-     
+
     ColumnSize:{
 
        size: 'auto',
        offset: 1
-   
+
    },
-   
+
    ColumnSizefixd: {
     size: '6',
     offset: 1
@@ -162,4 +172,3 @@ const StyledHome ={
    }
 
 }
- 

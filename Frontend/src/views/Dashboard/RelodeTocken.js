@@ -21,10 +21,10 @@ function RelodeTocken(props) {
         setStatus(data.val().isactive)
         setType(data.val().tokentype)
 
-       
+
       })
     })
-    
+
   },[]);
 
   const submit =e=>{
@@ -56,7 +56,7 @@ if(data.val().isactive===0 && (data.val().tokentype==="monthly"||data.val().toke
 {
 
   const issuedate=new Date(datevalue).toString();
-  
+
 
  database.ref(`token/${data.key}/`).update({amount:newAmount,isactive:1,issueDate:issuedate});
  setSuccess('Top-up Successfully');
@@ -64,7 +64,7 @@ if(data.val().isactive===0 && (data.val().tokentype==="monthly"||data.val().toke
 }else if(data.val().isactive===1 && data.val().tokentype==="single")
 {
   const issuedate=new Date().toString();
-  
+
 
  database.ref(`token/${data.key}/`).update({amount:newAmount,isactive:1,issueDate:issuedate});
  setSuccess('Top-up Successfully');
@@ -87,7 +87,7 @@ if(data.val().isactive===0 && (data.val().tokentype==="monthly"||data.val().toke
     <Card>
       <CardBody>
       {(status.toString()==="1" && parseFloat(tAmount)<100 && (type==="monthly"||type==="temporary")) || ((status.toString()==="1"||status.toString()==="0") && type==="single") ||(status.toString()==="0" && (type==="monthly"||type==="temporary")) ?
-    
+
         <form onSubmit={submit}>
           {success&&<div className="alert alert-success">{success}</div>}
 
@@ -174,7 +174,7 @@ if(data.val().isactive===0 && (data.val().tokentype==="monthly"||data.val().toke
 
             </Col>
             <Col xs="12" md="9">
-              <Button style={{borderRadius:"10px"}} className="btn btn-success">Proceed</Button>
+              <Button   className="btn btn-success primary-button">Proceed</Button>
             </Col>
           </FormGroup>
 
@@ -182,7 +182,7 @@ if(data.val().isactive===0 && (data.val().tokentype==="monthly"||data.val().toke
 
         </form>
         :<div>
-          
+
           <h4>Please use your money to travel and top up once over</h4>
         <h5>Currently You Have  <b> Rs. {tAmount}</b></h5>
           </div>}

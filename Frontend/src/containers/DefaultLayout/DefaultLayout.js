@@ -1,25 +1,11 @@
 import React, { Component, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import * as router from "react-router-dom";
-import { Container } from "reactstrap";
 
-import {
-  AppAside,
-  AppFooter,
-  AppHeader,
-  AppSidebar,
-  AppSidebarFooter,
-  AppSidebarForm,
-  AppSidebarHeader,
-  AppSidebarMinimizer,
-  AppBreadcrumb2 as AppBreadcrumb,
-  AppSidebarNav2 as AppSidebarNav
-} from "@coreui/react";
 
 
 
 import { css } from "@emotion/core";
-import DotLoader from "react-spinners/DotLoader";
+
 
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
@@ -41,7 +27,7 @@ class DefaultLayout extends Component {
 
    loading = () => (
     <div>
-      
+
     </div>
   );
 
@@ -53,44 +39,32 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
-        <AppHeader fixed>
+
+        <div className="shadow">
           <Suspense fallback={this.loading()}>
             <DefaultHeader onLogout={e => this.signOut(e)} />
           </Suspense>
-        </AppHeader>
-        <div className="app-body">
-     
-          <main className="main" style={{paddingBottom:200}}>
-         
-      
-            <Container fluid>
-              <Suspense fallback={this.loading()}>
-                <Switch>
-
-
-                <Route
-              path="/dashboard"
-              name="DashboardUser"
-              render={(props) => <DashboardUser {...props} />}
-            />
-
-        
-
-             
-                  <Redirect from="/" to="/" />
-                </Switch>
-              </Suspense>
-            </Container>
-          </main>
- 
         </div>
 
-        <AppFooter>
-        <Suspense fallback={this.loading()}>
-            <DefaultFooter />
+        <div className="app-body mt-3 mb-3">
+
+          <div className="container" >
+            <Suspense fallback={this.loading()}>
+              <Switch>
+                <Route path="/dashboard" name="DashboardUser" render={(props) => <DashboardUser {...props} />}/>
+                <Redirect from="/" to="/" />
+              </Switch>
             </Suspense>
-        </AppFooter>
-  
+          </div>
+
+        </div>
+
+
+          <Suspense fallback={this.loading()}>
+              <DefaultFooter />
+          </Suspense>
+
+
       </div>
     );
   }

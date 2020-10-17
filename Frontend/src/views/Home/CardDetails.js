@@ -18,13 +18,13 @@ export default class CardDetails extends Component {
             cardData:[],
             userEmail:localStorage.getItem("email"),
             isload:false,
-            
+
         }
     }
 
     componentDidMount(){
         this.getData()
-      
+
 
     }
 
@@ -41,7 +41,7 @@ export default class CardDetails extends Component {
                 //set token id to localStorage
                 localStorage.setItem("tokenID", tempJounryData[0].id);
 
-        
+
 
             });
             this.setState({
@@ -51,10 +51,10 @@ export default class CardDetails extends Component {
 
 
         },
-        
+
         )
-      
-        
+
+
 
     }
 
@@ -66,19 +66,19 @@ export default class CardDetails extends Component {
                     <h5>Credit</h5>
 
                     {this.state.cardData.length>0?
-                    (<Container style= {(this.state.cardData[0].tokentype=='single')?StyledHome.cardMonthly: StyledHome.cardSingl}>
+                    (<Container className="text-white" style= {(this.state.cardData[0].tokentype=='single')?StyledHome.cardMonthly: StyledHome.cardSingl}>
                          <p>Transit token card</p>
-                         <h3>Available Amount :<b>{this.state.cardData[0].amount}</b> </h3>
+                         <h3 >Available Amount :<b>{this.state.cardData[0].amount}</b> </h3>
                          <h6> Expire Type: <span>{ this.state.cardData[0].tokentype}</span> </h6>
                          <h6> Expire date: <span>{new Date(this.state.cardData[0].expiryDate).toDateString()}</span> </h6>
                          <p> IssueDate: <span>{new Date(this.state.cardData[0].issueDate).toDateString()}</span> </p>
-                         <p>  {this.state.cardData[0].isactive==0?<Badge color="secondary" pill>Token Expireed</Badge> :<Badge color="success" pill>Token Valid</Badge>}  </p>
-                           
-                                        
-                         
+                         <p>  {this.state.cardData[0].isactive==0?<Badge color="secondary" className="text-danger" pill>Token Expireed</Badge> :<Badge color="success" pill>Token Valid</Badge>}  </p>
+
+
+
                     </Container>):' Loadding...' }
 
-                   
+
                 </Col>
         )
     }
@@ -86,12 +86,12 @@ export default class CardDetails extends Component {
 
 
 const StyledHome ={
-     
+
         ColumnSize:{
-   
+
            size: 'auto',
            offset: 1
-       
+
        },
         cardSingl:{
            backgroundImage:'linear-gradient(to right top, #0effab, #00efda, #00dbfd, #00c2ff, #00a6ff)',
@@ -101,7 +101,7 @@ const StyledHome ={
            margin:5,
            boxShadow: '-1px 4px 8px 0px #c7c7c7',
 
-            
+
        },
        iconAligment:{
         textAlign: 'end',
@@ -116,8 +116,7 @@ const StyledHome ={
           margin:5,
           boxShadow: '-1px 4px 8px 0px #c7c7c7',
 
-           
+
       }
-   
+
    }
-   

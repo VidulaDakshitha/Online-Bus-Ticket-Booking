@@ -5,7 +5,7 @@ import {
     CardText,
     Alert,
     Table
-    
+
   } from "reactstrap";
 
   import moment from "moment";
@@ -18,17 +18,17 @@ import {
 // import TableRow from "@material-ui/core/TableRow";
 // import TablePagination from "@material-ui/core/TablePagination";
 // import Paper from "@material-ui/core/Paper";
-  
+
 
   import {database, firestore} from "../../firebasejs";
 
   const data = [
-      {id: 1, value: 'Colombo 1'}, 
+      {id: 1, value: 'Colombo 1'},
       {id: 2, value: 'Kollupitiya'},
       {id: 3, value: 'Bambalapitiya'},
-      {id: 4, value: 'Wellawatta'}, 
+      {id: 4, value: 'Wellawatta'},
       {id: 5, value: 'Dehiwala'},
-      {id: 6, value: 'Mount Lavnia'}, 
+      {id: 6, value: 'Mount Lavnia'},
       {id: 7, value: 'Ratmalana'},
       {id: 8, value: 'Moratuwa'}
 
@@ -44,14 +44,14 @@ let tempRealTimeDbToken = [];
 
 class Travel extends Component {
 
-    
+
     constructor(props) {
         super(props);
         this.state = {
             userID: localStorage.getItem("email"),
             toDestination:"Colombo 1",
             fromDestination:"Colombo 1",
-            totalAmount: 0, 
+            totalAmount: 0,
             distance: 0,
             realTimeDB: [],
             realTimeDBToken: [],
@@ -74,22 +74,22 @@ class Travel extends Component {
     componentDidMount=async()=>{
 
 
-      
+
         database.ref('journey').orderByChild("userID").equalTo(this.state.userID).on('value',(snapshot)=>{
             tempRealTimeDb=[];
             //console.log(snapshot.numChildren())
             snapshot.forEach(arr=>{
-                
+
                 tempRealTimeDb=[...tempRealTimeDb,{id:arr.key,...arr.val()}]
             });
-           
+
             this.setState({
                 realTimeDB: tempRealTimeDb,
-                
+
             })
         })
 
-    
+
         database.ref('token').orderByChild("email").equalTo(this.state.userID).on('value',(snapshot)=>{
             tempRealTimeDbToken=[];
             snapshot.forEach(arr=>{
@@ -107,8 +107,8 @@ class Travel extends Component {
         this.setState({
             [event.target.name]:event.target.value,
         })
-        
-        
+
+
     }
 
     calculateAmount = () => {
@@ -137,15 +137,15 @@ class Travel extends Component {
     handleChangePage = (event, page) => {
         this.setState({ page });
       };
-    
+
       handleChangeRowsPerPage = event => {
         this.setState({ rowsPerPage: event.target.value });
       };
-    
+
 
     checkInputAndSubmit = async(e) => {
         e.preventDefault();
-        
+
         await this.state.realTimeDB.map( val=>{
             if(val.status==="Active")
             {
@@ -154,7 +154,7 @@ class Travel extends Component {
                 })
             }
         })
-        
+
         await this.state.realTimeDBToken.map( val=>{
             if(val.isactive===0)
             {
@@ -175,7 +175,7 @@ class Travel extends Component {
                 })
             }
 
-            
+
         })
 
         // await this.state.realTimeDBToken.map( val=>{
@@ -194,7 +194,7 @@ class Travel extends Component {
         //         console.log("Available amount; ", this.state.availableAmount)
         //     }
         // })
-        
+
         if(this.state.insufficientCredit){
             alert('Error: credit insufficient!');
         }
@@ -225,13 +225,13 @@ class Travel extends Component {
               ).catch(err=>console.log(err))
 
 
-      
+
 
 
             // //   database.ref('token').orderByChild("email").equalTo(this.state.userID).update( {amount:this.state.availableAmount},(err)=>{
             // //     if (err) {
             // //         console.log(err);
-    
+
             // //         } else {
             // //             console.log("Amount updated");
             // //             this.getData();
@@ -252,16 +252,16 @@ class Travel extends Component {
         this.setState({
             toDestination:"Colombo 1",
             fromDestination:"Colombo 1",
-            totalAmount: 0, 
+            totalAmount: 0,
             activeTrue: false,
             tokenExpired: false,
             insufficientCredit: false,
             availableAmount: 0
         })
-        
+
     }
 
-    
+
     render() {
         // const { data, rowsPerPage, page } = this.state;
         // const emptyRows =
@@ -272,10 +272,10 @@ class Travel extends Component {
                 <Row>
                     <Col xs="12" sm="9">
                     <Card >
-                    <CardHeader><h3>Travel History</h3></CardHeader>
+                    <CardHeader className="primary-bg"><h3>Travel History</h3></CardHeader>
                     <CardBody>
                     <CardText>From this view, you can view all your travel history</CardText>
-                   
+
                         <Table responsive bordered className="table">
                             <thead>
                                 <tr>
@@ -291,7 +291,7 @@ class Travel extends Component {
                             </thead>
                             {this.state.realTimeDB.map(
                                 data=>(
-                                    
+
                                     <tbody>
                                         <tr>
                                     <th scope="row">{data.id}</th>
@@ -322,7 +322,7 @@ class Travel extends Component {
                             </TableHead>
                             {this.state.realTimeDB.map(
                                 data=>(
-                                    
+
                                     <TableBody>
                                         <TableRow>
                                     <TableCell component = "th" scope="row">{data.id}</TableCell>
@@ -351,46 +351,46 @@ class Travel extends Component {
                             onChangePage={this.handleChangePage}
                             onChangeRowsPerPage={this.handleChangeRowsPerPage}
                         /> */}
-                   
+
                     </CardBody>
                     </Card>
 
-                   
+
                     </Col>
 
                     <Col xs="12" sm="3">
                         <Card >
-                        <CardHeader><h3>Current travel destination</h3></CardHeader>
+                        <CardHeader className="primary-bg"><h3>Current travel destination</h3></CardHeader>
                         <CardBody>
                         <CardText>You need to provide travel details here in order to proceed further</CardText>
 
                         <Form method ="POST" onSubmit={this.checkInputAndSubmit}>
                         <Label>Select from destination:</Label>
                             <Input type="select" name="fromDestination" id="fromDestination" onChange={this.onChangeHandler} value={this.state.fromDestination}>
-                            { data.map((value) => (    
+                            { data.map((value) => (
                             <option>{value.value}</option>
                             ))}
                             </Input>
                             <Label>Select to destination:</Label>
                             <Input type="select" name="toDestination" id="toDestination" onChange={this.onChangeHandler} value={this.state.toDestination}>
-                            { data.map((value) => (    
+                            { data.map((value) => (
                             <option>{value.value}</option>
                             ))}
                             </Input>
                             <br />
-                            <Button onClick={this.calculateAmount}>Calculate Amount</Button>
+                            <Button className="primary-button" onClick={this.calculateAmount}>Calculate Amount</Button>
                             <br />
                             <br />
-                            <Button type="submit" >Confirm Journey</Button>
+                            <Button className="primary-button"  type="submit" >Confirm Journey</Button>
                         </Form>
                         <br />
-                        <Alert color="dark">
-                            <h5>TOTAL AMOUNT(LKR.): {this.state.totalAmount}</h5> 
+                        <Alert className="primary-bg" color="dark">
+                            <h5>TOTAL AMOUNT(LKR.): {this.state.totalAmount}</h5>
                         </Alert>
                         </CardBody>
                         </Card>
-                    
-                
+
+
                     </Col>
             </Row>
             </div>

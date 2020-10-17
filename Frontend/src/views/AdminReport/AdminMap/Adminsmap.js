@@ -20,7 +20,7 @@ export default class Adminsmap extends Component {
 
         this.state = {
             realTimeDB:[],
-                    
+
         }
 
     }
@@ -38,10 +38,10 @@ export default class Adminsmap extends Component {
         })
     }
 
- 
+
     getPosstion=(name)=>{
 
-       
+
 
       if(name=='Kollupitiya'){
           return( {
@@ -106,11 +106,11 @@ export default class Adminsmap extends Component {
 
     }
 
-    
+
 
     showMaker=()=>{
 
-       
+
 
         let jorurnyarry=this.state.realTimeDB;
         let groupjourny=  this.groupByKey(jorurnyarry,'toDestination')
@@ -125,12 +125,12 @@ export default class Adminsmap extends Component {
                var tempClouded={
                     position:this.getPosstion(key),
                     value:groupjourny[key].length,
-                  
+
 
 
                 }
 
-                
+
                 datarry.push(tempClouded)
                 console.log(datarry);
             }
@@ -138,14 +138,14 @@ export default class Adminsmap extends Component {
 
 
 
-      
+
 
        return( datarry.map(marker => (
             <div style={makerstyles}
             //set maker latitude and longitude
                 lat={ marker.position.latitude}
                 lng={marker.position.longitude}
-               
+
               >{marker.value}</div>
           ))
 
@@ -160,25 +160,26 @@ export default class Adminsmap extends Component {
     groupByKey=(array, key) =>{
         return array
           .reduce((hash, obj) => {
-            if(obj[key] === undefined) return hash; 
+            if(obj[key] === undefined) return hash;
             return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
           }, {})
      }
- 
+
 
     render() {
         return (
-            <div style={mapStyle}>
+            <div className="p-3" style={mapStyle}>
                 <h3>Passenger crowded Places</h3>
-                <GoogleMapReact 
+
+                <GoogleMapReact
                          defaultCenter={mapProps.center}
                          defaultZoom={mapProps.zoom}>
 
 
                     {this.showMaker()}
 
-                               
-                          
+
+
 
                 </GoogleMapReact>
             </div>
@@ -191,7 +192,7 @@ const mapStyle = {
 
     height: '100vh', width: '100%'
 }
- 
+
 
 const mapProps = {
 
