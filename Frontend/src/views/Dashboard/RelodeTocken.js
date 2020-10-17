@@ -15,8 +15,11 @@ function RelodeTocken(props) {
 
   useState(()=>{
 
-    database.ref('token').orderByChild('email').equalTo(localStorage.getItem('fulEmail')).on('value',(snapshot)=>{
+    database.ref('token').orderByChild('email').equalTo(localStorage.getItem('email')).on('value',(snapshot)=>{
       snapshot.forEach(data=>{
+        console.log(data.val())
+
+
         setTAmount(data.val().amount)
         setStatus(data.val().isactive)
         setType(data.val().tokentype)
@@ -86,13 +89,13 @@ if(data.val().isactive===0 && (data.val().tokentype==="monthly"||data.val().toke
   return(
     <Card>
       <CardBody>
-      {(status.toString()==="1" && parseFloat(tAmount)<100 && (type==="monthly"||type==="temporary")) || ((status.toString()==="1"||status.toString()==="0") && type==="single") ||(status.toString()==="0" && (type==="monthly"||type==="temporary")) ?
+      {(status.toString()==="1" && parseFloat(tAmount)<100 && (type==="monthly"||type.toString()==="temporary")) || ((status.toString()==="1"||status.toString()==="0") && type==="single") ||(status.toString()==="0" && (type==="monthly"||type==="temporary")) ?
 
         <form onSubmit={submit}>
           {success&&<div className="alert alert-success">{success}</div>}
 
 
-{status.toString()==="0" && (type==="single"||type==="temporary")?
+{status.toString()==="0" && (type==="single"||type.toString()==="temporary")?
           <FormGroup row>
             <Col md="3">
               <Label htmlFor="date-input">Date to be used</Label>

@@ -170,7 +170,31 @@ deleteCurrent = () =>{
         </TabPane>
 
         <TabPane tabId="4">
-          <div>This is help</div>
+          <div>
+
+ 
+
+          <ul class="list-group">
+                    <li className="list-group-item">
+                      First Top up amount
+                    </li>
+                    <li className="list-group-item">
+                     Add a journey you plan to visit before you get into bus.
+                    </li>
+                    <li className="list-group-item">
+                     Scan the QR code to bus. 
+                    </li>
+                    <li className="list-group-item">
+                     Scan again when you are getting down from bus. 
+                    </li>
+                    <li className="list-group-item">
+                     Your Done. 
+                    </li>
+
+                  </ul>
+
+                  <p style={{color:"red"}}><b>Don't scan to QR without making journey. You will be added to penalty</b></p>
+          </div>
         </TabPane>
 
         <TabPane tabId="5">
@@ -311,7 +335,7 @@ deleteCurrent = () =>{
 </GridList>
 
 <Modal isOpen={this.state.large}
-toggle={this.togglelarge}
+
 className={"modal-lg"+this.props.className}>
   <ModalBody>
     <div className="text-center">
@@ -366,6 +390,7 @@ className={"modal-lg"+this.props.className}>
                     this.toggle(0, "4");
                   }}
                 >
+             
                 <b> Help</b>
                 </NavLink>
               </NavItem>
