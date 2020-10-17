@@ -68,7 +68,7 @@ handleScan=(data)=>{
                       status:"Completed"
                       })
 
-                      database.ref(`current/${data.key}/`).push().set({
+                      database.ref(`current`).push().set({
 
                         userID:this.state.result,
                         date:new Date().toString()
