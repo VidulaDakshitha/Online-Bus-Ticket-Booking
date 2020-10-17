@@ -65,6 +65,7 @@ export default  class Token extends Component {
 
 //Geneate Token table
     showTokenTable = (tokens)=>{
+      
 
         return(  tokens.map((token,i)=>{
                return(
@@ -121,9 +122,9 @@ export default  class Token extends Component {
                  }
         return (
             <Col sm={StyledHome.ColumnSize}  style={StyledHome.colStyle}>
-                 <h5>Token Details</h5>
+                 <h5 id="title">Token Details</h5>
 
-                 <Input placeholder={'Serach Token '}  value={this.state.searchString} onChange={this.handleChange}></Input>   
+                 <Input name="searchbar" placeholder={'Serach Token '}  value={this.state.searchString} onChange={this.handleChange}></Input>   
                  <Table size="sm" responsive>
                     <thead>
                         <tr>
