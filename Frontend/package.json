@@ -35,7 +35,7 @@
     "install": "^0.13.0",
     "intl-tel-input": "^17.0.0",
     "moment": "^2.25.3",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "qrcode.react": "^1.0.0",
     "react": "^16.8.6",
